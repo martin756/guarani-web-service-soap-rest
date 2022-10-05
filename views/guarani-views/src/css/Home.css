@@ -1,0 +1,26 @@
+body{
+    background:#f1f2f7;
+  }
+  
+  .containerPrincipal {
+    position: absolute;
+    left: 50%;
+    bottom: 50%;
+    transform: translate(-50%, 50%);
+  }
+  
+  .containerHome {
+    text-align: center;
+    border: 1px solid blue;
+    padding: 40px;
+    background-color: #fafafa;
+  }
+  
+  .containerTitulo {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 28px;
+    padding: 18px;
+    text-align: center;
+    background-color: var(--bs-body-color);
+    color: white;
+  }
