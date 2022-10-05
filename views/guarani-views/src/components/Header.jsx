@@ -30,12 +30,13 @@ function Header() {
 
   return (
     <div>
-        if (JSON.parse(cookies.get('EsAdministrador')){
+        {/* //CAMBIAR EL TERNARIO POR UN IF DEPENDIENDO EL USAURIO QUE */}
+        {/* if (JSON.parse(cookies.get('EsAdministrador')){
                 <UsuarioAdministrador cookies={cookies} closeSession={cerrarSesion}/>
             } elseif {
                 <UsuarioEstudiante cookies={cookies} navigator={navigate} closeSession={cerrarSesion}/>
             } else {
-                <UsuarioDocente cookies={cookies} navigator={navigate} closeSession={cerrarSesion}/>}    
+                <UsuarioDocente cookies={cookies} navigator={navigate} closeSession={cerrarSesion}/>}     */}
     </div>
   );
 }

@@ -27,10 +27,8 @@ function Login() {
                 cookies.set('Email',response.Email)
                 cookies.set('User',response.User)
                 cookies.set('Password',response.Password)
-                cookies.set('EsMonitor',response.EsMonitor)
-                cookies.set('Saldo',response.Saldo)
                 alert("Bienvenido "+response.Nombre)
-                response.EsMonitor ? navigate('/admin') : navigate('/mainmenu')
+                response.EsAdministrador ? navigate('/admin') : navigate('/mainmenu')
             }else{
                 alert("El usuario o la contraseña no son correctos")
             }
@@ -46,9 +44,9 @@ function Login() {
     }
 
     useEffect(()=>{
-        if(cookies.get('User') && !JSON.parse(cookies.get('EsMonitor'))){
+        if(cookies.get('User') && !JSON.parse(cookies.get('EsAdministrador'))){
             navigate('/mainmenu')
-        }else if(cookies.get('User') && JSON.parse(cookies.get('EsMonitor'))){
+        }else if(cookies.get('User') && JSON.parse(cookies.get('EsAdministrador'))){
             navigate('/admin')
         }
     },[])
