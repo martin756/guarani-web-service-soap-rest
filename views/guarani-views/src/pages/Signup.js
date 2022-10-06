@@ -8,7 +8,6 @@ function Signup(props) {
     const cookies = new Cookies()
     const nombre = useRef(null),apellido = useRef(null)
     const dni = useRef(null),email = useRef(null)
-    const username = useRef(null),password = useRef(null)
     const navigate = useNavigate()
 
     const registrarse=async(event)=>{
@@ -20,9 +19,7 @@ function Signup(props) {
             "nombre": nombre.current.value,
             "apellido": apellido.current.value,
             "dni": dni.current.value,
-            "email": email.current.value,
-            "user": username.current.value,
-            "password": password.current.value
+            "email": email.current.value
         }
         debugger
         await axios.post(baseUrl, jsonBody)
@@ -67,15 +64,6 @@ function Signup(props) {
                     <label>Email: </label>
                     <br />
                     <input ref={email} type="text" className='form-control' name='email' required />
-                    <br />
-                    <label>User: </label>
-                    <br />
-                    <input ref={username} type="text" className='form-control' name='usuario' required />
-                    <br />
-                    <label>Contraseña: </label>
-                    <br />
-                    <input ref={password} type="password" className='form-control' name='password' required
-                    />
                     <br />
                     <button type="submit" className='btn btn-primary'>Registrarse</button>
                 </form>
