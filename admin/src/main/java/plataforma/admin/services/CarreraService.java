@@ -4,6 +4,8 @@ package plataforma.admin.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import plataforma.admin.models.Carrera;
 import plataforma.admin.repository.CarreraRepository;
@@ -19,9 +21,9 @@ public class CarreraService {
     @Autowired
     CarreraService(CarreraRepository carreraRepository){this.repository = carreraRepository;}
 
-    public void guardarCarrera(Carrera c){
+    public int guardarCarrera(Carrera c){
         logger.info("info de carrera "+ c );
-        repository.save(c);
+        return repository.save(c).id_carrera;
     }
 
     public Carrera getCarrera(int id){
@@ -31,6 +33,8 @@ public class CarreraService {
     public void updateCarrera(Carrera c){
         repository.save(c);
     }
+
+
 
     public List<Carrera> getCarreras(){
         List<Carrera> result = new ArrayList<>();

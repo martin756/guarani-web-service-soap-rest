@@ -16,8 +16,8 @@ public class Cuatrimestre
 
     public int anio;
 
-    @OneToMany(mappedBy="cuatrimestre")
-    public List<Catedra> catedras;
+//    @OneToMany(mappedBy="cuatrimestre")
+//    public List<Catedra> catedras;
 
     public Cuatrimestre() {
     }

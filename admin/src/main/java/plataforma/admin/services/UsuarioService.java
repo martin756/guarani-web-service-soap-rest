@@ -30,8 +30,8 @@ public class UsuarioService{
        return result;
     }
 
-    public void guardarUsuario(Usuario u) {
-        repository.save(u);
+    public int guardarUsuario(Usuario u) {
+        return repository.save(u).id;
     }
 
     public Usuario getUsuario(int id){

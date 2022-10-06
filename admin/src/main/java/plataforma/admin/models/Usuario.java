@@ -4,15 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
-
+@XmlRootElement
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    int id;
+    public int id;
     public String nombre;
     public String apellido;
     public int dni;
@@ -55,6 +56,14 @@ public class Usuario {
         }
         return sb.toString();
     }
+
+    public void setCredenciales(){
+        if (this.usuario == null || this.password == null){
+            setUsuario(this.nombre, this.apellido);
+            setPassword(this.dni);
+        }
+    }
+
 
 
     public String getUsuario() {

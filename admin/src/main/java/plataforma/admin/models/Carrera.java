@@ -13,12 +13,12 @@ public class Carrera {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    int id_carrera;
+    public int id_carrera;
 
     public String nombre;
 
-    @OneToMany(mappedBy="carrera", cascade = CascadeType.ALL)
-    public List<Materia> materias;
+//    @OneToMany(mappedBy="carrera", cascade = CascadeType.ALL)
+//    public List<Materia> materias;
 
     public Carrera(String nombre) {
         this.nombre = nombre;
@@ -31,7 +31,7 @@ public class Carrera {
     public String toString() {
         return "Carrera{" +
                 "nombre='" + nombre + '\'' +
-                "materias " + materias +
+//                "materias " + materias +
                 '}';
     }
 

@@ -25,10 +25,10 @@ public class CatedraId implements Serializable {
         this.id_cuatrimestre = cuatrimestre.id;
     }
 
-//    public CatedraKey(int turno, int usuario, int materia, int cuatrimestre){
-//        this.idturno = turno;
-//        this.idprofesor = usuario;
-//        this.idmateria = materia;
-//        this.idcuatrimestre = cuatrimestre;
-//    }
+    public CatedraId(int turno, int usuario, int materia, int cuatrimestre){
+        this.id_turno = turno;
+        this.id_profesor = usuario;
+        this.id_materia = materia;
+        this.id_cuatrimestre = cuatrimestre;
+    }
 }

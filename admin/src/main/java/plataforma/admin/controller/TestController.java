@@ -21,49 +21,40 @@ import javax.xml.ws.*;
 @RestController
 public class TestController {
 
-    UsuarioService usuarioService;
-    CuatrimestreService cuatriService;
-    CarreraService carreraService;
-    TurnoService turnoService;
-    CatedraService catedraService;
-    MateriaService materiaService;
+    @Autowired UsuarioService usuarioService;
+    @Autowired CuatrimestreService cuatriService;
+    @Autowired CarreraService carreraService;
+    @Autowired TurnoService turnoService;
+    @Autowired CatedraService catedraService;
+    @Autowired MateriaService materiaService;
 
-    @Autowired
-    TestController(UsuarioService usuarioService,
-                   CarreraService carreraService,
-                   TurnoService turnoService,
-                   CuatrimestreService cuatriService,
-                   CatedraService catedraService,
-                   MateriaService materiaService){
-        this.usuarioService = usuarioService;
-        this.carreraService = carreraService;
-        this.turnoService = turnoService;
-        this.cuatriService = cuatriService;
-        this.catedraService = catedraService;
-        this.materiaService = materiaService;
-
-    }
-
-
+    @Autowired Generador generador;
 
     Logger logger = LoggerFactory.getLogger(TestController.class);
 
-    @GetMapping("/insertarAlumnos")
-    public void insertarAlumnos(){
-        List<Usuario> users = Generador.generarUsuarios();
-        for (Usuario u: users) {
-            usuarioService.guardarUsuario(u);
-            logger.info("Usuario "+ u.toString());
-        }
-    }
-
-    @GetMapping("/getUsuario/{id}")
-    public Usuario insertarAlumnos(@PathVariable int id){
-        Usuario user = usuarioService.getUsuario(id);
-        logger.info("Usuario obtenido"+ user.toString());
-        return user;
-
-    }
+//    @GetMapping("/insertarAlumnos")
+//    public void insertarAlumnos(){
+//        List<Usuario> users = generador.generarUsuarios();
+//        for (Usuario u: users) {
+//            usuarioService.guardarUsuario(u);
+//            logger.info("Usuario "+ u.toString());
+//        }
+//    }
+//
+//    @GetMapping("/crearMaterias")
+//    public List<Materia> crearMaterias(){
+//        return generador.getCarreras();
+//    }
+//
+//
+//
+//    @GetMapping("/getUsuario/{id}")
+//    public Usuario insertarAlumnos(@PathVariable int id){
+//        Usuario user = usuarioService.getUsuario(id);
+//        logger.info("Usuario obtenido"+ user.toString());
+//        return user;
+//
+//    }
 
 //    @GetMapping("/materias")
 //    public List<Materia> getMaterias(){
@@ -75,42 +66,64 @@ public class TestController {
 //        return cuatri.materias;
 //    }
 
-    @GetMapping("/guardaMaterias")
-    public String guardaMaterias(){
-        Carrera carrera = Generador.getCarrera();
-        logger.info(carrera.toString());
-        List<Materia> materias = new ArrayList<>();
-        materias.add(new Materia("Farmaco", 1, carrera));
-        materias.add(new Materia("Embrio", 2, carrera));
-        materias.add(new Materia("Gineco", 3, carrera));
-        carrera.materias = materias;
-        carreraService.guardarCarrera(carrera);
-        return "Hola";
-    }
-
-    @GetMapping("/updateMateria")
-    public String updateMateria(){
-        Carrera carrera = carreraService.getCarrera(5);
-        logger.info(carrera.toString());
-        carrera.nombre = "Medicina";
-        carreraService.updateCarrera(carrera);
-        return "se obtienen materias";
-    }
-
-    @GetMapping("/getTurnos")
-    public List<Turno> turnos(){
-        List<Turno> turnos = turnoService.getTurnos();
-        return turnos;
-    }
-
-    @GetMapping("/generarCuatri")
-    public String generarCuatri(){
+    @GetMapping("/generacionDatos")
+    public List<Catedra> generacionDatos(){
+        //Cuatrimestre
         Cuatrimestre cuatri = new Cuatrimestre();
         cuatri.anio = 2022;
         cuatri.periodo = 2;
         cuatriService.guardarCuatrimestre(cuatri);
-        return "cuatriGenerado";
+        //Carreras con materias
+        generador.getCarreras();
+        //Usuarios
+        List<Usuario> users = generador.generarUsuarios();
+        for (Usuario u: users) {
+            usuarioService.guardarUsuario(u);
+            logger.info("Usuario "+ u.toString());
+        }
+        //Turnos
+        List<Turno> turnos = turnoService.getTurnos();
+
+        return generador.generarCatedras();
+
     }
+
+//    @GetMapping("/guardaMaterias")
+//    public String guardaMaterias(){
+//        Carrera carrera = generador.getCarrera();
+//        logger.info(carrera.toString());
+//        List<Materia> materias = new ArrayList<>();
+//        materias.add(new Materia("Farmaco", 1, carrera));
+//        materias.add(new Materia("Embrio", 2, carrera));
+//        materias.add(new Materia("Gineco", 3, carrera));
+////        carrera.materias = materias;
+//        carreraService.guardarCarrera(carrera);
+//        return "Hola";
+//    }
+//
+//    @GetMapping("/updateMateria")
+//    public String updateMateria(){
+//        Carrera carrera = carreraService.getCarrera(5);
+//        logger.info(carrera.toString());
+//        carrera.nombre = "Medicina";
+//        carreraService.updateCarrera(carrera);
+//        return "se obtienen materias";
+//    }
+//
+//    @GetMapping("/getTurnos")
+//    public List<Turno> turnos(){
+//        List<Turno> turnos = turnoService.getTurnos();
+//        return turnos;
+//    }
+//
+//    @GetMapping("/generarCuatri")
+//    public String generarCuatri(){
+//        Cuatrimestre cuatri = new Cuatrimestre();
+//        cuatri.anio = 2022;
+//        cuatri.periodo = 2;
+//        cuatriService.guardarCuatrimestre(cuatri);
+//        return "cuatriGenerado";
+//    }
 
     @GetMapping("/generarCatedra")
     public String generarCatedra(){
@@ -125,29 +138,29 @@ public class TestController {
         return catedra.toString();
     }
 
-    @GetMapping("/catedra")
-    public String getCatedra(){
-        return catedraService.getCatedra(1).toString();
-    }
+//    @GetMapping("/catedra")
+//    public String getCatedra(){
+//        return catedraService.getCatedra(1).toString();
+//    }
 
-    @GetMapping("/turnos")
-    public String getturnos(){
-        return turnoService.getTurno(1).toString();
-    }
-
-
-
-    @GetMapping("/cuatri")
-    public Cuatrimestre getCuatri(){
-        return Generador.generarCuatrimestre();
-    }
-
-    @GetMapping("/helloworld")
-    public String helloworld(){
-        Endpoint.publish("http://localhost:8081/empleadoservice", new Empleado());
-
-        return "ok";
-    }
+//    @GetMapping("/turnos")
+//    public String getturnos(){
+//        return turnoService.getTurno(1).toString();
+//    }
+//
+//
+//
+//    @GetMapping("/cuatri")
+//    public Cuatrimestre getCuatri(){
+//        return generador.generarCuatrimestre();
+//    }
+//
+//    @GetMapping("/helloworld")
+//    public String helloworld(){
+//        Endpoint.publish("http://localhost:8081/empleadoservice", new Empleado());
+//
+//        return "ok";
+//    }
 
 
 

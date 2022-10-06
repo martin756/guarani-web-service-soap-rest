@@ -1,8 +1,11 @@
 package plataforma.admin.models;
 
 import org.springframework.stereotype.Component;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 
@@ -14,14 +17,19 @@ public class Materia {
     @Column(name = "id", nullable = false)
     public int id;
 
+    @Size(min = 5, max = 200, message
+            = "Nombre materia debe ser entre 5 y 200 letras")
     public String nombre;
 
+    @Min(value = 1, message = "Anio debe estar entre 1ro y 5to")
+    @Max(value = 5, message = "Anio debe estar entre 1ro y 5to")
     public int anio;
 
-    @OneToMany(mappedBy="materia")
-    public List<Catedra> catedras;
 
-    @ManyToOne
+    //    @OneToMany(mappedBy="materia")
+//    public List<Catedra> catedras;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "id_carrera")
     public Carrera carrera;
 
@@ -29,9 +37,9 @@ public class Materia {
         return id;
     }
 
-    public Carrera getCarrera() {
-        return carrera;
-    }
+//    public Carrera getCarrera() {
+//        return carrera;
+//    }
 
     public void setCarrera(Carrera carrera) {
         this.carrera = carrera;

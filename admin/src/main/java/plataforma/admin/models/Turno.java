@@ -1,7 +1,11 @@
 package plataforma.admin.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.List;
 
 
@@ -13,7 +17,9 @@ public class Turno {
     public int id;
     public Horario horario;
 
-    @OneToMany(mappedBy = "turno")
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "turno")
+    @XmlTransient
     public List<Catedra> catedras;
 
     public int getId() {

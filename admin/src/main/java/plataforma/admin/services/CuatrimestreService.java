@@ -31,8 +31,8 @@ public class CuatrimestreService {
         return result;
     }
 
-    public void guardarCuatrimestre(Cuatrimestre u) {
-        repository.save(u);
+    public int guardarCuatrimestre(Cuatrimestre u) {
+        return repository.save(u).id;
     }
 
     public Cuatrimestre getCuatrimestre(int id){
