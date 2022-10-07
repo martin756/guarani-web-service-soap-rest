@@ -129,12 +129,11 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `db_gestionacademica`.`fechas_inscripciones`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`fechas_inscripciones` (
-  `idfechas_inscripciones` INT NOT NULL AUTO_INCREMENT,
-  `inscripcion_cuatrimestres_desde` DATE NULL DEFAULT NULL,
-  `inscripcion_cuatrimestres_hasta` DATE NULL DEFAULT NULL,
-  `inscripcion_finales_desde` DATE NULL DEFAULT NULL,
-  `inscripciones_finales_hasta` DATE NULL DEFAULT NULL,
-  PRIMARY KEY (`idfechas_inscripciones`))
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `inscripcion_desde` DATE NULL DEFAULT NULL,
+  `inscripcion_hasta` DATE NULL DEFAULT NULL,
+  `es_final` bit(1) NULL DEFAULT b'0',
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
