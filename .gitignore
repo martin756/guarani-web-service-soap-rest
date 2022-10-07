@@ -1,4 +1,5 @@
 /views/guarani-views/node_modules
+node_modules
 HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar

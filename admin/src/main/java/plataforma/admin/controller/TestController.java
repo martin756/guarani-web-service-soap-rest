@@ -45,19 +45,6 @@ public class TestController {
         return generador.generarCatedras();
     }
 
-    @GetMapping("/generarCatedra")
-    public String generarCatedra(){
-        Catedra catedra = new Catedra();
-        catedra.turno = turnoService.getTurno(1);
-        catedra.materia = materiaService.getMateria(1);
-        catedra.profesor = usuarioService.getUsuario(1);
-        catedra.cuatrimestre = cuatriService.getCuatrimestre(1);
-        catedra.id = new CatedraId(catedra.turno, catedra.profesor, catedra.materia, catedra.cuatrimestre);
-        catedraService.guardarCatedra(catedra);
-        return catedra.toString();
-    }
-
-
 
 
 }

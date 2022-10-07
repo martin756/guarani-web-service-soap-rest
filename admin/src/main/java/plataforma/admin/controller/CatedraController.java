@@ -21,9 +21,9 @@ public class CatedraController {
 
     Logger logger = LoggerFactory.getLogger(CatedraController.class);
 
-    @GetMapping("/catedra/{id_turno}/{id_profesor}/{id_materia}/{id_cuatrimestre}")
-    public Catedra get(@PathVariable int id_turno,@PathVariable int id_profesor,@PathVariable int id_materia,@PathVariable int id_cuatrimestre){
-        Catedra result = catedraService.getCatedra(id_turno,id_profesor,id_materia,id_cuatrimestre);
+    @GetMapping("/catedra/{idcatedra}")
+    public Catedra get(@PathVariable int idcatedra){
+        Catedra result = catedraService.getCatedra(idcatedra);
         logger.info("Catedra obtenida"+ result.toString());
         return result;
     }
@@ -34,7 +34,7 @@ public class CatedraController {
     }
 
     @PostMapping("/catedra") //configurar validaciones
-    public CatedraId crear(@RequestBody Catedra entidad ){
+    public int crear(@RequestBody Catedra entidad ){
         logger.info("parseando catedra ");
         entidad.cuatrimestre = cuatrimestreService.getCuatrimestre(entidad.cuatrimestre.id);
         entidad.materia = materiaService.getMateria(entidad.materia.id);
