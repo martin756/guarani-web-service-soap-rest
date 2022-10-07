@@ -102,6 +102,7 @@ CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`catedra` (
   `profesor_id` INT NOT NULL,
   `cuatrimestre_id` INT NOT NULL,
   `materia_id` INT NOT NULL,
+  `fechaFinal` DATE DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_catedra_turno1_idx` (`turno_id` ASC),
   INDEX `fk_catedra_usuarios1_idx` (`profesor_id` ASC),
