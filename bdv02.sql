@@ -99,12 +99,12 @@ CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`catedra` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `es_final` BIT(1) NULL DEFAULT b'0',
   `turno_id` INT NOT NULL,
-  `usuarios_id` INT NOT NULL,
+  `profesor_id` INT NOT NULL,
   `cuatrimestre_id` INT NOT NULL,
   `materia_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_catedra_turno1_idx` (`turno_id` ASC),
-  INDEX `fk_catedra_usuarios1_idx` (`usuarios_id` ASC),
+  INDEX `fk_catedra_usuarios1_idx` (`profesor_id` ASC),
   INDEX `fk_catedra_cuatrimestre1_idx` (`cuatrimestre_id` ASC),
   INDEX `fk_catedra_materia1_idx` (`materia_id` ASC),
   CONSTRAINT `fk_catedra_cuatrimestre1`
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`catedra` (
     FOREIGN KEY (`turno_id`)
     REFERENCES `db_gestionacademica`.`turno` (`id`),
   CONSTRAINT `fk_catedra_usuarios1`
-    FOREIGN KEY (`usuarios_id`)
+    FOREIGN KEY (`profesor_id`)
     REFERENCES `db_gestionacademica`.`usuarios` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4

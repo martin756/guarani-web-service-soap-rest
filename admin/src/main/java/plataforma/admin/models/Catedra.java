@@ -20,7 +20,7 @@ public class Catedra implements Serializable {
     public Turno turno;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "usuarios_id")
+    @JoinColumn(name = "profesor_id")
     public Usuario profesor;
 
     @ManyToOne(fetch = FetchType.EAGER)
