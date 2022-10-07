@@ -45,12 +45,6 @@ public class TestController {
         return generador.generarCatedras();
     }
 
-    @GetMapping("/generarCatedra")
-    public List<Catedra> generarCatedra(){
-        return generador.generarCatedras();
-    }
-
-
 
 
 }

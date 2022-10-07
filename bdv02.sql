@@ -14,52 +14,15 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema db_gestionacademica
 -- -----------------------------------------------------
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema db_gestionacademica
--- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `db_gestionacademica` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `db_gestionacademica` ;
 
 -- -----------------------------------------------------
--- Table `db_gestionacademica`.`fechas_inscripciones`
+-- Table `db_gestionacademica`.`carrera`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`fechas_inscripciones` (
-  `idfechas_inscripciones` INT NOT NULL AUTO_INCREMENT,
-  `inscripcion_cuatrimestres_desde` DATE NULL DEFAULT NULL,
-  `inscripcion_cuatrimestres_hasta` DATE NULL DEFAULT NULL,
-  `inscripcion_finales_desde` DATE NULL DEFAULT NULL,
-  `inscripciones_finales_hasta` DATE NULL DEFAULT NULL,
-  PRIMARY KEY (`idfechas_inscripciones`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `db_gestionacademica`.`usuarios`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`usuarios` (
+CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`carrera` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `apellido` VARCHAR(255) NULL DEFAULT NULL,
-  `dni` INT NOT NULL,
   `nombre` VARCHAR(255) NULL DEFAULT NULL,
-  `password` VARCHAR(255) NULL DEFAULT NULL,
-  `tipo_usuario` INT NULL DEFAULT NULL,
-  `usuario` VARCHAR(255) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 1
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `db_gestionacademica`.`turno`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`turno` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `horario` INT NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -75,20 +38,6 @@ CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`cuatrimestre` (
   `periodo` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `db_gestionacademica`.`carrera`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`carrera` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(255) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -107,7 +56,38 @@ CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`materia` (
     FOREIGN KEY (`id_carrera`)
     REFERENCES `db_gestionacademica`.`carrera` (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `db_gestionacademica`.`turno`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`turno` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `horario` INT NULL DEFAULT NULL,
+  `descripcion` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `db_gestionacademica`.`usuarios`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`usuarios` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `apellido` VARCHAR(255) NULL DEFAULT NULL,
+  `dni` INT NOT NULL,
+  `nombre` VARCHAR(255) NULL DEFAULT NULL,
+  `password` VARCHAR(255) NULL DEFAULT NULL,
+  `tipo_usuario` INT NULL DEFAULT NULL,
+  `usuario` VARCHAR(255) NULL DEFAULT NULL,
+  `email` VARCHAR(45) NULL,
+  `direccion` VARCHAR(100) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -117,7 +97,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`catedra` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `es_final` BIT(1) DEFAULT 0,
+  `es_final` BIT(1) NULL DEFAULT b'0',
   `turno_id` INT NOT NULL,
   `usuarios_id` INT NOT NULL,
   `cuatrimestre_id` INT NOT NULL,
@@ -127,29 +107,35 @@ CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`catedra` (
   INDEX `fk_catedra_usuarios1_idx` (`usuarios_id` ASC),
   INDEX `fk_catedra_cuatrimestre1_idx` (`cuatrimestre_id` ASC),
   INDEX `fk_catedra_materia1_idx` (`materia_id` ASC),
-  CONSTRAINT `fk_catedra_turno1`
-    FOREIGN KEY (`turno_id`)
-    REFERENCES `db_gestionacademica`.`turno` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_catedra_usuarios1`
-    FOREIGN KEY (`usuarios_id`)
-    REFERENCES `db_gestionacademica`.`usuarios` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_catedra_cuatrimestre1`
     FOREIGN KEY (`cuatrimestre_id`)
-    REFERENCES `db_gestionacademica`.`cuatrimestre` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES `db_gestionacademica`.`cuatrimestre` (`id`),
   CONSTRAINT `fk_catedra_materia1`
     FOREIGN KEY (`materia_id`)
-    REFERENCES `db_gestionacademica`.`materia` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `db_gestionacademica`.`materia` (`id`),
+  CONSTRAINT `fk_catedra_turno1`
+    FOREIGN KEY (`turno_id`)
+    REFERENCES `db_gestionacademica`.`turno` (`id`),
+  CONSTRAINT `fk_catedra_usuarios1`
+    FOREIGN KEY (`usuarios_id`)
+    REFERENCES `db_gestionacademica`.`usuarios` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `db_gestionacademica`.`fechas_inscripciones`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`fechas_inscripciones` (
+  `idfechas_inscripciones` INT NOT NULL AUTO_INCREMENT,
+  `inscripcion_cuatrimestres_desde` DATE NULL DEFAULT NULL,
+  `inscripcion_cuatrimestres_hasta` DATE NULL DEFAULT NULL,
+  `inscripcion_finales_desde` DATE NULL DEFAULT NULL,
+  `inscripciones_finales_hasta` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`idfechas_inscripciones`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
@@ -165,18 +151,13 @@ CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`usuario_materia_cuatrimestre` 
   PRIMARY KEY (`idusuario_materia_cuatrimestre`),
   INDEX `fk_usuario_materia_cuatrimestre_usuarios1_idx` (`idusuario` ASC),
   INDEX `fk_usuario_materia_cuatrimestre_catedra1_idx` (`id_materia_cuatrimestre` ASC),
-  CONSTRAINT `fk_usuario_materia_cuatrimestre_usuarios1`
-    FOREIGN KEY (`idusuario`)
-    REFERENCES `db_gestionacademica`.`usuarios` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuario_materia_cuatrimestre_catedra1`
     FOREIGN KEY (`id_materia_cuatrimestre`)
-    REFERENCES `db_gestionacademica`.`catedra` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `db_gestionacademica`.`catedra` (`id`),
+  CONSTRAINT `fk_usuario_materia_cuatrimestre_usuarios1`
+    FOREIGN KEY (`idusuario`)
+    REFERENCES `db_gestionacademica`.`usuarios` (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -193,11 +174,17 @@ CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`nota_parciales` (
     FOREIGN KEY (`idusuario_materia_cuatrimestre`)
     REFERENCES `db_gestionacademica`.`usuario_materia_cuatrimestre` (`idusuario_materia_cuatrimestre`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb3;
 
-USE `db_gestionacademica` ;
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+use db_gestionacademica;
+INSERT INTO `db_gestionacademica`.`turno` (`id`, `horario`, `descripcion`) VALUES ('1', '0', 'Mañana');
+INSERT INTO `db_gestionacademica`.`turno` (`id`, `horario`, `descripcion`) VALUES ('2', '1', 'Tarde');
+INSERT INTO `db_gestionacademica`.`turno` (`id`, `horario`, `descripcion`) VALUES ('3', '2', 'Noche');
+
+

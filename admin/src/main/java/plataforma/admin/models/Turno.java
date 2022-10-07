@@ -13,8 +13,11 @@ import java.util.List;
 @Table(name="turno")
 public class Turno {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int id;
+
+    @Column(name = "horario")
     public Horario horario;
 
     @JsonIgnore

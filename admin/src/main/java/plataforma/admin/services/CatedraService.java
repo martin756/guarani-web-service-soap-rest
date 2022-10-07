@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import plataforma.admin.models.Catedra;
-import plataforma.admin.models.CatedraId;
 import plataforma.admin.repository.CatedraRepository;
 
 import java.util.ArrayList;

@@ -23,7 +23,7 @@ public class TurnoService {
     }
 
     public List<Turno> getTurnos(){
-        llenarTurnos();
+//        llenarTurnos();
         List<Turno> result = new ArrayList<>();
         repository.findAll().forEach(result::add);
         for (Turno u: result) {
@@ -33,7 +33,7 @@ public class TurnoService {
     }
 
     public Turno getTurno(int id){
-        llenarTurnos();
+//        llenarTurnos();
         return repository.findById(id).get();
     }
 
