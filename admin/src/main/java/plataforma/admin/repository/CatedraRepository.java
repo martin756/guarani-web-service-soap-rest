@@ -6,5 +6,5 @@ import plataforma.admin.models.Catedra;
 import plataforma.admin.models.CatedraId;
 
 @Repository
-public interface CatedraRepository extends CrudRepository<Catedra, CatedraId> {
+public interface CatedraRepository extends CrudRepository<Catedra, Integer> {
 }

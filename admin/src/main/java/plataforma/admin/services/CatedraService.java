@@ -40,9 +40,11 @@ public class CatedraService {
 //        return repository.findById(id).get();
 //    }
 
-    public Catedra getCatedra(int idTurno, int idProfesor, int idMateria, int idCuatrimestre){
+
+
+    public Catedra getCatedra(int id){
         logger.info("obteniendo catedra de repositorio");
-        Optional<Catedra> c = repository.findById(new CatedraId(idTurno, idProfesor, idMateria, idCuatrimestre));
+        Optional<Catedra> c = repository.findById(id);
         if(c.isPresent()){
             logger.info("hay catedra");
         }

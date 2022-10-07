@@ -78,6 +78,7 @@ public class Generador {
     }
 
 
+
     public List<Catedra> generarCatedras() {
         List<Catedra> catedras = new ArrayList<>();
         catedras.add(crearCatedra(1, 6, 1, 1));
@@ -99,15 +100,17 @@ public class Generador {
 
     }
 
+
+
     private Catedra crearCatedra(int turno, int profesor, int materia, int cuatri){
         Catedra catedra = new Catedra();
         catedra.turno = turnoService.getTurno(turno);
         catedra.materia = materiaService.getMateria(materia);
         catedra.profesor = usuarioService.getUsuario(profesor);
         catedra.cuatrimestre = cuatriService.getCuatrimestre(cuatri);
-        catedra.id = new CatedraId(catedra.turno, catedra.profesor, catedra.materia, catedra.cuatrimestre);
+//        catedra.id = new CatedraId(catedra.turno, catedra.profesor, catedra.materia, catedra.cuatrimestre);
+        catedra.es_final = false;
         catedra = catedraService.guardarCatedra(catedra);
-
         return catedra;
     }
 }

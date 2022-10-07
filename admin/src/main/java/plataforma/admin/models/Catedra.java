@@ -13,12 +13,12 @@ import java.io.Serializable;
 //@IdClass(CatedraKey.class)
 public class Catedra implements Serializable {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id")
-//    int id;
-    @EmbeddedId
-    public CatedraId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    public int id;
+//    @EmbeddedId
+//    public CatedraId id;
 
 //    @Id
 //    public int id_turno;
@@ -33,20 +33,23 @@ public class Catedra implements Serializable {
     public Catedra() {
     }
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idturno")
+    @JoinColumn(name = "turno_id")
     public Turno turno;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idprofesor")
+    @JoinColumn(name = "usuarios_id")
     public Usuario profesor;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="idmateria")
+    @JoinColumn(name="materia_id")
     public Materia materia;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="idcuatrimestre")
+    @JoinColumn(name="cuatrimestre_id")
     public Cuatrimestre cuatrimestre;
+
+    @Column(name = "es_final")
+    public boolean es_final;
 
     //aniadir relacion con inscripciones
 
