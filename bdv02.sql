@@ -5,6 +5,13 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema db_gestionacademica
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
 -- Schema db_gestionacademica
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `db_gestionacademica` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
@@ -155,15 +162,15 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- Table `db_gestionacademica`.`usuario_materia_cuatrimestre`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`usuario_materia_cuatrimestre` (
-  `idusuario_materia_cuatrimestre` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nota_promedio` FLOAT NULL DEFAULT NULL,
   `idusuario` INT NOT NULL,
-  `id_materia_cuatrimestre` INT NOT NULL,
-  PRIMARY KEY (`idusuario_materia_cuatrimestre`),
+  `idcatedra` INT NOT NULL,
+  PRIMARY KEY (`id`),
   INDEX `fk_usuario_materia_cuatrimestre_usuarios1_idx` (`idusuario` ASC),
-  INDEX `fk_usuario_materia_cuatrimestre_catedra1_idx` (`id_materia_cuatrimestre` ASC),
+  INDEX `fk_usuario_materia_cuatrimestre_catedra1_idx` (`idcatedra` ASC),
   CONSTRAINT `fk_usuario_materia_cuatrimestre_catedra1`
-    FOREIGN KEY (`id_materia_cuatrimestre`)
+    FOREIGN KEY (`idcatedra`)
     REFERENCES `db_gestionacademica`.`catedra` (`id`),
   CONSTRAINT `fk_usuario_materia_cuatrimestre_usuarios1`
     FOREIGN KEY (`idusuario`)
@@ -176,15 +183,15 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- Table `db_gestionacademica`.`nota_parciales`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`nota_parciales` (
-  `idnota_parciales` INT NOT NULL AUTO_INCREMENT,
-  `nota_parcial` FLOAT NULL DEFAULT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nota` FLOAT NULL DEFAULT NULL,
   `fecha_carga` DATETIME NULL,
   `idusuario_materia_cuatrimestre` INT NOT NULL,
-  PRIMARY KEY (`idnota_parciales`),
+  PRIMARY KEY (`id`),
   INDEX `fk_nota_parciales_usuario_materia_cuatrimestre1_idx` (`idusuario_materia_cuatrimestre` ASC),
   CONSTRAINT `fk_nota_parciales_usuario_materia_cuatrimestre1`
     FOREIGN KEY (`idusuario_materia_cuatrimestre`)
-    REFERENCES `db_gestionacademica`.`usuario_materia_cuatrimestre` (`idusuario_materia_cuatrimestre`))
+    REFERENCES `db_gestionacademica`.`usuario_materia_cuatrimestre` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
@@ -192,6 +199,7 @@ DEFAULT CHARACTER SET = utf8mb3;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
 
 use db_gestionacademica;
 INSERT INTO `db_gestionacademica`.`turno` (`id`, `horario`, `descripcion`) VALUES ('1', '0', 'Mañana');
