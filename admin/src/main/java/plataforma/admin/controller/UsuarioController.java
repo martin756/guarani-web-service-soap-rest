@@ -36,7 +36,7 @@ public class UsuarioController {
         return usuarioService.guardarUsuario(nuevoUsuario);
     }
 
-    @PostMapping("/usuario/{id}")
+    @PutMapping("/usuario/{id}")
     public int update(@PathVariable int id, @RequestBody UsuarioRequest usuario){
         Usuario usuarioToBeUpdated = usuarioService.getUsuario(id);
         logger.info("usuario a ser actualizado "+usuarioToBeUpdated);

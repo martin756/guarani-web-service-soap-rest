@@ -16,6 +16,7 @@ public class Generador {
     @Autowired TurnoService turnoService;
     @Autowired CatedraService catedraService;
     @Autowired MateriaService materiaService;
+    @Autowired DiaSemanaService diaSemanaService;
 
     public  List<Usuario> generarUsuarios(){
         List<Usuario> usuarios = new ArrayList<>();
@@ -81,20 +82,20 @@ public class Generador {
 
     public List<Catedra> generarCatedras() {
         List<Catedra> catedras = new ArrayList<>();
-        catedras.add(crearCatedra(1, 6, 1, 1));
-        catedras.add(crearCatedra(2, 6, 2, 1));
-        catedras.add(crearCatedra(3, 7, 3, 1));
-        catedras.add(crearCatedra(1, 7, 5, 1));
+        catedras.add(crearCatedra(1, 6, 1, 1, 2));
+        catedras.add(crearCatedra(2, 6, 2, 1,3));
+        catedras.add(crearCatedra(3, 7, 3, 1,4));
+        catedras.add(crearCatedra(1, 7, 5, 1,5 ));
 
-        catedras.add(crearCatedra(2, 1, 11, 1));
-        catedras.add(crearCatedra(3, 1, 13, 1));
-        catedras.add(crearCatedra(3, 2, 15, 1));
-        catedras.add(crearCatedra(1, 2, 12, 1));
+        catedras.add(crearCatedra(2, 1, 11, 1,3));
+        catedras.add(crearCatedra(3, 1, 13, 1,2));
+        catedras.add(crearCatedra(3, 2, 15, 1,4));
+        catedras.add(crearCatedra(1, 2, 12, 1,3));
 
-        catedras.add(crearCatedra(1, 10, 6, 1));
-        catedras.add(crearCatedra(2, 10, 7, 1));
-        catedras.add(crearCatedra(2, 10, 8, 1));
-        catedras.add(crearCatedra(1, 10, 9, 1));
+        catedras.add(crearCatedra(1, 10, 6, 1,2));
+        catedras.add(crearCatedra(2, 10, 7, 1,1));
+        catedras.add(crearCatedra(2, 10, 8, 1,1));
+        catedras.add(crearCatedra(1, 10, 9, 1,3));
 
         return catedras;
 
@@ -102,12 +103,13 @@ public class Generador {
 
 
 
-    private Catedra crearCatedra(int turno, int profesor, int materia, int cuatri){
+    private Catedra crearCatedra(int turno, int profesor, int materia, int cuatri, int dia){
         Catedra catedra = new Catedra();
         catedra.turno = turnoService.getTurno(turno);
         catedra.materia = materiaService.getMateria(materia);
         catedra.profesor = usuarioService.getUsuario(profesor);
         catedra.cuatrimestre = cuatriService.getCuatrimestre(cuatri);
+        catedra.dia = diaSemanaService.getDia(dia);
 //        catedra.id = new CatedraId(catedra.turno, catedra.profesor, catedra.materia, catedra.cuatrimestre);
         catedra.es_final = false;
         catedra = catedraService.guardarCatedra(catedra);

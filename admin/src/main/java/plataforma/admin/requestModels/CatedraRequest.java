@@ -8,6 +8,7 @@ public class CatedraRequest {
     public int idProfesor;
     public int idTurno;
     public int idMateria;
+    public int diaSemana;
 
     public CatedraRequest() {
     }

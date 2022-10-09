@@ -46,7 +46,7 @@ public class MateriaController {
         return materiaService.guardarMateria(materia);
     }
 
-    @PostMapping("/materia/{id}") //configurar validaciones
+    @PutMapping("/materia/{id}") //configurar validaciones
     public int update(@PathVariable int id,@Valid @RequestBody MateriaRequest entidad ){
         Materia materiaToBeUpdated = materiaService.getMateria(id);
         materiaToBeUpdated.nombre = entidad.nombre == null ? materiaToBeUpdated.nombre : entidad.nombre;

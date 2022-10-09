@@ -19,6 +19,7 @@ public class CatedraController {
     @Autowired UsuarioService usuarioService;
     @Autowired MateriaService materiaService;
     @Autowired TurnoService turnoService;
+    @Autowired DiaSemanaService diaSemanaService;
 
 
     Logger logger = LoggerFactory.getLogger(CatedraController.class);
@@ -43,6 +44,7 @@ public class CatedraController {
         catedra.materia = materiaService.getMateria(entidad.idMateria);
         catedra.profesor = usuarioService.getUsuario(entidad.idProfesor);
         catedra.turno = turnoService.getTurno(entidad.idTurno);
+        catedra.dia = diaSemanaService.getDia(entidad.diaSemana);
         return catedraService.guardarCatedra(catedra).id;
     }
 
