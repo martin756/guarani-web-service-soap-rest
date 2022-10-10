@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import plataforma.admin.models.*;
 import plataforma.admin.requestModels.CatedraRequest;
+import plataforma.admin.requestModels.MesaRequest;
 import plataforma.admin.services.*;
 
 import javax.validation.Valid;
@@ -39,14 +40,33 @@ public class CatedraController {
     @PostMapping("/catedra") //configurar validaciones
     public int crear(@RequestBody CatedraRequest entidad ){
         logger.info("parseando catedra ");
+        Catedra catedra = getCatedra(entidad);
+        return catedraService.guardarCatedra(catedra).id;
+    }
+
+    @PostMapping("/catedras") //configurar validaciones
+    public int[] crearMultiples(@RequestBody CatedraRequest[] entidades ){
+        int[] result = new int[entidades.length];
+        int i = 0;
+        logger.info("parseando catedra ");
+        for (CatedraRequest entidad: entidades) {
+            Catedra catedra = getCatedra(entidad);
+            result[i]= catedraService.guardarCatedra(catedra).id;
+            i++;
+        }
+        return result;
+    }
+
+    public Catedra getCatedra(CatedraRequest entidad) {
         Catedra catedra = new Catedra();
         catedra.cuatrimestre = cuatrimestreService.getCuatrimestre(entidad.idCuatrimestre);
         catedra.materia = materiaService.getMateria(entidad.idMateria);
         catedra.profesor = usuarioService.getUsuario(entidad.idProfesor);
         catedra.turno = turnoService.getTurno(entidad.idTurno);
         catedra.dia = diaSemanaService.getDia(entidad.diaSemana);
-        return catedraService.guardarCatedra(catedra).id;
+        return  catedra;
     }
+
 
     @GetMapping("/catedra/turno/{idTurno}")
     public List<Catedra> getReporte(@PathVariable int idTurno) {
