@@ -32,11 +32,26 @@ public class UsuarioController {
     @PostMapping("/usuario")
     public int crear(@RequestBody UsuarioRequest usuario){
         Usuario nuevoUsuario = new Usuario(usuario.nombre, usuario.apellido, usuario.dni,usuario.tipo);
-        logger.info("parseando usuario "+usuario.toString());
+        logger.info("parseando usuario "+usuario);
         return usuarioService.guardarUsuario(nuevoUsuario);
     }
 
-    @PostMapping("/usuario/{id}")
+    @PostMapping("/usuarios")
+    public int[] crearMultiples(@RequestBody UsuarioRequest[] usuarios){
+        int[] result = new int[usuarios.length];
+        int i = 0;
+        for (UsuarioRequest usuario: usuarios) {
+            Usuario nuevoUsuario = new Usuario(usuario.nombre, usuario.apellido, usuario.dni,usuario.tipo);
+            logger.info("parseando usuario "+usuario);
+            result[i] = usuarioService.guardarUsuario(nuevoUsuario);
+            i++;
+        }
+        return result;
+    }
+
+
+
+    @PutMapping("/usuario/{id}")
     public int update(@PathVariable int id, @RequestBody UsuarioRequest usuario){
         Usuario usuarioToBeUpdated = usuarioService.getUsuario(id);
         logger.info("usuario a ser actualizado "+usuarioToBeUpdated);

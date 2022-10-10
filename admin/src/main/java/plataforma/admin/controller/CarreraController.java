@@ -39,7 +39,7 @@ public class CarreraController {
         return carreraService.guardarCarrera(carrera);
     }
 
-    @PostMapping("/carrera/{id}") //configurar validaciones
+    @PutMapping("/carrera/{id}") //configurar validaciones
     public int update(@PathVariable int id,@Valid @RequestBody CarreraRequest entidad ){
         Carrera carreraToBeUpdated = carreraService.getCarrera(id);
         carreraToBeUpdated.nombre = entidad.nombre == null ? carreraToBeUpdated.nombre : entidad.nombre;

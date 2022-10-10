@@ -64,5 +64,9 @@ public class CatedraService {
         return repository.findMesaById(id);
     }
 
+    public List<Catedra> getCatedraByTurno(boolean esFinal, int idTurno){return repository.getAllCatedrasTurno(esFinal, idTurno);}
+
+
+
 
 }

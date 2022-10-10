@@ -2,11 +2,8 @@ package plataforma.admin.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import plataforma.admin.models.Cuatrimestre;
-
-import java.util.List;
+import plataforma.admin.models.DiaSemana;
 
 @Repository
-public interface CuatrimestreRepository extends CrudRepository<Cuatrimestre, Integer> {
-
+public interface DiaSemanaRepository extends CrudRepository<DiaSemana, Integer> {
 }

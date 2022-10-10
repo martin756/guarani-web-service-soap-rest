@@ -31,6 +31,10 @@ public class Catedra implements Serializable {
     @JoinColumn(name="cuatrimestre_id")
     public Cuatrimestre cuatrimestre;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="dia_semana_id")
+    public DiaSemana dia;
+
     @Column(name = "es_final")
     public boolean es_final;
 

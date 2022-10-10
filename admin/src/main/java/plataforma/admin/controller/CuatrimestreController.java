@@ -36,7 +36,7 @@ public class CuatrimestreController {
         return cuatrimestreService.guardarCuatrimestre(cuatrimestre);
     }
 
-    @PostMapping("/cuatrimestre/{id}")
+    @PutMapping("/cuatrimestre/{id}")
     public int update(@PathVariable int id, @RequestBody CuatrimestreRequest cuatrimestre){
         Cuatrimestre cuatrimestreToBeUpdated = cuatrimestreService.getCuatrimestre(id);
         logger.info("cuatrimestre a ser actualizado "+cuatrimestreToBeUpdated);
