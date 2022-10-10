@@ -28,20 +28,40 @@ function Header() {
     }
   }, [])
 
+  const estudiantePaths = [
+    {path: '/consultamateriasestudiante',label: "Consulta de Materias/Exámenes"},
+    {path: '/inscripcion',label: "Inscripción"},
+    {path: '/consultaanalitico',label: "Consultar informe analítico"},
+    {path: '/contacto',label: "Modificación de datos de contacto"}
+  ], docentePaths = [
+    {path: '/consultamateriasdocente',label: "Consulta de materias asignadas"},
+    {path: '/consultaalumnos',label: "Consulta de materias asignadas"},
+    {path: '/carganotas',label: "Carga de notas de cursada"},
+    {path: '/cargafinales',label: "Carga de notas de final"}
+  ], adminPaths = [
+    {path: '/abmusuarios',label: "ABM de estudiantes y docentes"},
+    {path: '/cargacuatrimestre',label: "Carga de cuatrimestres"},
+    {path: '/planillacuatrimestre',label: "Planilla de cuatrimestre"},
+    {path: '/cargaexamenes',label: "Carga/planilla de mesas de examen"},
+    {path: '/inscripciones',label: "Ventana de inscripciones"}
+  ]
+
   return (
     <div>
         {/* //CAMBIAR EL TERNARIO POR UN IF DEPENDIENDO EL USAURIO QUE */}
-        {/* if (JSON.parse(cookies.get('EsAdministrador')){
-                <UsuarioAdministrador cookies={cookies} closeSession={cerrarSesion}/>
-            } elseif {
-                <UsuarioEstudiante cookies={cookies} navigator={navigate} closeSession={cerrarSesion}/>
-            } else {
-                <UsuarioDocente cookies={cookies} navigator={navigate} closeSession={cerrarSesion}/>}     */}
+        {
+          cookies.get('tipoUsuario') === "ESTUDIANTE" ?
+          <Usuario cookies={cookies} navigator={navigate} closeSession={cerrarSesion} paths={estudiantePaths}/>
+        : cookies.get('tipoUsuario') === "DOCENTE" ? 
+          <Usuario cookies={cookies} navigator={navigate} closeSession={cerrarSesion} paths={docentePaths}/>
+        :
+          <Usuario cookies={cookies} navigator={navigate} closeSession={cerrarSesion} paths={adminPaths}/>
+        }
     </div>
   );
 }
 
-function UsuarioEstudiante(props){
+function Usuario(props){
   return(
     <div>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky='top'>
@@ -50,14 +70,15 @@ function UsuarioEstudiante(props){
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="justify-content-end flex-grow-1 pe-3">
+              {props.cookies.get('Nombre') &&
               <NavDropdown title={props.cookies.get('Nombre')} id="collasible-nav-dropdown" align="end">
-                <NavDropdown.Item onClick={()=>{props.navigator('/consultamateriasestudiante')}}>Consulta de Materias/Exámenes</NavDropdown.Item>
-                <NavDropdown.Item onClick={()=>{props.navigator('/inscripcion')}}>Inscripción</NavDropdown.Item>
-                <NavDropdown.Item onClick={()=>{props.navigator('/consultaanalitico')}}>Consultar informe analítico</NavDropdown.Item>
-                <NavDropdown.Item onClick={()=>{props.navigator('/contacto')}}>Modificación de datos de contacto</NavDropdown.Item>
+                {props.paths.map(value=>(
+                  <NavDropdown.Item onClick={()=>{props.navigator(value.path)}}>{value.label}</NavDropdown.Item>
+                ))}
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={()=>props.closeSession()}>Cerrar Sesión</NavDropdown.Item>
               </NavDropdown>
+              }
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -65,54 +86,5 @@ function UsuarioEstudiante(props){
     </div>
   );
 }
-
-function UsuarioAdministrador(props){
-  return(
-    <div>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky='top'>
-        <Container>
-          <Navbar.Brand href="/">SiuGuarani</Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="justify-content-end flex-grow-1 pe-3">
-              <NavDropdown title={props.cookies.get('Nombre')} id="collasible-nav-dropdown" align="end">
-                <NavDropdown.Item onClick={()=>{props.navigator('/abmmaterias')}}>ABM de estudiantes y docentes</NavDropdown.Item>
-                <NavDropdown.Item onClick={()=>{props.navigator('/cargacuatrimestre')}}>Carga de cuatrimestres</NavDropdown.Item>
-                <NavDropdown.Item onClick={()=>{props.navigator('/planillacuatrimestre')}}>Planilla de cuatrimestre</NavDropdown.Item>
-                <NavDropdown.Item onClick={()=>{props.navigator('/cargaexamenes')}}>Carga/planilla de mesas de examen</NavDropdown.Item>
-                <NavDropdown.Item onClick={()=>{props.navigator('/inscripciones')}}>Ventana de inscripciones</NavDropdown.Item>
-                <NavDropdown.Item onClick={()=>props.closeSession()}>Cerrar Sesión</NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    </div>
-  );
-}
-
-function UsuarioDocente(props){
-    return(
-      <div>
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky='top'>
-          <Container>
-            <Navbar.Brand href="/">SiuGuarani</Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-              <Nav className="justify-content-end flex-grow-1 pe-3">
-                <NavDropdown title={props.cookies.get('Nombre')} id="collasible-nav-dropdown" align="end">
-                  <NavDropdown.Item onClick={()=>{props.navigator('/consultamateriasdocente')}}>Consulta de materias asignadas</NavDropdown.Item>
-                  <NavDropdown.Item onClick={()=>{props.navigator('/consultaalumnos')}}>Consulta de listado de alumnos</NavDropdown.Item>
-                  <NavDropdown.Item onClick={()=>{props.navigator('/carganotas')}}>Carga de notas de cursada</NavDropdown.Item>
-                  <NavDropdown.Item onClick={()=>{props.navigator('/cargafinales')}}>Carga de notas de final</NavDropdown.Item>
-                  <NavDropdown.Item onClick={()=>props.closeSession()}>Cerrar Sesión</NavDropdown.Item>
-                </NavDropdown>
-              </Nav>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
-      </div>
-    );
-  }
 
 export default Header;

@@ -7,12 +7,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 // import Tab from 'react-bootstrap/Tab';
 // import Tabs from 'react-bootstrap/Tabs';
 
-export default function MenuEstudiante() {
+export default function MateriasEstudiante() {
   
 
     return (
       <div>
-      <Header />
 
       
       </div>

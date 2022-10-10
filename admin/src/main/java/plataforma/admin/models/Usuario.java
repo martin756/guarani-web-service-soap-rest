@@ -19,8 +19,7 @@ public class Usuario {
     public int dni;
     public TipoUsuario tipoUsuario;
     private String usuario;
-    @JsonIgnore
-    private String password;
+    public String password;
 
     public Usuario() {
     }
@@ -31,15 +30,16 @@ public class Usuario {
         this.dni = dni;
         this.tipoUsuario = tipo;
         setUsuario(nombre, apellido);
-        setPassword(dni);
+        setPassword(Integer.toString(dni));
     }
 
-    private void setUsuario(String name, String apellido){
+    public void setUsuario(String name, String apellido){
 
         this.usuario = name+apellido;
     }
-    private void setPassword(int dni){
-        this.password = sha1(Integer.toString(dni));
+
+    public void setPassword(String password){
+        this.password = sha1(password);
     }
 
     static String sha1(String input){
@@ -60,7 +60,7 @@ public class Usuario {
     public void setCredenciales(){
         if (this.usuario == null || this.password == null){
             setUsuario(this.nombre, this.apellido);
-            setPassword(this.dni);
+            setPassword(Integer.toString(this.dni));
         }
     }
 

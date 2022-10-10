@@ -37,5 +37,9 @@ public class UsuarioService{
     public Usuario getUsuario(int id){
         return repository.findById(id).get();
     }
+
+    public Usuario getUsuarioByUsernameAndPassword(String username, String password){
+        return repository.findByUsernameAndPassword(username, password);
+    }
     }
 

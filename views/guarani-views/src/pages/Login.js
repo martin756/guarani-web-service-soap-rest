@@ -1,61 +1,110 @@
-import React, { useRef, useEffect }  from 'react'
+import React, { useRef, useEffect, useState }  from 'react'
 import {useNavigate} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Cookies from 'universal-cookie'
-import axios from 'axios'
+import axios, { AxiosHeaders } from 'axios'
+import sha1 from 'sha1'
 import '../css/Home.css'
 
 function Login() {
-    const baseUrl="https://localhost:5001/api/Usuarios"
+    const baseUrl="http://localhost:8080/usuario"
     const cookies = new Cookies()
     const username = useRef(null)
     const password = useRef(null)
     const navigate = useNavigate()
+    const [changePassword, setChangePassword] = useState(false)
+    const [validarPasswords, setValidarPasswords] = useState(false)
 
     const iniciarSesion=async(event)=>{
         debugger
         event.preventDefault()
-        await axios.get(baseUrl+`/?username=${username.current.value}&password=${password.current.value}`)
+        await axios.get(baseUrl+`?username=${username.current.value}&password=${sha1(password.current.value)}`)
         .then(response=>{
             return response.data
         }).then(response=>{
-            if(response.User !== undefined && response.User !== ''){
-                cookies.set('Idusuario',response.Idusuario)
-                cookies.set('Nombre',response.Nombre)
-                cookies.set('Apellido',response.Nombre)
-                cookies.set('Dni',response.Dni)
-                cookies.set('Email',response.Email)
-                cookies.set('User',response.User)
-                cookies.set('Password',response.Password)
-                alert("Bienvenido "+response.Nombre)
-                response.EsAdministrador ? navigate('/admin') : navigate('/mainmenu')
-            }else{
-                alert("El usuario o la contraseña no son correctos")
+            if(response.usuario !== undefined && response.usuario !== ''){
+                cookies.set('Idusuario',response.id)
+                cookies.set('Nombre',response.nombre)
+                cookies.set('Apellido',response.apellido)
+                cookies.set('Dni',response.dni)
+                cookies.set('tipoUsuario',response.tipoUsuario)
+                cookies.set('User',response.usuario)
+                cookies.set('Password',response.password)
+                alert("Bienvenido "+response.nombre)
+                !validateChangePassword(response.dni, password.current.value) &&
+                    derivarUsuario(response.tipoUsuario)
             }
         })
         .catch(error=>{
-            alert(error)
+            if(error.response.data.status === 404){
+                alert("El usuario o la contraseña no son correctos")
+            }else{
+                alert(error)
+            }
         })
         //navigate('/mainmenu')
     }
 
-    const Registrarse=()=>{
-        navigate('/signup')
+    const cambiarPassword=async(event)=>{
+        event.preventDefault()
+        if(username.current.value !== password.current.value){
+            //alert("Las contraseñas no coinciden")
+            setValidarPasswords(true)
+            return
+        }
+        await axios.post(baseUrl+"/"+cookies.get("Idusuario"),{"password":password.current.value})
+        .then(response=>{
+            console.log(response)
+            alert("Contraseña cambiada con éxito")
+            derivarUsuario(cookies.get('tipoUsuario'))
+        }).catch(error=>{
+            alert(error)
+        })
     }
 
+    const derivarUsuario = (tipoUsuario) => {
+        switch (tipoUsuario) {
+            case "ESTUDIANTE":
+                navigate('/estudiantes')
+                break;
+            case "DOCENTE":
+                navigate('/docentes')
+                break;
+            default:
+                navigate('/admin');
+                break;
+        }
+    }
+
+    const validateChangePassword = (dni, password)=>{
+        setChangePassword(dni == password)
+        return dni == password
+    }
+
+    /*const Registrarse=()=>{
+        navigate('/signup')
+    }*/
+
     useEffect(()=>{
-        if(cookies.get('User') && !JSON.parse(cookies.get('EsAdministrador'))){
-            navigate('/mainmenu')
-        }else if(cookies.get('User') && JSON.parse(cookies.get('EsAdministrador'))){
-            navigate('/admin')
+        if(cookies.get('User') && cookies.get('tipoUsuario') === "ESTUDIANTE"){
+            navigate('/consultamateriasestudiante')
+        }else if(cookies.get('User') && cookies.get('tipoUsuario') === "DOCENTE"){
+            navigate('/consultamateriasdocente')
+        }else if(cookies.get('User') && cookies.get('tipoUsuario') !== "ESTUDIANTE" && cookies.get('tipoUsuario') !== "DOCENTE"){
+            navigate('/abmusuarios')
         }
     },[])
+
+    const json = [{
+        
+    }]
 
     return (
         <div className='containerPrincipal'>
             <div className='containerTitulo'>
                 SiuGuarani</div>
             <div className='containerHome'>
+                {!changePassword ?
                 <form onSubmit={event => iniciarSesion(event)} className='form-group'>
                     <label>Usuario: </label>
                     <br />
@@ -67,7 +116,22 @@ function Login() {
                     <br />
                     <button type="submit" className='btn btn-primary'>Iniciar Sesión</button>
                 </form>
-                <button onClick={()=>Registrarse()} className='btn'>Registrarse</button>
+                :
+                <form onSubmit={event => cambiarPassword(event)} className='form-group'>
+                    <div class="alert alert-danger" role="alert">
+                    Necesita cambiar su contraseña, dado que es su primer ingreso al sistema!</div>
+                    <br />
+                    <label>Nueva Contraseña: </label>
+                    <br />
+                    <input ref={username} type="password" className='form-control' name='newPassword' required />
+                    <br />
+                    <label>Confirme Contraseña: </label>
+                    <br />
+                    <input ref={password} type='password' className='form-control' name='repeatPassword' required />
+                    {validarPasswords && <span><br/><span className='text-danger'>Las contraseñas no coinciden</span><br/></span>}
+                    <br />
+                    <button type="submit" className='btn btn-primary'>Cambiar Contraseña</button>
+                </form>}
             </div>
         </div>
     )
