@@ -7,6 +7,7 @@ public class UsuarioRequest {
     public String apellido;
     public int dni;
     public TipoUsuario tipo;
+    public String password;
 
     public UsuarioRequest() {
     }

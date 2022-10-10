@@ -47,6 +47,7 @@ public class UsuarioController {
         usuarioToBeUpdated.nombre = usuario.nombre == null ? usuarioToBeUpdated.nombre : usuario.nombre;
         usuarioToBeUpdated.apellido = usuario.apellido == null ? usuarioToBeUpdated.apellido : usuario.apellido;
         usuarioToBeUpdated.dni = usuario.dni == 0 ? usuarioToBeUpdated.dni : usuario.dni;
+        usuarioToBeUpdated.tipoUsuario = usuario.tipo == null ? usuarioToBeUpdated.tipoUsuario : usuario.tipo;
         usuarioToBeUpdated.password = usuario.password == null ? usuarioToBeUpdated.password : usuario.password;
         //if(usuario.getPassword() != null){usuarioToBeUpdated.password = usuario.getPassword();}
         logger.info("usuario actualizado "+usuarioToBeUpdated);
