@@ -9,6 +9,7 @@ import plataforma.admin.models.Catedra;
 import plataforma.admin.requestModels.MesaRequest;
 import plataforma.admin.services.*;
 
+import java.util.Calendar;
 import java.util.List;
 
 @RestController
@@ -23,6 +24,8 @@ public class MesaExamenController {
     MateriaService materiaService;
     @Autowired
     TurnoService turnoService;
+    @Autowired
+    DiaSemanaService diaSemanaService;
 
 
     Logger logger = LoggerFactory.getLogger(CatedraController.class);
@@ -42,6 +45,24 @@ public class MesaExamenController {
     @PostMapping("/mesa") //configurar validaciones
     public int crear(@RequestBody MesaRequest entidad ){
         logger.info("parseando mesa ");
+        Catedra catedra = getMesa(entidad);
+        return catedraService.guardarCatedra(catedra).id;
+    }
+
+    @PostMapping("/mesas") //configurar validaciones
+    public int[] crearMultiples(@RequestBody MesaRequest[] entidades ){
+        int[] result = new int[entidades.length];
+        int i = 0;
+        for (MesaRequest entidad: entidades) {
+        logger.info("parseando mesa ");
+        Catedra catedra = getMesa(entidad);
+        result[i]= catedraService.guardarCatedra(catedra).id;
+        i++;
+        }
+        return result;
+    }
+
+    public Catedra getMesa(MesaRequest entidad){
         Catedra catedra = new Catedra();
         catedra.cuatrimestre = cuatrimestreService.getCuatrimestre(entidad.idCuatrimestre);
         catedra.materia = materiaService.getMateria(entidad.idMateria);
@@ -49,7 +70,15 @@ public class MesaExamenController {
         catedra.turno = turnoService.getTurno(entidad.idTurno);
         catedra.es_final = true;
         catedra.fecha_final = entidad.fecha;
-        return catedraService.guardarCatedra(catedra).id;
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(entidad.fecha);
+        catedra.dia = diaSemanaService.getDia(cal.get(Calendar.DAY_OF_WEEK)-1);
+        return catedra;
     }
 
+    @GetMapping("/mesas/turno/{idTurno}")
+    public List<Catedra> getReporte(@PathVariable int idTurno) {
+        return catedraService.getCatedraByTurno(true,idTurno);
+    }
 }

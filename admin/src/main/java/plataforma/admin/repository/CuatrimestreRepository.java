@@ -9,8 +9,4 @@ import java.util.List;
 @Repository
 public interface CuatrimestreRepository extends CrudRepository<Cuatrimestre, Integer> {
 
-
-
-
-
 }

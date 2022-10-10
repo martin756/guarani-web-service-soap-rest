@@ -2,6 +2,7 @@ package plataforma.admin.models;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import plataforma.admin.EstudianteModels.Inscripcion;
 import plataforma.admin.services.*;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class Generador {
     @Autowired CatedraService catedraService;
     @Autowired MateriaService materiaService;
     @Autowired DiaSemanaService diaSemanaService;
+    @Autowired InscripcionService inscripcionService;
 
     public  List<Usuario> generarUsuarios(){
         List<Usuario> usuarios = new ArrayList<>();
@@ -113,5 +115,33 @@ public class Generador {
         catedra.es_final = false;
         catedra = catedraService.guardarCatedra(catedra);
         return catedra;
+    }
+
+    public void generarInscripciones() {
+        List<Inscripcion> inscripciones = new ArrayList<>();
+        inscripciones.add(crearInscripcion(3,1));
+        inscripciones.add(crearInscripcion(3,2));
+        inscripciones.add(crearInscripcion(4,2));
+        inscripciones.add(crearInscripcion(4,3));
+        inscripciones.add(crearInscripcion(4,1));
+        inscripciones.add(crearInscripcion(5,3));
+        inscripciones.add(crearInscripcion(5,4));
+        inscripciones.add(crearInscripcion(8,4));
+        inscripciones.add(crearInscripcion(8,2));
+        inscripciones.add(crearInscripcion(8,9));
+        inscripciones.add(crearInscripcion(9,9));
+        inscripciones.add(crearInscripcion(9,10));
+
+        for (Inscripcion i : inscripciones) {
+            inscripcionService.guardar(i);
+        }
+
+    }
+
+    public Inscripcion crearInscripcion(int idUsuario, int idCatedra){
+        Inscripcion inscripcion = new Inscripcion();
+        inscripcion.estudiante = usuarioService.getUsuario(idUsuario);
+        inscripcion.catedra = catedraService.getCatedra(idCatedra);
+        return inscripcion;
     }
 }

@@ -46,6 +46,25 @@ public class MateriaController {
         return materiaService.guardarMateria(materia);
     }
 
+    @PostMapping("/materias") //configurar validaciones
+    public int[] crearMultiples(@Valid @RequestBody MateriaRequest[] entidades ){
+        int[] result = new int[entidades.length];
+        int i = 0;
+        for (MateriaRequest entidad: entidades) {
+        Materia materia = new Materia();
+        materia.anio = entidad.anio;
+        materia.nombre = entidad.nombre;
+        logger.info("parseando materia "+entidad.nombre);
+        Carrera c = carreraService.getCarrera(entidad.idCarrera);
+        logger.info("parseando carrera "+c);
+        materia.carrera = c;
+        result[i]= materiaService.guardarMateria(materia);
+        i++;
+        }
+        return result;
+
+    }
+
     @PutMapping("/materia/{id}") //configurar validaciones
     public int update(@PathVariable int id,@Valid @RequestBody MateriaRequest entidad ){
         Materia materiaToBeUpdated = materiaService.getMateria(id);
