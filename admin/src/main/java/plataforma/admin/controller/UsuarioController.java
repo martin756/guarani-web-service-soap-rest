@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import plataforma.admin.models.Usuario;
+import plataforma.admin.requestModels.UsuarioRequest;
 import plataforma.admin.services.UsuarioService;
 import java.util.List;
 
@@ -32,14 +33,14 @@ public class UsuarioController {
     }
 
     @PostMapping("/usuario")
-    public int crear(@RequestBody Usuario usuario){
-        usuario.setCredenciales();
+    public int crear(@RequestBody UsuarioRequest usuario){
+        Usuario nuevoUsuario = new Usuario(usuario.nombre, usuario.apellido, usuario.dni,usuario.tipo);
         logger.info("parseando usuario "+usuario.toString());
-        return usuarioService.guardarUsuario(usuario);
+        return usuarioService.guardarUsuario(nuevoUsuario);
     }
 
-    @PostMapping("/usuario/{id}")
-    public int update(@PathVariable int id, @RequestBody Usuario usuario){
+    @PutMapping("/usuario/{id}")
+    public int update(@PathVariable int id, @RequestBody UsuarioRequest usuario){
         Usuario usuarioToBeUpdated = usuarioService.getUsuario(id);
         logger.info("usuario a ser actualizado "+usuarioToBeUpdated);
         //De ser necesario llamar a setCredenciales para actualizarlas con los cambios de datos

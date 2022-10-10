@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import plataforma.admin.models.Carrera;
 import plataforma.admin.models.Materia;
+import plataforma.admin.requestModels.MateriaRequest;
 import plataforma.admin.services.CarreraService;
 import plataforma.admin.services.MateriaService;
 import javax.validation.Valid;
@@ -34,16 +35,19 @@ public class MateriaController {
 
 
     @PostMapping("/materia") //configurar validaciones
-    public int crear(@Valid @RequestBody Materia entidad ){
+    public int crear(@Valid @RequestBody MateriaRequest entidad ){
+        Materia materia = new Materia();
+        materia.anio = entidad.anio;
+        materia.nombre = entidad.nombre;
         logger.info("parseando materia "+entidad.nombre);
-        Carrera c = carreraService.getCarrera(entidad.carrera.id_carrera);
+        Carrera c = carreraService.getCarrera(entidad.idCarrera);
         logger.info("parseando carrera "+c);
-        entidad.carrera = c;
-        return materiaService.guardarMateria(entidad);
+        materia.carrera = c;
+        return materiaService.guardarMateria(materia);
     }
 
-    @PostMapping("/materia/{id}") //configurar validaciones
-    public int update(@PathVariable int id,@Valid @RequestBody Materia entidad ){
+    @PutMapping("/materia/{id}") //configurar validaciones
+    public int update(@PathVariable int id,@Valid @RequestBody MateriaRequest entidad ){
         Materia materiaToBeUpdated = materiaService.getMateria(id);
         materiaToBeUpdated.nombre = entidad.nombre == null ? materiaToBeUpdated.nombre : entidad.nombre;
         materiaToBeUpdated.anio = entidad.anio == 0 ? materiaToBeUpdated.anio : entidad.anio;

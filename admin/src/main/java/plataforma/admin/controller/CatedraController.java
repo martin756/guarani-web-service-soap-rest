@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import plataforma.admin.models.*;
+import plataforma.admin.requestModels.CatedraRequest;
 import plataforma.admin.services.*;
 
 import javax.validation.Valid;
@@ -18,12 +19,14 @@ public class CatedraController {
     @Autowired UsuarioService usuarioService;
     @Autowired MateriaService materiaService;
     @Autowired TurnoService turnoService;
+    @Autowired DiaSemanaService diaSemanaService;
+
 
     Logger logger = LoggerFactory.getLogger(CatedraController.class);
 
     @GetMapping("/catedra/{idcatedra}")
     public Catedra get(@PathVariable int idcatedra){
-        Catedra result = catedraService.getCatedra(idcatedra);
+        Catedra result = catedraService.findCatedraById(idcatedra);
         logger.info("Catedra obtenida"+ result.toString());
         return result;
     }
@@ -34,13 +37,15 @@ public class CatedraController {
     }
 
     @PostMapping("/catedra") //configurar validaciones
-    public int crear(@RequestBody Catedra entidad ){
+    public int crear(@RequestBody CatedraRequest entidad ){
         logger.info("parseando catedra ");
-        entidad.cuatrimestre = cuatrimestreService.getCuatrimestre(entidad.cuatrimestre.id);
-        entidad.materia = materiaService.getMateria(entidad.materia.id);
-        entidad.profesor = usuarioService.getUsuario(entidad.profesor.id);
-        entidad.turno = turnoService.getTurno(entidad.turno.id);
-        return catedraService.guardarCatedra(entidad).id;
+        Catedra catedra = new Catedra();
+        catedra.cuatrimestre = cuatrimestreService.getCuatrimestre(entidad.idCuatrimestre);
+        catedra.materia = materiaService.getMateria(entidad.idMateria);
+        catedra.profesor = usuarioService.getUsuario(entidad.idProfesor);
+        catedra.turno = turnoService.getTurno(entidad.idTurno);
+        catedra.dia = diaSemanaService.getDia(entidad.diaSemana);
+        return catedraService.guardarCatedra(catedra).id;
     }
 
 

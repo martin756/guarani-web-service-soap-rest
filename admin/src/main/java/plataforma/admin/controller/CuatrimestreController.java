@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import plataforma.admin.models.Cuatrimestre;
+import plataforma.admin.requestModels.CuatrimestreRequest;
 import plataforma.admin.services.CuatrimestreService;
 import java.util.List;
 
@@ -27,13 +28,16 @@ public class CuatrimestreController {
     }
 
     @PostMapping("/cuatrimestre")
-    public int crear(@RequestBody Cuatrimestre cuatrimestre){
-        logger.info("parseando cuatrimestre "+cuatrimestre.toString());
+    public int crear(@RequestBody CuatrimestreRequest entidad){
+        Cuatrimestre cuatrimestre = new Cuatrimestre();
+        cuatrimestre.periodo = entidad.periodo;
+        cuatrimestre.anio = entidad.anio;
+        logger.info("parseando cuatrimestre "+cuatrimestre);
         return cuatrimestreService.guardarCuatrimestre(cuatrimestre);
     }
 
-    @PostMapping("/cuatrimestre/{id}")
-    public int update(@PathVariable int id, @RequestBody Cuatrimestre cuatrimestre){
+    @PutMapping("/cuatrimestre/{id}")
+    public int update(@PathVariable int id, @RequestBody CuatrimestreRequest cuatrimestre){
         Cuatrimestre cuatrimestreToBeUpdated = cuatrimestreService.getCuatrimestre(id);
         logger.info("cuatrimestre a ser actualizado "+cuatrimestreToBeUpdated);
         cuatrimestreToBeUpdated.periodo = cuatrimestre.periodo == 0 ? cuatrimestreToBeUpdated.periodo : cuatrimestre.periodo;

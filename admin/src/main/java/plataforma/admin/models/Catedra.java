@@ -2,6 +2,7 @@ package plataforma.admin.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "catedra")
@@ -11,7 +12,6 @@ public class Catedra implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int id;
-
 
     public Catedra() {
     }
@@ -31,8 +31,15 @@ public class Catedra implements Serializable {
     @JoinColumn(name="cuatrimestre_id")
     public Cuatrimestre cuatrimestre;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="dia_semana_id")
+    public DiaSemana dia;
+
     @Column(name = "es_final")
     public boolean es_final;
+
+    @Column(name = "fecha_final")
+    public Date fecha_final;
 
 
     @Override
