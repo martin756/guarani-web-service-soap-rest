@@ -21,4 +21,9 @@ public interface CatedraRepository extends CrudRepository<Catedra, Integer> {
 
     @Query("SELECT c FROM Catedra c WHERE c.es_final = True and c.id=(:id)")
     public abstract Catedra findMesaById(int id);
+
+    @Query("SELECT c FROM Catedra c WHERE c.es_final = (:esFinal) and c.turno.id=(:idTurno) order by c.materia.carrera.id_carrera, c.materia.anio")
+    public abstract List<Catedra> getAllCatedrasTurno(boolean esFinal, int idTurno);
+
+
 }

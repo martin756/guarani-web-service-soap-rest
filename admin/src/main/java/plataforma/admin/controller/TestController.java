@@ -4,7 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import plataforma.admin.EstudianteModels.Inscripcion;
 import plataforma.admin.models.*;
 import plataforma.admin.services.*;
 import java.util.List;
@@ -20,6 +22,7 @@ public class TestController {
     @Autowired CatedraService catedraService;
     @Autowired MateriaService materiaService;
     @Autowired Generador generador;
+    @Autowired InscripcionService inscripcionService;
 
     Logger logger = LoggerFactory.getLogger(TestController.class);
 
@@ -43,6 +46,17 @@ public class TestController {
         List<Turno> turnos = turnoService.getTurnos();
 
         return generador.generarCatedras();
+    }
+
+    @GetMapping("/generarInscripciones")
+    public List<Inscripcion> generarInscripciones(){
+        generador.generarInscripciones();
+        return inscripcionService.getAllInscripciones();
+    }
+
+    @GetMapping("/getInscripcionesACatedra/{idcatedra}")
+    public List<Inscripcion> getInscripciones(@PathVariable int idcatedra){
+        return inscripcionService.getInscripcionesACatedra(idcatedra);
     }
 
 

@@ -48,5 +48,11 @@ public class CatedraController {
         return catedraService.guardarCatedra(catedra).id;
     }
 
+    @GetMapping("/catedra/turno/{idTurno}")
+    public List<Catedra> getReporte(@PathVariable int idTurno) {
+        return catedraService.getCatedraByTurno(false,idTurno);
+    }
+
+
 
 }
