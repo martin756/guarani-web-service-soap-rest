@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState }  from 'react'
 import {useNavigate} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Cookies from 'universal-cookie'
-import axios, { AxiosHeaders } from 'axios'
+import axios from 'axios'
 import sha1 from 'sha1'
 import '../css/Home.css'
 
@@ -22,18 +22,14 @@ function Login() {
         .then(response=>{
             return response.data
         }).then(response=>{
-            if(response.usuario !== undefined && response.usuario !== ''){
-                cookies.set('Idusuario',response.id)
-                cookies.set('Nombre',response.nombre)
-                cookies.set('Apellido',response.apellido)
-                cookies.set('Dni',response.dni)
-                cookies.set('tipoUsuario',response.tipoUsuario)
-                cookies.set('User',response.usuario)
-                cookies.set('Password',response.password)
-                alert("Bienvenido "+response.nombre)
-                !validateChangePassword(response.dni, password.current.value) &&
-                    derivarUsuario(response.tipoUsuario)
-            }
+            cookies.set('Idusuario',response.id)
+            cookies.set('Nombre',response.nombre)
+            cookies.set('Apellido',response.apellido)
+            cookies.set('Dni',response.dni)
+            cookies.set('tipoUsuario',response.tipoUsuario)
+            alert("Bienvenido "+response.nombre)
+            !validateChangePassword(response.dni, password.current.value) &&
+                derivarUsuario(response.tipoUsuario)
         })
         .catch(error=>{
             if(error.response.data.status === 404){
@@ -52,7 +48,7 @@ function Login() {
             setValidarPasswords(true)
             return
         }
-        await axios.post(baseUrl+"/"+cookies.get("Idusuario"),{"password":password.current.value})
+        await axios.put(baseUrl+"/"+cookies.get("Idusuario"),{"password":password.current.value})
         .then(response=>{
             console.log(response)
             alert("Contraseña cambiada con éxito")
@@ -70,8 +66,8 @@ function Login() {
             case "DOCENTE":
                 navigate('/docentes')
                 break;
-            default:
-                navigate('/admin');
+            case "ADMIN":
+                navigate('/abmusuarios');
                 break;
         }
     }
@@ -86,18 +82,15 @@ function Login() {
     }*/
 
     useEffect(()=>{
-        if(cookies.get('User') && cookies.get('tipoUsuario') === "ESTUDIANTE"){
+        derivarUsuario(cookies.get('tipoUsuario'))
+        /*if(cookies.get('tipoUsuario') === "ESTUDIANTE"){
             navigate('/consultamateriasestudiante')
-        }else if(cookies.get('User') && cookies.get('tipoUsuario') === "DOCENTE"){
+        }else if(cookies.get('tipoUsuario') === "DOCENTE"){
             navigate('/consultamateriasdocente')
-        }else if(cookies.get('User') && cookies.get('tipoUsuario') !== "ESTUDIANTE" && cookies.get('tipoUsuario') !== "DOCENTE"){
+        }else if(cookies.get('tipoUsuario') === "ADMIN"){
             navigate('/abmusuarios')
-        }
+        }*/
     },[])
-
-    const json = [{
-        
-    }]
 
     return (
         <div className='containerPrincipal'>

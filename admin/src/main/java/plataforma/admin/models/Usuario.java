@@ -18,7 +18,9 @@ public class Usuario {
     public String apellido;
     public int dni;
     public TipoUsuario tipoUsuario;
+    @JsonIgnore
     private String usuario;
+    @JsonIgnore
     public String password;
 
     public Usuario() {

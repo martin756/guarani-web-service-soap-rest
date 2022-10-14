@@ -63,7 +63,8 @@ public class UsuarioController {
         usuarioToBeUpdated.apellido = usuario.apellido == null ? usuarioToBeUpdated.apellido : usuario.apellido;
         usuarioToBeUpdated.dni = usuario.dni == 0 ? usuarioToBeUpdated.dni : usuario.dni;
         usuarioToBeUpdated.tipoUsuario = usuario.tipo == null ? usuarioToBeUpdated.tipoUsuario : usuario.tipo;
-        usuarioToBeUpdated.password = usuario.password == null ? usuarioToBeUpdated.password : usuario.password;
+        //Para que la contrasenia cambiada se mande hasheada a la bd
+        if(usuario.password != null)usuarioToBeUpdated.setPassword(usuario.password);
         //if(usuario.getPassword() != null){usuarioToBeUpdated.password = usuario.getPassword();}
         logger.info("usuario actualizado "+usuarioToBeUpdated);
         return usuarioService.guardarUsuario(usuarioToBeUpdated);

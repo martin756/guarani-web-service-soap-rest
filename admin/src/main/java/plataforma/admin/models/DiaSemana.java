@@ -10,7 +10,6 @@ public class DiaSemana {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @JsonIgnore
     public int id;
 
     @Column(name="dia")
