@@ -16,23 +16,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import services.ICarreraService;
+import services.CarreraService;
 
 
 
 @Controller
-@RequestMapping("carrera")
+@RequestMapping("/carrera")
 public class CarreraController {
 
 	@Autowired
 	@Qualifier("carreraService")
-	private ICarreraService carreraService;
+	private CarreraService carreraService;
 	
 	
 	@GetMapping("/")
 	public ModelAndView index() {
 		ModelAndView mv= new ModelAndView("carrera/index");
-		mv.addObject(carreraService.traerDatos("0001"));
+		mv.addObject(carreraService.traerDatos("Licenciatura en Sistemas"));
 		return mv;
 	}
 	

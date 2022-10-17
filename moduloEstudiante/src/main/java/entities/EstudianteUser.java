@@ -14,8 +14,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
 @Entity
-@Table(name = "estudianteUser")
-
+@Table(name = "usuarios")
 public class EstudianteUser {
 
 	@Id
@@ -27,10 +26,14 @@ public class EstudianteUser {
 	@NotEmpty
 	private String user;
 
-	@Column(name = "contraseña")
+	@Column(name = "password")
 	@NotEmpty
 	private String pass;
-
+	
+	@Column(name = "tipo_usuario")
+	@NotEmpty
+	private int tipo_usuario;
+	
 	@Column(name = "dni")
 	@NotEmpty
 	private int dni;
@@ -48,10 +51,6 @@ public class EstudianteUser {
 	@Email
 	private String email;
 
-	@Column(name = "teléfono")
-	@NotEmpty(message = "El campo teléfono no debe estar vacio")
-	private String telefono;
-
 	@OneToOne(cascade =  CascadeType.ALL)
     @JoinColumn(name = "carrera")
 	private Carrera carrera;
@@ -60,33 +59,27 @@ public class EstudianteUser {
 	@NotEmpty(message = "El campo dirección no debe estar vacío")
 	private String direccion;
 
-	@Column(name = "localidad")
-	@NotEmpty(message = "El campo localidad no debe estar vacío")
-	private String localidad;
-
 	public EstudianteUser() {
 		super();
 	}
 
 
-	public EstudianteUser(int id, @NotEmpty String user, @NotEmpty String pass, @NotEmpty int dni,
+	public EstudianteUser(int id, @NotEmpty String user, @NotEmpty String pass, @NotEmpty int tipo_usuario, @NotEmpty int dni,
 			@NotEmpty String nombre, @NotEmpty String apellido,
-			@NotEmpty(message = "El campo email no debe estar vacio") @Email String email,
-			@NotEmpty(message = "El campo teléfono no debe estar vacio") String telefono, Carrera carrera,
-			@NotEmpty(message = "El campo dirección no debe estar vacío") String direccion,
-			@NotEmpty(message = "El campo localidad no debe estar vacío") String localidad) {
-		super();
+			@NotEmpty(message = "El campo email no debe estar vacio") @Email String email, Carrera carrera,
+			@NotEmpty(message = "El campo dirección no debe estar vacío") String direccion)
+			 {
 		this.id = id;
 		this.user = user;
 		this.pass = pass;
+		this.tipo_usuario = tipo_usuario;
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
-		this.telefono = telefono;
 		this.carrera = carrera;
 		this.direccion = direccion;
-		this.localidad = localidad;
+		
 	}
 
 
@@ -112,6 +105,14 @@ public class EstudianteUser {
 
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+	
+	public int getTipo_usuario() {
+		return tipo_usuario;
+	}
+
+	public void setTipo_usuario(int tipo_usuario) {
+		this.tipo_usuario = tipo_usuario;
 	}
 
 	public int getDni() {
@@ -146,13 +147,6 @@ public class EstudianteUser {
 		this.email = email;
 	}
 
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
 
 	public Carrera getCarrera() {
 		return carrera;
@@ -170,19 +164,20 @@ public class EstudianteUser {
 		this.direccion = direccion;
 	}
 
-	public String getLocalidad() {
-		return localidad;
-	}
-
-	public void setLocalidad(String localidad) {
-		this.localidad = localidad;
-	}
 
 	@Override
 	public String toString() {
-		return "EstudianteUser [id=" + id + ", user=" + user + ", pass=" + pass + ", dni=" + dni + ", nombre=" + nombre
-				+ ", apellido=" + apellido + ", email=" + email + ", telefono=" + telefono + ", carrera=" + carrera
-				+ ", direccion=" + direccion + ", localidad=" + localidad + "]";
+		return "EstudianteUser [id=" + id + ", user=" + user + ", pass=" + pass + ", tipo_usuario="+ tipo_usuario +" dni=" + dni + ", nombre=" + nombre
+				+ ", apellido=" + apellido + ", email=" + email + ", carrera=" + carrera + ", direccion=" + direccion
+				+ "]";
 	}
 
+
+
+
+	
+
+
+
 }
+
