@@ -81,4 +81,6 @@ public class MesaExamenController {
     public List<Catedra> getReporte(@PathVariable int idTurno) {
         return catedraService.getCatedraByTurno(true,idTurno);
     }
+
+
 }
