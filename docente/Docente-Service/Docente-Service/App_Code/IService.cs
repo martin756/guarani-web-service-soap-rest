@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Activities.Expressions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -11,15 +12,15 @@ using System.Text;
 public interface IService
 {
 
-	[OperationContract]
-	IEnumerable<Service.MateriaDocente> GetMateriasDocente(int idDocente);
+    [OperationContract]
+    IEnumerable<Service.MateriaDocente> GetMateriasDocente(int idDocente);
 
     [OperationContract]
     IEnumerable<Service.AlumnoMateria> GetAlumnosMateria(int idMateria);
 
     [OperationContract]
     IEnumerable<Service.MateriaDocente> GetMaterias();
-    
 
-    // TODO: agregue aquí sus operaciones de servicio
+    [OperationContract]
+    string InsertNotasCursada(int idUsuario, int idCatedra, int[] notas);
 }
