@@ -39,7 +39,9 @@ function FormUser(props) {
 
     useEffect(() => {
         const fetchData = async()=>{
-            try { setUsuario(await traerDatos(baseUrl+"/"+props.idUsuario)) } 
+            try {
+                props.idUsuario !== undefined && setUsuario(await traerDatos(baseUrl+"/"+props.idUsuario)) 
+            } 
             catch (error) { alert(error) }
         }
         fetchData()

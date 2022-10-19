@@ -3,10 +3,11 @@ import Table from '../../components/Table'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { Download, PencilSquare, Trash } from 'react-bootstrap-icons'
-import { traerDatos, turnos} from '../../components/Data'
+import { descargarExcel, traerDatos, turnos } from '../../components/Data'
 
 function AbmCatedras(props) {
-    const baseUrl = "http://localhost:8080"
+    const adminUrl = "http://localhost:8080"
+    //const reporteUrl = "http://localhost:8081"+(props.esFinal ? "/inscripcionesMesas" : "/inscripcionesCatedra")
     const [catedras, setCatedras] = useState([])
     const [cuatrimestres, setCuatrimestres] = useState([])
     const navigate = useNavigate()
@@ -14,7 +15,7 @@ function AbmCatedras(props) {
     const cuatrimestre = useRef(null)
   
     const traerCatedras = async () => {
-      await axios.get(baseUrl+(props.esFinal ? "/mesa/" : "/catedra/")).then(response=>{
+      await axios.get(adminUrl+(props.esFinal ? "/mesa/" : "/catedra/")).then(response=>{
         const mappedData = []
         response.data.forEach(element => {
           const rawData = {
@@ -37,7 +38,7 @@ function AbmCatedras(props) {
   
     useEffect(() => {const fetchData = async()=>{
         await traerCatedras()
-        setCuatrimestres(await traerDatos(baseUrl+(props.esFinal ? "/mesa" : "/cuatrimestre")))
+        setCuatrimestres(await traerDatos(adminUrl+(props.esFinal ? "/mesa" : "/cuatrimestre")))
       }
       fetchData()
     }, [props.esFinal])
@@ -63,7 +64,7 @@ function AbmCatedras(props) {
                         <label className="form-label">Cuatrimestre</label>
                         <select ref={cuatrimestre} className="form-select" required>
                             <option value="">Seleccione cuatrimestre</option>
-                            {cuatrimestres.map((value,index)=>(
+                            {cuatrimestres !== undefined && cuatrimestres.map((value,index)=>(
                               <option key={index} value={value.id}>{value.periodo}° {value.anio}</option>
                             ))}
                         </select>
@@ -73,18 +74,18 @@ function AbmCatedras(props) {
                         <label className="form-label">Mesa</label>
                         <select ref={cuatrimestre} className="form-select" required>
                             <option value="">Seleccione mesa de exámen</option>
-                            {cuatrimestres.map((value,index)=>(
-                              <option key={index} value={value.id}>Id: {value.id}, Materia: {value.materia.nombre}</option>
+                            {cuatrimestres.length > 0 && cuatrimestres.map((value,index)=>(
+                              <option key={index} value={value.id}>Id: {value.id}, Materia: {value.materia?.nombre}</option>
                             ))}
                         </select>
                         <div className="invalid-feedback">Seleccione cuatrimestre.</div>
                     </div>}
                 </div>
                 <div className='d-flex justify-content-end mb-3'>
-                    <button  className='me-2 btn btn-info'><Download/> Exportar planilla</button>
+                    <button onClick={()=>{/*descargarExcel(reporteUrl+"/1","test.xls")*/}} className='me-2 btn btn-info'><Download/> Exportar planilla</button>
                     <button onClick={()=>navigate('/Materia')} className='btn btn-primary'>+ Agregar materia</button>
                 </div>
-                <Table data={catedras} linkPage='Materia' actions={{edit: <PencilSquare/>, delete: <Trash/>}}/>
+                <Table data={catedras} linkPage='Materia' actions={{edit: <PencilSquare/>}}/>
             </div>
         </div>
     </>

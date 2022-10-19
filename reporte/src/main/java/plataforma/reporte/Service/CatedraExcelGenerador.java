@@ -81,13 +81,6 @@ public class CatedraExcelGenerador {
 //        excelService.enviarExcel(base64String);
 
 
-        try {
-            FileOutputStream out = new FileOutputStream("test.xls");
-            wb.write(out);
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         return  Base64.encodeBase64String(excelEnBytes);
 

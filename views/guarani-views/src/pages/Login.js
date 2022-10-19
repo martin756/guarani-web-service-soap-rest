@@ -28,6 +28,7 @@ function Login() {
             cookies.set('Dni',response.dni)
             cookies.set('tipoUsuario',response.tipoUsuario)
             alert("Bienvenido "+response.nombre)
+            debugger
             !validateChangePassword(response.dni, password.current.value) &&
                 derivarUsuario(response.tipoUsuario)
         })
@@ -61,12 +62,12 @@ function Login() {
     const derivarUsuario = (tipoUsuario) => {
         switch (tipoUsuario) {
             case "ESTUDIANTE":
-                navigate('/estudiantes')
+                navigate('/consultamateriasestudiante')
                 break;
             case "DOCENTE":
-                navigate('/docentes')
+                navigate('/consultamateriasdocente')
                 break;
-            case "ADMIN":
+            case "ADMINISTRADOR":
                 navigate('/abmusuarios');
                 break;
         }
