@@ -1,4 +1,5 @@
-package entities;
+package com.estudiante.demo.models;
+
 import org.springframework.stereotype.Component;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -54,7 +55,13 @@ public class Materia {
     }
 
     @Override
-	public String toString() {
-		return "Materia [id=" + id + ", nombre=" + nombre + ", anio=" + anio + ", carrera=" + carrera + "]";
-	}
+    public String toString() {
+        return "Materia{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", anio=" + anio +
+                ", carrera=" + carrera.nombre +
+                ", carrera id=" + carrera.id_carrera +
+                '}';
+    }
 }
