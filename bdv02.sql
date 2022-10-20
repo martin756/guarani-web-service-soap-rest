@@ -185,6 +185,7 @@ DEFAULT CHARACTER SET = utf8mb3;
 CREATE TABLE IF NOT EXISTS `db_gestionacademica`.`nota_parciales` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nota` FLOAT NULL DEFAULT NULL,
+  `nro_parcial` INT NULL DEFAULT NULL,
   `fecha_carga` DATETIME NULL,
   `idusuario_materia_cuatrimestre` INT NOT NULL,
   PRIMARY KEY (`id`),
