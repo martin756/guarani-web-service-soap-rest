@@ -1,0 +1,153 @@
+package plataforma.reporte.Service;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import com.google.gson.Gson;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import plataforma.reporte.model.Catedra;
+
+
+@Service
+public class PdfService {
+    Logger logger = LoggerFactory.getLogger(PdfService.class);
+
+    
+    String puerto = "8080";
+
+    Gson gson = new Gson();
+
+    public Catedra[] requestCatedra(String servicio){
+        try {
+            HttpRequest getRequest = HttpRequest.newBuilder()
+                    .uri(new URI("http://localhost:"+puerto+"/"+servicio)).build();
+            HttpClient httpClient = HttpClient.newHttpClient();
+
+            HttpResponse<String> getResponse = httpClient.send(getRequest, HttpResponse.BodyHandlers.ofString());
+            logger.info(getResponse.body());
+
+            Catedra[] catedra;
+            catedra = gson.fromJson(getResponse.body(), Catedra[].class);
+            return catedra;
+
+        } catch (URISyntaxException | IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String CrearPdf(PdfPTable tabla, String titulo, String archivo) throws IOException, DocumentException {// Establecer el tamaño de página
+        Workbook wb= new HSSFWorkbook();
+
+        Document documento = new Document();
+        FileOutputStream ficheroPdf = new FileOutputStream(archivo);
+        PdfWriter.getInstance(documento,ficheroPdf).setInitialLeading(20);
+
+        documento.open();
+        documento.add(new Paragraph(titulo));
+
+        documento.add(new Phrase(Chunk.NEWLINE));
+        documento.add(new Phrase(Chunk.NEWLINE));
+
+        documento.add(tabla);
+        documento.close();
+
+
+      
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        wb.write(baos);
+        byte[] excelEnBytes = baos.toByteArray();
+        byte[] encodeBytes = Base64.encodeBase64(excelEnBytes);
+
+
+
+        try {
+            FileOutputStream out = new FileOutputStream("test.xls");
+            wb.write(out);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return  Base64.encodeBase64String(excelEnBytes);
+
+    }
+
+    public PdfPTable tablaMaterias(Catedra[] catedras) throws IOException, DocumentException {// Establecer el tamaño de página
+
+        Font fuente = new Font();
+        fuente.setSize(8);
+
+        PdfPTable tabla = new PdfPTable(7);
+        tabla.addCell(new Paragraph("CARRERA",fuente));
+        tabla.addCell(new Paragraph("TURNO",fuente));
+        tabla.addCell(new Paragraph("PROFESOR",fuente));
+        tabla.addCell(new Paragraph("MATERIA",fuente));
+        tabla.addCell(new Paragraph("CUATRIMESTRE",fuente));
+        tabla.addCell(new Paragraph("AÑO",fuente));
+        tabla.addCell(new Paragraph("DIA",fuente));
+ 
+         
+        for (Catedra catedra:catedras)
+        {
+             tabla.addCell(new Paragraph(catedra.materia.carrera.nombre,fuente));
+             tabla.addCell(new Paragraph(catedra.turno.horario,fuente));
+             tabla.addCell(new Paragraph(catedra.profesor.nombre +" "+ catedra.profesor.apellido,fuente));           
+             tabla.addCell(new Paragraph(catedra.materia.nombre,fuente));
+             tabla.addCell(new Paragraph(String.valueOf(catedra.cuatrimestre.periodo),fuente));              
+             tabla.addCell(new Paragraph(String.valueOf(catedra.cuatrimestre.anio),fuente));    
+             tabla.addCell(new Paragraph(String.valueOf(catedra.dia.dia),fuente)); 
+ 
+        }
+        return tabla;     
+    }
+
+    public PdfPTable tablaFinales(Catedra[] catedras) throws IOException, DocumentException {// Establecer el tamaño de página
+
+        Font fuente = new Font();
+        fuente.setSize(8);
+        PdfPTable tabla = new PdfPTable(6);
+        tabla.addCell(new Paragraph("CARRERA",fuente));
+        tabla.addCell(new Paragraph("MATERIA",fuente));
+        tabla.addCell(new Paragraph("PROFESOR",fuente));
+        tabla.addCell(new Paragraph("FECHA",fuente));
+        tabla.addCell(new Paragraph("DIA",fuente));
+        tabla.addCell(new Paragraph("TURNO",fuente));
+ 
+        for (Catedra catedra:catedras)
+        {
+            tabla.addCell(new Paragraph(catedra.materia.carrera.nombre,fuente));
+            tabla.addCell(new Paragraph(catedra.materia.nombre,fuente));
+            tabla.addCell(new Paragraph(catedra.profesor.nombre +" "+ catedra.profesor.apellido,fuente));         
+            tabla.addCell(new Paragraph(String.valueOf(catedra.fecha_final).substring(0,10),fuente));
+            tabla.addCell(new Paragraph(String.valueOf(catedra.dia.dia),fuente)); 
+            tabla.addCell(new Paragraph(String.valueOf(catedra.turno.horario),fuente));                
+ 
+        }
+        return tabla;
+       
+ 
+    }
+
+}
