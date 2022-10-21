@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react'
-import Header from '../components/Header'
+import Header from '../../components/Header'
 import 'bootstrap/dist/css/bootstrap.min.css'
 // import { jsonProducts, categorias } from './productsDemo';
 // import axios from 'axios';

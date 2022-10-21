@@ -17,7 +17,11 @@ public class Service : IService
         string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
         using (var db = new MySqlConnection(connection))
         {
-            var sql = "SELECT * from catedra as ca INNER JOIN usuarios ON ca.profesor_id = usuarios.id INNER JOIN materia ON ca.materia_id = materia.id WHERE ca.materia_id = @idMateria";
+            //var sql = "SELECT * from catedra as ca INNER JOIN usuarios ON ca.profesor_id = usuarios.id INNER JOIN materia ON ca.materia_id = materia.id WHERE ca.materia_id = @idMateria";
+            var sql = "SELECT u.id, u.nombre, u.apellido, u.dni, umc.idcatedra FROM db_gestionacademica.usuario_materia_cuatrimestre umc " +
+                        "INNER JOIN catedra c ON c.id = umc.idcatedra " +
+                        "INNER JOIN usuarios u ON umc.idusuario = u.id " +
+                        "INNER JOIN materia m ON c.materia_id = m.id WHERE c.materia_id = @idMateria";
             var result = db.Query<AlumnoMateria>(sql, new { idMateria });
 
             return result;
@@ -29,7 +33,13 @@ public class Service : IService
         string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
         using (var db = new MySqlConnection(connection))
         {
-            var sql = "SELECT * FROM catedra as ca INNER JOIN materia ON ca.materia_id = materia.id WHERE ca.profesor_id = @idDocente";
+            //var sql = "SELECT * FROM catedra as ca INNER JOIN materia ON ca.materia_id = materia.id WHERE ca.profesor_id = @idDocente";
+            var sql = "SELECT m.id, m.nombre, m.anio, c.nombre as carrera, t.descripcion as turno, ds.descripcion as dia FROM catedra as ca " +
+                        "INNER JOIN materia m ON ca.materia_id = m.id " +
+                        "INNER JOIN carrera c ON m.id_carrera = c.id " +
+                        "INNER JOIN turno t ON ca.turno_id = t.id " +
+                        "INNER JOIN dia_semana ds ON ca.dia_semana_id = ds.id WHERE ca.profesor_id = @idDocente";
+
             var result = db.Query<MateriaDocente>(sql, new { idDocente });
 
             return result;
@@ -53,22 +63,26 @@ public class Service : IService
         public int id { get; set; }
         public string nombre { get; set; }
         public int anio { get; set; }
-        public int id_carrera { get; set; }   
+        //public int id_carrera { get; set; }   
+        public string carrera { get; set; }
+        public string turno { get; set; }
+        public string dia { get; set; }
     }
 
     public class AlumnoMateria
     {
         public int id { get; set; }
-        public string es_final { get; set; }
-        public int turno_id { get; set; }
-        public int profesor_id { get; set; }
-        public int cuatrimestr_id { get; set; }
-        public int materia_id { get; set; }
-        public int fecha_final { get; set; }
-        public int dia_semana_id { get; set; }
+        //public string es_final { get; set; }
+        //public int turno_id { get; set; }
+        //public int profesor_id { get; set; }
+        //public int cuatrimestr_id { get; set; }
+        //public int materia_id { get; set; }
+        //public int fecha_final { get; set; }
+        //public int dia_semana_id { get; set; }
         public string apellido { get; set; }
         public int dni { get; set; }
         public string nombre { get; set; }
-        public int tipo_usuario { get; set; }
+        //public int tipo_usuario { get; set; }
+        public int idcatedra { get; set; }
     }
 }

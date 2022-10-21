@@ -16,11 +16,11 @@ const urltoFile = (url, filename, mimeType) => {
 }
 
 export const descargarExcel = async(url, filename) => {
-    await axios.get("http://localhost:8081/inscripcionesMesas/1").then(response=>{
+    await axios.get(url).then(response=>{
       const data = response.data
       const mimetype = 'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       const base64String = mimetype+';base64,'+data.bytes
-      urltoFile(base64String, 'test.xls', mimetype)
+      urltoFile(base64String, filename, mimetype)
       .then(file => {
          saveAs(file)
         })

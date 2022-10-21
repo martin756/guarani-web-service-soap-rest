@@ -13,7 +13,7 @@ function Table(props) {
     }
   return (
     <>
-    {props.data.length > 0 && <table className="table">
+    {props.data.length > 0 ? <table className="table">
         <thead className='table-primary'>
             <tr>
                 {Object.getOwnPropertyNames(props.data[0]).map(value=>(
@@ -36,7 +36,7 @@ function Table(props) {
                 </tr>
             ))}
         </tbody>
-    </table>}
+    </table>: <div style={{textAlign: 'center'}}>No hay datos para mostrar</div>}
     </>
   )
 }
