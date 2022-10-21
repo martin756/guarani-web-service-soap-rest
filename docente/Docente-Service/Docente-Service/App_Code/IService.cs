@@ -20,4 +20,7 @@ public interface IService
 
     [OperationContract]
     IEnumerable<Service.MateriaDocente> GetMaterias();
+
+    [OperationContract]
+    string InsertNotasCursada(int idUsuario, int idCatedra, int[] notas);
 }

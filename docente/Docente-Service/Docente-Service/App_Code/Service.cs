@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -56,6 +57,48 @@ public class Service : IService
 
             return result;
         }
+    }
+
+    public string InsertNotasCursada(int idUsuario, int idCatedra, int[] notas)
+    {
+        float totalNotas = 0;
+        float nota = 0;
+        var usuarioMateriaCuatrimestreID = GetUsuarioMateriaCuatrimestreID(idUsuario, idCatedra);
+
+        for (int i = 0; i < notas.Length; i++)
+        {
+            totalNotas = +notas[i];
+            nota = notas[i];
+            string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
+            using (var db = new MySqlConnection(connection))
+            {
+                var sql = "INSERT INTO nota_parciales (nota, fecha_carga, idusuario_materia_cuatrimestre) VALUES (@nota,@fecha_carga,@idusuario_materia_cuatrimestre)";
+                var result = db.Query(sql, new { nota, fecha_carga = new DateTime(), usuarioMateriaCuatrimestreID });
+            }
+        }
+        float promedio = totalNotas / notas.Length;
+
+        return "Se guardaron las notas";
+    }
+
+    //---------------------------------------
+    //------Funcion privada de busqueda------
+    //---------------------------------------
+    private IEnumerable<UsuarioMateriaCuatrimestre> GetUsuarioMateriaCuatrimestreID(int idUsuario, int idCatedra)
+    {
+        string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
+        using (var db = new MySqlConnection(connection))
+        {
+            var sql = "SELECT id FROM usuario_materia_cuatrimestre WHERE idusuario = @idusuario AND idcatedra = @idcatedra";
+            var result = db.Query<UsuarioMateriaCuatrimestre>(sql, new { idUsuario, idCatedra });
+
+            return result;
+        }
+    }
+
+    public class UsuarioMateriaCuatrimestre
+    {
+        public int id { get; set; }
     }
 
     public class MateriaDocente
