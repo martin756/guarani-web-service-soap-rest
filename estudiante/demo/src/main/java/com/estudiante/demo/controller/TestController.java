@@ -7,10 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.estudiante.demo.EstudianteModels.Analitico;
 import com.estudiante.demo.EstudianteModels.Inscripcion;
+import com.estudiante.demo.EstudianteModels.MateriaCursada;
 import com.estudiante.demo.ResponseModel.AnaliticoResponse;
 import com.estudiante.demo.ResponseModel.MateriaResponse;
 import com.estudiante.demo.models.Catedra;
@@ -81,43 +83,78 @@ public class TestController {
         return "hola";
         
     }
-    @GetMapping("/")
-    public String helloworld(){
-        return "hola";
+
+
+    @GetMapping("/GetAnaliticoResponse/{id_estudiante}")
+    public AnaliticoResponse RetornarAnalitico(@PathVariable int id_estudiante){
+        return generarAnalitico(id_estudiante);
     }
 
-    @GetMapping("/GetAnalitico")
-    public Analitico getAnalitico(){
-        int idEstudiante = 3;
-        Usuario usuario = usuarioService.getUsuario(idEstudiante);
-        Analitico analitico = new Analitico();
-        analitico.inscripciones = inscripcionService.findByEstudiante(idEstudiante);
-        analitico.setPromedio();
-        return analitico;
-    }
 
-    @GetMapping("/GetAnaliticoResponse")
-    public AnaliticoResponse RetornarSoapAnalitico(){
-        Analitico analitico = new Analitico();
-        analitico.inscripciones = inscripcionService.findByEstudiante(3);
-        analitico.setPromedio();
+
+
+    public AnaliticoResponse generarAnalitico(int id_estudiante){
+        Analitico analitico = new Analitico(inscripcionService.findByEstudiante(id_estudiante));
+        analitico.filtrarInscripciones();
+        analitico.setPromedio_carrera();
         //iterar por las inscripciones y guardar en
         AnaliticoResponse response = new AnaliticoResponse();
-        
-        List<MateriaResponse> materiasAnalitico = new ArrayList<MateriaResponse>();
-        for(Inscripcion i : analitico.inscripciones){
+
+        List<MateriaResponse> materiasAnalitico = new ArrayList<>();
+        for(MateriaCursada i : analitico.inscripciones){
             MateriaResponse materia = new MateriaResponse();
-            materia.nombre = i.catedra.materia.nombre;
-            materia.promedio = i.promedio;
+            materia.nombre = i.nombre;
+            materia.promedio_cursada = i.promedio_cursada;
+            materia.nota_final = i.nota_final;
+            materia.final_cursada = i.promedio_finales;
             materiasAnalitico.add(materia);
         }
         response.materias = materiasAnalitico;
-        response.promedioGeneral = analitico.promedio;
-
+        response.promedioGeneral = analitico.promedio_carrera;
         return response;
-        //poner en envelope soap y retornar
-
     }
+
+    //Ejemplo metodo, devuelve false si el estudiante se quiere inscribir
+    //a un dia y horario que ya tiene ocupado
+    @GetMapping("inscripcionvalida/{id_estudiante}/{id_catedra}")
+    public boolean helloworld(@PathVariable int id_estudiante, @PathVariable int id_catedra){
+        return inscripcionService.sePuedeInscribir(id_estudiante, id_catedra);
+    }
+
+    // @GetMapping("/GetAnalitico")
+    // public Analitico getAnalitico(){
+    //     int idEstudiante = 3;
+    //     Usuario usuario = usuarioService.getUsuario(idEstudiante);
+    //     Analitico analitico = new Analitico();
+    //     analitico.inscripciones = inscripcionService.findByEstudiante(idEstudiante);
+    //     analitico.setPromedio();
+    //     return analitico;
+    // }
+
+    // @GetMapping("/GetAnaliticoResponse")
+    // public AnaliticoResponse RetornarSoapAnalitico(){
+    //     Analitico analitico = new Analitico();
+    //     analitico.inscripciones = inscripcionService.findByEstudiante(3);
+    //     analitico.setPromedio();
+    //     //iterar por las inscripciones y guardar en
+    //     AnaliticoResponse response = new AnaliticoResponse();
+        
+    //     List<MateriaResponse> materiasAnalitico = new ArrayList<MateriaResponse>();
+    //     for(Inscripcion i : analitico.inscripciones){
+    //         MateriaResponse materia = new MateriaResponse();
+    //         materia.nombre = i.catedra.materia.nombre;
+    //         materia.promedio = i.promedio;
+    //         materiasAnalitico.add(materia);
+    //     }
+    //     response.materias = materiasAnalitico;
+    //     response.promedioGeneral = analitico.promedio;
+
+    //     return response;
+    //     //poner en envelope soap y retornar
+
+    // }
+
+
 
 
 
