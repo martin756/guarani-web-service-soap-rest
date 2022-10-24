@@ -1,18 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
 using Dapper;
 using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI.Common;
+using System.Reflection;
+using System.Web.UI.WebControls.WebParts;
+using System.Threading.Tasks;
+using System.Activities.Expressions;
 
-// NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de clase "Service1" en el código, en svc y en el archivo de configuración.
 public class Service : IService
 {
+    //---------------------------------------
+    //---a. Consulta de materias asignadas---
+    //---------------------------------------
+    public IEnumerable<MateriaDocente> GetMateriasDocente(int idDocente)
+    {
+        string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
+        using (var db = new MySqlConnection(connection))
+        {
+            var sql = "SELECT * FROM catedra as ca INNER JOIN materia ON ca.materia_id = materia.id WHERE ca.profesor_id = @idDocente";
+            var result = db.Query<MateriaDocente>(sql, new { idDocente });
+
+            return result;
+        }
+    }
+
+    //-------------------------------------------------------
+    //---b. Consulta de listado de alumnos de cada materia---
+    //-------------------------------------------------------
     public IEnumerable<AlumnoMateria> GetAlumnosMateria(int idMateria)
     {
         string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
@@ -25,17 +39,59 @@ public class Service : IService
         }
     }
 
-    public IEnumerable<MateriaDocente> GetMateriasDocente(int idDocente)
+    //---------------------------------------
+    //-----c. Carga de notas de Cursada------
+    //---------------------------------------
+    public string InsertNotasCursada(int idCatedra, List<Alumnos> alumnos)
     {
-        string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
-        using (var db = new MySqlConnection(connection))
+        foreach (var alumno in alumnos)
         {
-            var sql = "SELECT * FROM catedra as ca INNER JOIN materia ON ca.materia_id = materia.id WHERE ca.profesor_id = @idDocente";
-            var result = db.Query<MateriaDocente>(sql, new { idDocente });
+            {
+                var idAlumno = alumno.idAlumno;
+                var nota = alumno.notaParcial;
+                var idusuario_materia_cuatrimestre = GetUsuarioMateriaCuatrimestreID(idAlumno, idCatedra);
+                var nro_parcial = GetNroParciales(idusuario_materia_cuatrimestre) + 1;
+                var fecha_carga = DateTime.Now;
 
-            return result;
+                string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
+                using (var db = new MySqlConnection(connection))
+                {
+                    var sql = "INSERT INTO nota_parciales (nota, fecha_carga, idusuario_materia_cuatrimestre, nro_parcial) VALUES (@nota, @fecha_carga, @idusuario_materia_cuatrimestre, @nro_parcial)";
+                    var result = db.Execute(sql, new { nota, fecha_carga, idusuario_materia_cuatrimestre, nro_parcial });
+                }
+                UpdateUsuarioMateriaCuatrimestrePromedio(idAlumno, idCatedra, idusuario_materia_cuatrimestre);
+            }
         }
+    return "Se Insertaron las notas de la cursada";
     }
+
+    //---------------------------------------
+    //-----d. Carga de notas de finales------
+    //---------------------------------------
+    public string InsertNotasFinal(int idCatedra, List<Alumnos> alumnos)
+    {
+        foreach (var alumno in alumnos)
+        {
+            {
+                var idAlumno = alumno.idAlumno;
+                var nota = alumno.notaParcial;
+                var idUsuarioMateriaCuatrimestre = GetUsuarioMateriaCuatrimestreID(idAlumno, idCatedra);
+                var fecha_carga = DateTime.Now;
+
+                string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
+                using (var db = new MySqlConnection(connection))
+                {
+                    var sql = "INSERT INTO nota_parciales (nota, fecha_carga, idusuario_materia_cuatrimestre, nro_parcial) VALUES (@nota, @fecha_carga, @idusuario_materia_cuatrimestre, @nro_parcial)";
+                    var result = db.Execute(sql, new { nota, fecha_carga, idUsuarioMateriaCuatrimestre, nro_parcial = 5 });
+                }
+            }
+        }
+        return "Se Insertaron las notas de los finales";
+    }
+
+    //---------------------------------------
+    //-----Funcion privada de busqueda-------
+    //---------------------------------------
 
     public IEnumerable<MateriaDocente> GetMaterias()
     {
@@ -49,42 +105,99 @@ public class Service : IService
         }
     }
 
-    public string InsertNotasCursada(int idUsuario, int idCatedra, int[] notas)
+    //----------------------------------------------------
+    //-----Funcion privada de Calculo de parciales--------
+    //----------------------------------------------------
+    public int GetNroParciales(int idusuario_materia_cuatrimestre)
     {
-        float totalNotas = 0;
-        float nota = 0;
-        var usuarioMateriaCuatrimestreID = GetUsuarioMateriaCuatrimestreID(idUsuario, idCatedra);
-
-        for (int i = 0; i < notas.Length; i++)
+        string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
+        using (var db = new MySqlConnection(connection))
         {
-            totalNotas = +notas[i];
-            nota = notas[i];
-            string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
-            using (var db = new MySqlConnection(connection))
-            {
-                var sql = "INSERT INTO nota_parciales (nota, fecha_carga, idusuario_materia_cuatrimestre) VALUES (@nota,@fecha_carga,@idusuario_materia_cuatrimestre)";
-                var result = db.Query(sql, new { nota, fecha_carga = new DateTime(), usuarioMateriaCuatrimestreID });
-            }
-        }
-        float promedio = totalNotas / notas.Length;
+            var sql = "SELECT COUNT(*) nota FROM nota_parciales WHERE idusuario_materia_cuatrimestre = @idusuario_materia_cuatrimestre";
+            var result = db.QueryFirst<int>(sql, new { idusuario_materia_cuatrimestre });
 
-        return "Se guardaron las notas";
+            return result;
+        }
     }
 
     //---------------------------------------
     //------Funcion privada de busqueda------
     //---------------------------------------
-    private IEnumerable<UsuarioMateriaCuatrimestre> GetUsuarioMateriaCuatrimestreID(int idUsuario, int idCatedra)
+    private int GetUsuarioMateriaCuatrimestreID(int idUsuario, int idCatedra)
     {
         string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
         using (var db = new MySqlConnection(connection))
         {
             var sql = "SELECT id FROM usuario_materia_cuatrimestre WHERE idusuario = @idusuario AND idcatedra = @idcatedra";
-            var result = db.Query<UsuarioMateriaCuatrimestre>(sql, new { idUsuario, idCatedra });
+            var result = db.QuerySingle<UsuarioMateriaCuatrimestre>(sql, new { idUsuario, idCatedra });
 
+            return result.id;
+        }
+    }
+
+    //---------------------------------------
+    //---Funcion privada de Actualizacion----
+    //---------------------------------------
+    private bool UpdateUsuarioMateriaCuatrimestrePromedio(int idusuario, int idcatedra, int idusuario_materia_cuatrimestre)
+    {
+        var sumaNotas = GetSumaNotasUsuario(idusuario_materia_cuatrimestre);
+        var cantidadNotas = GetNroParciales(idusuario_materia_cuatrimestre);
+        var nota_promedio = sumaNotas / cantidadNotas;
+
+        string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
+        using (var db = new MySqlConnection(connection))
+        {
+            var sql = "UPDATE usuario_materia_cuatrimestre SET nota_promedio = @nota_promedio WHERE idusuario = @idusuario AND idcatedra = @idcatedra";
+            var result = db.Execute(sql, new { nota_promedio, idusuario, idcatedra });
+
+            if (result <= 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
+    //--------------------------------------------
+    //---Funcion privada Suma de notas usuario----
+    //--------------------------------------------
+    private float GetSumaNotasUsuario(int idusuario_materia_cuatrimestre)
+    {
+        string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
+        using (var db = new MySqlConnection(connection))
+        {
+            var sql = "SELECT SUM(nota) FROM nota_parciales WHERE idusuario_materia_cuatrimestre = @idusuario_materia_cuatrimestre";
+            var result = db.QueryFirst<int>(sql, new { idusuario_materia_cuatrimestre });
+            
             return result;
         }
     }
+
+    //public string InsertNotasCursadas(int idUsuario, int idCatedra, int[] notas)
+    //{
+    //    float totalNotas = 0;
+    //    float nota = 0;
+    //    var usuarioMateriaCuatrimestreID = GetUsuarioMateriaCuatrimestreID(idUsuario, idCatedra);
+
+    //    for (int i = 0; i < notas.Length; i++)
+    //    {
+    //        totalNotas = +notas[i];
+    //        nota = notas[i];
+    //        string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
+    //        using (var db = new MySqlConnection(connection))
+    //        {
+    //            var sql = "INSERT INTO nota_parciales (nota, fecha_carga, idusuario_materia_cuatrimestre) VALUES (@nota,@fecha_carga,@idusuario_materia_cuatrimestre)";
+    //            var result = db.Query(sql, new { nota, fecha_carga = new DateTime(), usuarioMateriaCuatrimestreID });
+    //        }
+    //    }
+    //    float promedio = totalNotas / notas.Length;
+    //    UpdateUsuarioMateriaCuatrimestrePromedio(idUsuario, idCatedra, promedio);
+
+    //    return "Se guardaron las notas";
+    //}
 
     public class UsuarioMateriaCuatrimestre
     {
