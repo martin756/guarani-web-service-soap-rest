@@ -20,6 +20,7 @@ public class CatedraService {
     CatedraService(CatedraRepository catedraRepository){
         this.repository = catedraRepository;
     }
+    
 
 //    public List<Catedra> getAllCatedras(){
 //        List<Catedra> result = new ArrayList<>();

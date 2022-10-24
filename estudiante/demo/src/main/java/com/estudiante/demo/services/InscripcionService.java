@@ -23,6 +23,7 @@ public class InscripcionService {
     InscripcionService(InscripcionRepository repository){
         this.repository = repository;
     }
+    
 
     public List<Inscripcion> getInscripcionesACatedra(int idCatedra){
         return repository.getInscripcionesCatedra(idCatedra);
