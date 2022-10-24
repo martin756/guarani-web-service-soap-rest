@@ -118,7 +118,6 @@ public class Service : IService
     //---------------------------------------
     //-----Funcion privada de busqueda-------
     //---------------------------------------
-
     public IEnumerable<MateriaDocente> GetMaterias()
     {
         string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";

@@ -4,7 +4,6 @@ using System.ServiceModel;
 [ServiceContract]
 public interface IService
 {
-
     [OperationContract]
     IEnumerable<Service.MateriaDocente> GetMateriasDocente(int idDocente);
 
@@ -19,5 +18,4 @@ public interface IService
 
     [OperationContract]
     string InsertNotasCursada(int idCatedra, List<Service.Alumnos> alumnos);
-
 }
