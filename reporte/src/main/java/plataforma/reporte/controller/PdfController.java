@@ -19,6 +19,7 @@ import plataforma.reporte.Service.AnaliticoService;
 import plataforma.reporte.Service.PdfService;
 import plataforma.reporte.model.Catedra;
 import plataforma.reporte.model.ExcelBase64;
+import plataforma.reporte.models.Usuario;
 import plataforma.reporte.services.CatedraService;
 import plataforma.reporte.services.InscripcionService;
 import plataforma.reporte.services.UsuarioService;
@@ -51,7 +52,8 @@ public class PdfController {
     @GetMapping("/pdfAnalitico/{id_estudiante}")
     public ExcelBase64 RetornarAnalitico(@PathVariable int id_estudiante) throws IOException, DocumentException{
         AnaliticoResponse analitoco =  generarAnalitico(id_estudiante);
-        ExcelBase64 result = new ExcelBase64(pdfService.pdfAnalitico(analitoco));
+        Usuario user = usuarioService.getUsuario(id_estudiante);
+        ExcelBase64 result = new ExcelBase64(pdfService.pdfAnalitico(user, analitoco));
         return result;
     }
 

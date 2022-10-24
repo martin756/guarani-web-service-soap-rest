@@ -1,8 +1,11 @@
 package plataforma.reporte.controller;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import  plataforma.reporte.EstudianteModels.Analitico;
-import  plataforma.reporte.EstudianteModels.Inscripcion;
 import plataforma.reporte.EstudianteModels.MateriaCursada;
 import  plataforma.reporte.ResponseModel.AnaliticoResponse;
 import  plataforma.reporte.ResponseModel.MateriaResponse;
-import plataforma.reporte.models.Catedra;
-import  plataforma.reporte.models.Materia;
-import  plataforma.reporte.models.Usuario;
 import  plataforma.reporte.services.CatedraService;
 import  plataforma.reporte.services.InscripcionService;
 import  plataforma.reporte.services.UsuarioService;
@@ -38,6 +37,8 @@ public class TestController {
     public AnaliticoResponse RetornarAnalitico(@PathVariable int id_estudiante){
         return generarAnalitico(id_estudiante);
     }
+
+
 
 
 

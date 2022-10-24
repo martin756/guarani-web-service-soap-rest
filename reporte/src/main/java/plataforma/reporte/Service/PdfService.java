@@ -30,6 +30,7 @@ import plataforma.reporte.EstudianteModels.Analitico;
 import plataforma.reporte.ResponseModel.AnaliticoResponse;
 import plataforma.reporte.ResponseModel.MateriaResponse;
 import plataforma.reporte.model.Catedra;
+import plataforma.reporte.models.Usuario;
 
 
 @Service
@@ -82,8 +83,6 @@ public class PdfService {
         wb.write(baos);
         byte[] pdfEnBytes = baos.toByteArray();
         byte[] encodeBytes = Base64.encodeBase64(pdfEnBytes);
-
-
 
         try {
             FileOutputStream out = new FileOutputStream("test.pdf");
@@ -153,7 +152,7 @@ public class PdfService {
  
     }
 
-    public String pdfAnalitico(AnaliticoResponse analitico) throws IOException, DocumentException {// Establecer el tamaño de página
+    public String pdfAnalitico(Usuario user, AnaliticoResponse analitico) throws IOException, DocumentException {// Establecer el tamaño de página
 
         Font fuente = new Font();
         fuente.setSize(8);
@@ -165,8 +164,8 @@ public class PdfService {
  
         for (MateriaResponse materia:analitico.materias)
         {
-            tabla.addCell(new Paragraph(materia.nombre));
-            tabla.addCell(new Paragraph(materia.promedio_cursada));
+            tabla.addCell(new Paragraph(materia.nombre , fuente));
+            tabla.addCell(new Paragraph(materia.promedio_cursada ));
             tabla.addCell(new Paragraph(materia.final_cursada));         
             tabla.addCell(new Paragraph(materia.nota_final));                    
  
@@ -174,11 +173,11 @@ public class PdfService {
         Workbook wb= new HSSFWorkbook();
 
         Document documento = new Document();
-        FileOutputStream ficheroPdf = new FileOutputStream("analitico.pdf");
+        FileOutputStream ficheroPdf = new FileOutputStream("analiticoPdf.pdf");
         PdfWriter.getInstance(documento,ficheroPdf).setInitialLeading(20);
 
         documento.open();
-        documento.add(new Paragraph("ANALITICO:"));
+        documento.add(new Paragraph("ANALITICO DEL ESTUDIANTE: " + user.nombre +" "+ user.apellido +" DNI: "+ user.dni));
 
         documento.add(new Phrase(Chunk.NEWLINE));
         documento.add(new Phrase(Chunk.NEWLINE));
@@ -194,16 +193,6 @@ public class PdfService {
         wb.write(baos);
         byte[] pdfEnBytes = baos.toByteArray();
         byte[] encodeBytes = Base64.encodeBase64(pdfEnBytes);
-
-
-
-        try {
-            FileOutputStream out = new FileOutputStream("testAnalitico.pdf");
-            wb.write(out);
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         return  Base64.encodeBase64String(pdfEnBytes);
    
