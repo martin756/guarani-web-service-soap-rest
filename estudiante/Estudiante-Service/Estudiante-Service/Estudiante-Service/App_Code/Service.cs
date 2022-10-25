@@ -28,75 +28,105 @@ public class Service : IService
 
 
 
-
-
     //-------------------------------------
     //-----b. dar de baja inscripcion------
     //-------------------------------------
-    public string DeleteInscripcionAlumno(int id, int idCatedra)
+    public string DeleteInscripcionAlumno(int idusuario, int idcatedra)
     {
-        //string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
-        //using (var db = new MySqlConnection(connection))
-        //{
-        //    var sql = "DELETE usuarios SET password = @password WHERE id = @id";
-        //    var result = db.Execute(sql, new { password, id });
-
-        //    if (result == 1)
-        //    {
-        //        return "Los cambios se ejecuaron correctamente";
-
-        //    }
-        //    return "Los cambios no se ejecuaron correctamente";
-        //}
-        return "Los cambios no se ejecuaron correctamente";
-    }
-
-    //-------------------------------------
-    //-----c. Consultar informe analitico------
-    //-------------------------------------
-    public List<Analitico> SelectInformeAnalitico(int idusuario)
-    {
-        var MateriasUsuario = GetIdsUsuariomateriaCuatrimestre(idusuario);
-        var listaMaterias = new List<Analitico>();
-        foreach (var materia in MateriasUsuario)
+        try
         {
-            var FinalAprobado = GetFinalAprobadoFromUsuario(materia.id);
-            if (FinalAprobado)
+            string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
+            using (var db = new MySqlConnection(connection))
             {
-                string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
-                using (var db = new MySqlConnection(connection))
+                var sql = "DELETE FROM usuario_materia_cuatrimestre WHERE idusuario = @idusuario AND idcatedra = @idcatedra";
+                var result = db.Execute(sql, new { idusuario, idcatedra });
+
+                if (result == 1)
                 {
-                    var sql = "SELECT nombre, nota_promedio FROM catedra as ca INNER JOIN materia ON ca.materia_id = materia.id INNER JOIN usuario_materia_cuatrimestre ON ca.id = usuario_materia_cuatrimestre.idcatedra WHERE usuario_materia_cuatrimestre.idusuario = @idusuario AND usuario_materia_cuatrimestre.nota_promedio >= 4";
-                    var materiaAprobada = db.Query<Analitico>(sql, new { idusuario });
-
-                    //materiaAprobada.final_cursada = GetNotaFinalAlumno(materia.id);
-                    //materiaAprobada.nota_promedio = GetNotaPromedioAlumno(materia.id);
-                    //materiaAprobada.nota_final = (materiaAprobada.final_cursada + materiaAprobada.nota_promedio) / 2;
-
-                    //listaMaterias.Add(materiaAprobada);
+                    return "Se elimino el usuario de la catedra";
+                }
+                else
+                {
+                    return "No se elimino el usuario de la catedra";
                 }
             }
         }
-        return listaMaterias;
+        catch (Exception)
+        {
+            return "No se elimino el usuario de la catedra";
+            throw;
+        }
+    }
+
+    //-----------------------------------------
+    //-----c. Consultar informe analitico------
+    //-----------------------------------------
+    public List<Analitico> SelectInformeAnalitico(int idusuario)
+    {
+        var MateriasUsuario = GetIdsUsuariomateriaCuatrimestre(idusuario);
+        var listaMateriasAprobadas = new List<Analitico>();
+
+        try
+        {
+            foreach (var materia in MateriasUsuario)
+            {
+                var FinalAprobado = GetFinalAprobadoFromUsuario(materia.id);
+                if (FinalAprobado)
+                {
+                    string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
+                    using (var db = new MySqlConnection(connection))
+                    {
+                        var sql = "SELECT nombre, nota_promedio FROM catedra as ca INNER JOIN materia ON ca.materia_id = materia.id INNER JOIN usuario_materia_cuatrimestre ON ca.id = usuario_materia_cuatrimestre.idcatedra WHERE usuario_materia_cuatrimestre.idusuario = @idusuario AND usuario_materia_cuatrimestre.nota_promedio >= 4";
+                        var materiasAprobada = db.QueryMultiple(sql, new { idusuario });
+
+                        List<Analitico> listaMateriasAprobadasUsuario = materiasAprobada.Read<Analitico>().AsList();
+
+                        foreach (var list in listaMateriasAprobadasUsuario)
+                        {
+                            list.final_cursada = GetNotaFinalAlumno(materia.id);
+                            list.nota_promedio = GetNotaPromedioAlumno(materia.id);
+                            list.nota_final = (list.final_cursada + list.nota_promedio) / 2;
+
+                            listaMateriasAprobadas.Add(list);
+                        }
+                        continue;
+                    }
+                }
+            }
+            return listaMateriasAprobadas;
+        }
+        catch (Exception)
+        {
+            return listaMateriasAprobadas;
+            throw;
+        }
     }
 
     //-------------------------------------
     //-------d. Modificar contraseña-------
     //-------------------------------------
-    public string UpdateModificacionDatos(int id, string password)
+    public string UpdateModificacionDatos(int idusuario, string password)
     {
-        string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
-        using (var db = new MySqlConnection(connection))
+        try
         {
-            var sql = "UPDATE usuarios SET password = @password WHERE id = @id";
-            var result = db.Execute(sql, new { password, id });
-
-            if (result == 1)
+            string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
+            using (var db = new MySqlConnection(connection))
             {
-                return "Los cambios se ejecuaron correctamente";
+                var sql = "UPDATE usuarios SET password = @password WHERE id = @id";
+                var result = db.Execute(sql, new { password, idusuario });
 
+                if (result == 1)
+                {
+                    return "Los cambios se ejecuaron correctamente";
+
+                }
+                return "Los cambios no se ejecuaron correctamente";
             }
+        }
+        catch (Exception)
+        {
             return "Los cambios no se ejecuaron correctamente";
+            throw;
         }
     }
 
@@ -173,7 +203,6 @@ public class Service : IService
             throw;
         }
     }
-
 
     //------------------------------------------------------------------
     //----Funcion Privada para ver las catedras de un usuario-----------

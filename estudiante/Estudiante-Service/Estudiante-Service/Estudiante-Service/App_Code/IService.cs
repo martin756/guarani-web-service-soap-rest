@@ -5,10 +5,10 @@ using System.ServiceModel;
 public interface IService
 {
     [OperationContract]
-    string UpdateModificacionDatos(int idAlumno, string password);
+    string UpdateModificacionDatos(int idusuario, string password);
 
     [OperationContract]
-    string DeleteInscripcionAlumno(int id, int idCatedra);
+    string DeleteInscripcionAlumno(int idusuario, int idcatedra);
 
     [OperationContract]
     List<Service.Analitico> SelectInformeAnalitico(int idusuario);
