@@ -21,6 +21,8 @@ public class UsuarioService{
         this.repository = usuarioRepository;
     }
 
+    
+
     public List<Usuario> getAllUsuarios(){
        List<Usuario> result = new ArrayList<>();
        repository.findAll().forEach(result::add);

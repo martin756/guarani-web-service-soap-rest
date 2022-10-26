@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.estudiante.demo.EstudianteModels.Inscripcion;
+import com.estudiante.demo.models.Catedra;
 import com.estudiante.demo.repositories.InscripcionRepository;
 
 import java.util.ArrayList;
@@ -16,11 +17,13 @@ public class InscripcionService {
 
     Logger logger = LoggerFactory.getLogger(InscripcionService.class);
     InscripcionRepository repository ;
+    @Autowired CatedraService catedraService;
 
     @Autowired
     InscripcionService(InscripcionRepository repository){
         this.repository = repository;
     }
+    
 
     public List<Inscripcion> getInscripcionesACatedra(int idCatedra){
         return repository.getInscripcionesCatedra(idCatedra);
@@ -55,5 +58,19 @@ public class InscripcionService {
             // repository.deleteInscripcionDeEstudiante(id);
         }
 
+
+        public boolean sePuedeInscribir(int id_estudiante, int id_catedra){
+            List<Inscripcion> inscripciones = findByEstudiante(id_estudiante);
+            Catedra catedra = catedraService.findCatedraById(id_catedra);
+            for(Inscripcion i : inscripciones){
+                if(i.getCatedra().cuatrimestre == catedra.cuatrimestre &&
+                    i.getCatedra().dia == catedra.dia &&
+                    i.getCatedra().turno == catedra.turno){
+                        return false;
+                    }
+            }
+
+            return true;
+        }
 
 }
