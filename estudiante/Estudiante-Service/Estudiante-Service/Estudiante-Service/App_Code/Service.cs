@@ -130,6 +130,124 @@ public class Service : IService
         }
     }
 
+    //-------------------------------------------------
+    //-------Inscripcion Estudiante a la catedra-------
+    //-------------------------------------------------
+    public string InscripcionEstudianteCatedra(int idusuario, int idcatedra)
+    {
+        try
+        {
+            var usuarioExiste = GetUsuario(idusuario);
+            var catedraExiste = GetCatedra(idcatedra);
+            var inscripcionAlumno = GetInscripcionAlumnoCatedra(idusuario, idcatedra);
+            if (usuarioExiste && catedraExiste)
+            {
+                if (!inscripcionAlumno)
+                {
+                    string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
+                    using (var db = new MySqlConnection(connection))
+                    {
+                        var sql = "INSERT INTO usuario_materia_cuatrimestre (idusuario, idcatedra) VALUES (@idusuario, @idcatedra)";
+                        var result = db.Execute(sql, new { idusuario, idcatedra });
+
+                        if (result == 1)
+                        {
+                            return "El alumno se inscripto correctamente";
+                        }
+                        return "No se pudo inscribir al alumno";
+                    }
+                }
+            }
+            return "No se puede inscribir";
+        }
+        catch (Exception)
+        {
+            return "No se pudo inscribir al alumno";
+            throw;
+        }
+    }
+
+    //-------------------------------------
+    //----Funcion Privada de Busqueda------
+    //-------------------------------------
+    private bool GetInscripcionAlumnoCatedra(int idusuario, int idcatedra)
+    {
+        try
+        {
+            string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
+            using (var db = new MySqlConnection(connection))
+            {
+                var sql = "SELECT id FROM usuario_materia_cuatrimestre WHERE idusuario = @idusuario AND idcatedra = @idcatedra";
+                var result = db.QuerySingle<int>(sql, new { idusuario, idcatedra });
+
+                if (result == 1)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+            return false;
+            throw;
+        }
+    }
+
+    //-------------------------------------
+    //----Funcion Privada de Busqueda------
+    //-------------------------------------
+    private bool GetCatedra(int id)
+    {
+        try
+        {
+            string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
+            using (var db = new MySqlConnection(connection))
+            {
+                var sql = "SELECT COUNT(*) id FROM catedra WHERE id = @id";
+                var result = db.QuerySingle<int>(sql, new { id });
+
+                if (result == 1)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+            return false;
+            throw;
+        }
+    }
+
+    //-------------------------------------
+    //----Funcion Privada de Busqueda------
+    //-------------------------------------
+    private bool GetUsuario(int id)
+    {
+        try
+        {
+            string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
+            using (var db = new MySqlConnection(connection))
+            {
+                var sql = "SELECT COUNT(*) id FROM usuarios WHERE id = @id";
+                var result = db.QuerySingle<int> (sql, new { id });
+
+                if (result == 1)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+            return false;
+            throw;
+        }
+    }
+
     //-------------------------------------
     //----Funcion Privada de Busqueda------
     //-------------------------------------
@@ -150,13 +268,21 @@ public class Service : IService
     //-------------------------------------
     private float GetNotaPromedioAlumno(int id)
     {
-        string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
-        using (var db = new MySqlConnection(connection))
+        try
         {
-            var sql = "SELECT nota_promedio FROM usuario_materia_cuatrimestre WHERE id = @id";
-            var result = db.QueryFirst<float>(sql, new { id });
+            string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
+            using (var db = new MySqlConnection(connection))
+            {
+                var sql = "SELECT nota_promedio FROM usuario_materia_cuatrimestre WHERE id = @id";
+                var result = db.QueryFirst<float>(sql, new { id });
 
-            return result;
+                return result;
+            }
+        }
+        catch (Exception)
+        {
+            return 0;
+            throw;
         }
     }
 

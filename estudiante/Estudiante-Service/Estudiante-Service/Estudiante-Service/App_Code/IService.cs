@@ -11,6 +11,9 @@ public interface IService
     string DeleteInscripcionAlumno(int idusuario, int idcatedra);
 
     [OperationContract]
+    string InscripcionEstudianteCatedra(int idusuario, int idcatedra);
+
+    [OperationContract]
     List<Service.Analitico> SelectInformeAnalitico(int idusuario);
 
 }
