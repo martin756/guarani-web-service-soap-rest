@@ -31,10 +31,10 @@ function Header() {
     {path: '/consultaanalitico',label: "Consultar informe analítico"},
     {path: '/contacto',label: "Modificación de datos de contacto"}
   ], docentePaths = [
-    {path: '/consultamateriasdocente',label: "Consulta de materias asignadas"},
-    {path: '/consultaalumnos',label: "Consulta de materias asignadas"},
-    {path: '/carganotas',label: "Carga de notas de cursada"},
-    {path: '/cargafinales',label: "Carga de notas de final"}
+    {path: '/consultamateriasdocente',label: "Consulta de materias asignadas"}//,
+    //{path: '/consultaalumnos',label: "Consulta de materias asignadas"},
+    //{path: '/carganotas',label: "Carga de notas de cursada"},
+    //{path: '/cargafinales',label: "Carga de notas de final"}
   ], adminPaths = [
     {path: '/abmusuarios',label: "ABM de estudiantes y docentes"},
     {path: '/cargacuatrimestres',label: "Carga de cuatrimestres"},

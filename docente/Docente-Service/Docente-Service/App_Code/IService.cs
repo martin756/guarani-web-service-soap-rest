@@ -13,14 +13,15 @@ public interface IService
 {
 
     [OperationContract]
-    IEnumerable<Service.MateriaDocente> GetMateriasDocente(int idDocente);
+    IEnumerable<MateriaDocente> GetMateriasDocente(int idDocente);
 
     [OperationContract]
-    IEnumerable<Service.AlumnoMateria> GetAlumnosMateria(int idMateria);
+    IEnumerable<AlumnoMateria> GetAlumnosMateria(int idMateria, int idDocente, bool esFinal);
 
     [OperationContract]
-    IEnumerable<Service.MateriaDocente> GetMaterias();
+    IEnumerable<MateriaDocente> GetMaterias();
 
     [OperationContract]
-    string InsertNotasCursada(int idUsuario, int idCatedra, int[] notas);
+    //string InsertNotasCursada(int idUsuario, int idCatedra, int nroParcial, int nota);
+    string UpsertNotasCursada(int idCatedra, int nroParcial, IEnumerable<AlumnoMateriaNotaRequest> listadoAlumnos);
 }

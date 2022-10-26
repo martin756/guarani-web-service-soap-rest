@@ -15,10 +15,10 @@ const urltoFile = (url, filename, mimeType) => {
     );
 }
 
-export const descargarExcel = async(url, filename) => {
+export const descargarArchivo = async(url, filename, mimeType) => {
     await axios.get(url).then(response=>{
       const data = response.data
-      const mimetype = 'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      const mimetype = mimeType
       const base64String = mimetype+';base64,'+data.bytes
       urltoFile(base64String, filename, mimetype)
       .then(file => {

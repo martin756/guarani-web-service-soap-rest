@@ -37,7 +37,7 @@ public class CatedraExcelGenerador {
                 row.createCell(1).setCellValue(e.nombre);
                 row.createCell(2).setCellValue(e.apellido);
                 row.createCell(3).setCellValue(e.dni);
-                row0.createCell(4).setCellValue("Nota ");
+                
                 int cantNotas = 0;
                 if(response[0].catedra.es_final){
                     for (Float nota: r.notas) {
@@ -55,10 +55,13 @@ public class CatedraExcelGenerador {
 
             }
             if(response[0].catedra.es_final){
+                row0.createCell(4).setCellValue("Nota Final");
                 row0.createCell(8).setCellValue("Fecha Final");
                 String fecha = ((String)response[0].catedra.fecha_final).substring(0,10);
                 row0.createCell(9).setCellValue(fecha);
             }else{
+                row0.createCell(4).setCellValue("Nota");
+                row0.createCell(5).setCellValue("NroParcial");
                 row0.createCell(8).setCellValue("Dias");
                 row0.createCell(9).setCellValue(response[0].catedra.dia.dia);
             }

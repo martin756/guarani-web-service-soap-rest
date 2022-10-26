@@ -3,17 +3,18 @@ import Table from '../../components/Table'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { Download, PencilSquare, Trash } from 'react-bootstrap-icons'
-import { descargarExcel, traerDatos, turnos } from '../../components/Data'
+import { descargarArchivo, traerDatos, turnos } from '../../components/Data'
 
 function AbmCatedras(props) {
-    const adminUrl = "http://localhost:8080"
-    //const reporteUrl = "http://localhost:8081"+(props.esFinal ? "/inscripcionesMesas" : "/inscripcionesCatedra")
-    const [catedras, setCatedras] = useState([])
-    const [cuatrimestres, setCuatrimestres] = useState([])
-    const navigate = useNavigate()
     const turno = useRef(null)
     const cuatrimestre = useRef(null)
-  
+    const adminUrl = "http://localhost:8080"
+    const reporteUrl = "http://localhost:8081"
+    const [catedras, setCatedras] = useState([])
+    const [todasLasCatedras, setTodasLasCatedras] = useState([])
+    const [cuatrimestres, setCuatrimestres] = useState([])
+    const navigate = useNavigate()
+
     const traerCatedras = async () => {
       await axios.get(adminUrl+(props.esFinal ? "/mesa/" : "/catedra/")).then(response=>{
         const mappedData = []
@@ -31,6 +32,7 @@ function AbmCatedras(props) {
           mappedData.push(rawData)
         });
         setCatedras(mappedData)
+        setTodasLasCatedras(mappedData)
       }).catch(error=>{
         alert(error)
       })
@@ -43,46 +45,29 @@ function AbmCatedras(props) {
       fetchData()
     }, [props.esFinal])
 
-    
+    const filtrarPorTurno = e => {
+      const idTurno = e.target.selectedIndex+1
+      let arr = [...todasLasCatedras]
+      arr = arr.filter(catedra => idTurno === (catedra.turno === "MAÑANA" ? 1 : catedra.turno === "TARDE" ? 2 : catedra.turno === "NOCHE" ? 3 : 0))
+      setCatedras(arr)
+    }
   return (
     <>
         <div className="container pt-5">
             <div className="row">
                 <h4 className="text-center">{!props.esFinal ? "Carga de cuatrimestres" : "Carga de mesas de exámen"}</h4>
                 <div className="row g-3 d-flex justify-content-center mb-3">
-                    {!props.esFinal ? <><div className="col-3 me-3">
+                    <div className="col-3 me-3">
                         <label className="form-label">Turno</label>
-                        <select ref={turno} className="form-select" required>
-                          <option key={0} value="">Seleccione turno</option>
+                        <select ref={turno} className="form-select" required onChange={filtrarPorTurno}>
                           {turnos.map((value, index)=>(
                             <option key={index+1} value={index+1}>{value}</option>
                           ))}
                         </select>
-                        <div className="invalid-feedback">Seleccione un turno.</div>
                     </div>
-                    <div className="col-3 ms-3">
-                        <label className="form-label">Cuatrimestre</label>
-                        <select ref={cuatrimestre} className="form-select" required>
-                            <option value="">Seleccione cuatrimestre</option>
-                            {cuatrimestres !== undefined && cuatrimestres.map((value,index)=>(
-                              <option key={index} value={value.id}>{value.periodo}° {value.anio}</option>
-                            ))}
-                        </select>
-                        <div className="invalid-feedback">Seleccione cuatrimestre.</div>
-                    </div></> : 
-                    <div className="col-3">
-                        <label className="form-label">Mesa</label>
-                        <select ref={cuatrimestre} className="form-select" required>
-                            <option value="">Seleccione mesa de exámen</option>
-                            {cuatrimestres.length > 0 && cuatrimestres.map((value,index)=>(
-                              <option key={index} value={value.id}>Id: {value.id}, Materia: {value.materia?.nombre}</option>
-                            ))}
-                        </select>
-                        <div className="invalid-feedback">Seleccione cuatrimestre.</div>
-                    </div>}
                 </div>
                 <div className='d-flex justify-content-end mb-3'>
-                    <button onClick={()=>{/*descargarExcel(reporteUrl+"/1","test.xls")*/}} className='me-2 btn btn-info'><Download/> Exportar planilla</button>
+                    <button onClick={()=>{descargarArchivo(reporteUrl+(props.esFinal ? "/pdfFinales" : "/pdfMateriasCuatrimestre?idTurno="+(turno.current === null ? "1" : turno.current.options.selectedIndex+1)),props.esFinal ? "Planilla de finales.pdf" : "Planilla de materias del cuatrimestre.pdf","data:application/pdf")}} className='me-2 btn btn-info'><Download/> Exportar planilla</button>
                     <button onClick={()=>navigate('/Materia')} className='btn btn-primary'>+ Agregar materia</button>
                 </div>
                 <Table data={catedras} linkPage='Materia' actions={{edit: <PencilSquare/>}}/>

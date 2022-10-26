@@ -4,7 +4,6 @@ import {PencilSquare, Trash} from 'react-bootstrap-icons'
 import { Link } from 'react-router-dom'
 
 function Table(props) {
-
     const eliminar = async(id) => {
         alert("No implementado")
         //DELETE NO IMPLEMENTADO
@@ -24,13 +23,13 @@ function Table(props) {
         </thead>
         <tbody className="table-group-divider">
             {Object.values(props.data).map((value)=>(
-                <tr>
+                <tr >
                     {Object.values(value).map(data=>(
                         <td scope='row'>{data}</td>
                     ))}
                     {props.actions &&
                     <td scope='row'>
-                        {props.actions.edit && <Link to={"/"+props.linkPage+"?id="+value.id} className='me-2 btn btn-outline-primary'>{props.actions.edit}</Link>}
+                        {props.actions.edit && <Link to={"/"+props.linkPage+"?id="+value.id+(value.instancia === undefined ? "" : value.instancia === "Cuatrimestre" ? "&esFinal=false" : "&esFinal=true")} className='me-2 btn btn-outline-primary'>{props.actions.edit}</Link>}
                         {props.actions.delete && <button onClick={()=>eliminar(value.id)} type='button' className='me-2 btn btn-outline-danger'>{props.actions.delete}</button>}
                     </td>}
                 </tr>

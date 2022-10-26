@@ -1,6 +1,7 @@
 package plataforma.reporte.Service;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
@@ -8,8 +9,11 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
@@ -58,11 +62,9 @@ public class PdfService {
     }
 
     public String CrearPdf(PdfPTable tabla, String titulo, String archivo) throws IOException, DocumentException {// Establecer el tamaño de página
-        Workbook wb= new HSSFWorkbook();
-
         Document documento = new Document();
-        FileOutputStream ficheroPdf = new FileOutputStream(archivo);
-        PdfWriter.getInstance(documento,ficheroPdf).setInitialLeading(20);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PdfWriter.getInstance(documento,baos).setInitialLeading(20);
 
         documento.open();
         documento.add(new Paragraph(titulo));
@@ -73,24 +75,8 @@ public class PdfService {
         documento.add(tabla);
         documento.close();
 
-
-      
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        wb.write(baos);
-        byte[] excelEnBytes = baos.toByteArray();
-        byte[] encodeBytes = Base64.encodeBase64(excelEnBytes);
-
-
-
-        try {
-            FileOutputStream out = new FileOutputStream("test.xls");
-            wb.write(out);
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return  Base64.encodeBase64String(excelEnBytes);
+        byte[] pdfEnBytes = baos.toByteArray();
+        return  Base64.encodeBase64String(pdfEnBytes);
 
     }
 
@@ -116,7 +102,7 @@ public class PdfService {
              tabla.addCell(new Paragraph(catedra.profesor.nombre +" "+ catedra.profesor.apellido,fuente));           
              tabla.addCell(new Paragraph(catedra.materia.nombre,fuente));
              tabla.addCell(new Paragraph(String.valueOf(catedra.cuatrimestre.periodo),fuente));              
-             tabla.addCell(new Paragraph(String.valueOf(catedra.cuatrimestre.anio),fuente));    
+             tabla.addCell(new Paragraph(String.valueOf(catedra.materia.anio),fuente));    
              tabla.addCell(new Paragraph(String.valueOf(catedra.dia.dia),fuente)); 
  
         }

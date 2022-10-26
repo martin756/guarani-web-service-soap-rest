@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ServicioDocente;
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,12 +25,27 @@ namespace DocenteSOAPClient.Controllers
             return JsonConvert.SerializeObject(response.GetMateriasDocenteResult.ToList());
         }
 
-        [HttpGet("ListadoAlumnos/{IdMateria}")]
-        public async Task<string> GetListadoAlumnosInscriptos(int IdMateria)
+        [HttpGet("ListadoAlumnos")]
+        public async Task<string> GetListadoAlumnosInscriptos([Required]int IdMateria, [Required]int IdDocente, [Required]bool EsFinal)
         {
-            GetAlumnosMateriaRequest request = new() { idMateria = IdMateria };
+            GetAlumnosMateriaRequest request = new() { idMateria = IdMateria, idDocente = IdDocente, esFinal = EsFinal };
             GetAlumnosMateriaResponse response = await soapClient.GetAlumnosMateriaAsync(request);
             return JsonConvert.SerializeObject(response.GetAlumnosMateriaResult.ToList());
+        }
+
+        [HttpPut("CargarNotas")]
+        public async Task<string> PutCargarNotas([FromBody] CargarNotasRequest requestBody )
+        {
+            UpsertNotasCursadaRequest request = new() { idCatedra = requestBody.IdCatedra, nroParcial = requestBody.NroParcial, listadoAlumnos = requestBody.ListadoAlumnos.ToArray() };
+            UpsertNotasCursadaResponse response = await soapClient.UpsertNotasCursadaAsync(request);
+            return response.UpsertNotasCursadaResult;
+        }
+
+        public class CargarNotasRequest
+        {
+            public int IdCatedra { get; set; }
+            public int NroParcial { get; set; }
+            public IEnumerable<AlumnoMateriaNotaRequest> ListadoAlumnos { get; set; }
         }
 
         // POST api/<DocenteServiceController>

@@ -9,6 +9,7 @@
     "axios": "^1.0.0",
     "bootstrap": "^5.2.2",
     "file-saver": "^2.0.5",
+    "html-table-to-json": "^1.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-bootstrap-icons": "^1.9.1",

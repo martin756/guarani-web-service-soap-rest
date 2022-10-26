@@ -14,8 +14,8 @@ namespace ServicioDocente
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Service.MateriaDocente", Namespace="http://schemas.datacontract.org/2004/07/")]
-    public partial class ServiceMateriaDocente : object
+    [System.Runtime.Serialization.DataContractAttribute(Name="MateriaDocente", Namespace="http://schemas.datacontract.org/2004/07/")]
+    public partial class MateriaDocente : object
     {
         
         private int anioField;
@@ -25,6 +25,8 @@ namespace ServicioDocente
         private string diaField;
         
         private int idField;
+        
+        private string instanciaField;
         
         private string nombreField;
         
@@ -83,6 +85,19 @@ namespace ServicioDocente
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string instancia
+        {
+            get
+            {
+                return this.instanciaField;
+            }
+            set
+            {
+                this.instanciaField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string nombre
         {
             get
@@ -111,9 +126,13 @@ namespace ServicioDocente
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Service.AlumnoMateria", Namespace="http://schemas.datacontract.org/2004/07/")]
-    public partial class ServiceAlumnoMateria : object
+    [System.Runtime.Serialization.DataContractAttribute(Name="AlumnoMateria", Namespace="http://schemas.datacontract.org/2004/07/")]
+    public partial class AlumnoMateria : object
     {
+        
+        private float Nota_CursadaField;
+        
+        private float Nota_DefinitivaField;
         
         private string apellidoField;
         
@@ -121,9 +140,39 @@ namespace ServicioDocente
         
         private int idField;
         
+        private int id_inscripcionField;
+        
         private int idcatedraField;
         
         private string nombreField;
+        
+        private ServicioDocente.NotasParciales[] notasField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float Nota_Cursada
+        {
+            get
+            {
+                return this.Nota_CursadaField;
+            }
+            set
+            {
+                this.Nota_CursadaField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float Nota_Definitiva
+        {
+            get
+            {
+                return this.Nota_DefinitivaField;
+            }
+            set
+            {
+                this.Nota_DefinitivaField = value;
+            }
+        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string apellido
@@ -165,6 +214,19 @@ namespace ServicioDocente
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int id_inscripcion
+        {
+            get
+            {
+                return this.id_inscripcionField;
+            }
+            set
+            {
+                this.id_inscripcionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int idcatedra
         {
             get
@@ -187,6 +249,138 @@ namespace ServicioDocente
             set
             {
                 this.nombreField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ServicioDocente.NotasParciales[] notas
+        {
+            get
+            {
+                return this.notasField;
+            }
+            set
+            {
+                this.notasField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="NotasParciales", Namespace="http://schemas.datacontract.org/2004/07/")]
+    public partial class NotasParciales : object
+    {
+        
+        private System.TimeSpan Tiempo_limiteField;
+        
+        private System.DateTime fecha_cargaField;
+        
+        private int idusuario_materia_cuatrimestreField;
+        
+        private float notaField;
+        
+        private int nro_parcialField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.TimeSpan Tiempo_limite
+        {
+            get
+            {
+                return this.Tiempo_limiteField;
+            }
+            set
+            {
+                this.Tiempo_limiteField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime fecha_carga
+        {
+            get
+            {
+                return this.fecha_cargaField;
+            }
+            set
+            {
+                this.fecha_cargaField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int idusuario_materia_cuatrimestre
+        {
+            get
+            {
+                return this.idusuario_materia_cuatrimestreField;
+            }
+            set
+            {
+                this.idusuario_materia_cuatrimestreField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float nota
+        {
+            get
+            {
+                return this.notaField;
+            }
+            set
+            {
+                this.notaField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int nro_parcial
+        {
+            get
+            {
+                return this.nro_parcialField;
+            }
+            set
+            {
+                this.nro_parcialField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AlumnoMateriaNotaRequest", Namespace="http://schemas.datacontract.org/2004/07/")]
+    public partial class AlumnoMateriaNotaRequest : object
+    {
+        
+        private float NotaField;
+        
+        private int idEstudianteField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float Nota
+        {
+            get
+            {
+                return this.NotaField;
+            }
+            set
+            {
+                this.NotaField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int idEstudiante
+        {
+            get
+            {
+                return this.idEstudianteField;
+            }
+            set
+            {
+                this.idEstudianteField = value;
             }
         }
     }
@@ -213,6 +407,12 @@ namespace ServicioDocente
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetMaterias", ReplyAction="http://tempuri.org/IService/GetMateriasResponse")]
         System.Threading.Tasks.Task<ServicioDocente.GetMateriasResponse> GetMateriasAsync(ServicioDocente.GetMateriasRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/UpsertNotasCursada", ReplyAction="http://tempuri.org/IService/UpsertNotasCursadaResponse")]
+        ServicioDocente.UpsertNotasCursadaResponse UpsertNotasCursada(ServicioDocente.UpsertNotasCursadaRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/UpsertNotasCursada", ReplyAction="http://tempuri.org/IService/UpsertNotasCursadaResponse")]
+        System.Threading.Tasks.Task<ServicioDocente.UpsertNotasCursadaResponse> UpsertNotasCursadaAsync(ServicioDocente.UpsertNotasCursadaRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -241,13 +441,13 @@ namespace ServicioDocente
     {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
-        public ServicioDocente.ServiceMateriaDocente[] GetMateriasDocenteResult;
+        public ServicioDocente.MateriaDocente[] GetMateriasDocenteResult;
         
         public GetMateriasDocenteResponse()
         {
         }
         
-        public GetMateriasDocenteResponse(ServicioDocente.ServiceMateriaDocente[] GetMateriasDocenteResult)
+        public GetMateriasDocenteResponse(ServicioDocente.MateriaDocente[] GetMateriasDocenteResult)
         {
             this.GetMateriasDocenteResult = GetMateriasDocenteResult;
         }
@@ -262,13 +462,21 @@ namespace ServicioDocente
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
         public int idMateria;
         
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public int idDocente;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=2)]
+        public bool esFinal;
+        
         public GetAlumnosMateriaRequest()
         {
         }
         
-        public GetAlumnosMateriaRequest(int idMateria)
+        public GetAlumnosMateriaRequest(int idMateria, int idDocente, bool esFinal)
         {
             this.idMateria = idMateria;
+            this.idDocente = idDocente;
+            this.esFinal = esFinal;
         }
     }
     
@@ -279,13 +487,13 @@ namespace ServicioDocente
     {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
-        public ServicioDocente.ServiceAlumnoMateria[] GetAlumnosMateriaResult;
+        public ServicioDocente.AlumnoMateria[] GetAlumnosMateriaResult;
         
         public GetAlumnosMateriaResponse()
         {
         }
         
-        public GetAlumnosMateriaResponse(ServicioDocente.ServiceAlumnoMateria[] GetAlumnosMateriaResult)
+        public GetAlumnosMateriaResponse(ServicioDocente.AlumnoMateria[] GetAlumnosMateriaResult)
         {
             this.GetAlumnosMateriaResult = GetAlumnosMateriaResult;
         }
@@ -309,15 +517,61 @@ namespace ServicioDocente
     {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
-        public ServicioDocente.ServiceMateriaDocente[] GetMateriasResult;
+        public ServicioDocente.MateriaDocente[] GetMateriasResult;
         
         public GetMateriasResponse()
         {
         }
         
-        public GetMateriasResponse(ServicioDocente.ServiceMateriaDocente[] GetMateriasResult)
+        public GetMateriasResponse(ServicioDocente.MateriaDocente[] GetMateriasResult)
         {
             this.GetMateriasResult = GetMateriasResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="UpsertNotasCursada", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class UpsertNotasCursadaRequest
+    {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public int idCatedra;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public int nroParcial;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=2)]
+        public ServicioDocente.AlumnoMateriaNotaRequest[] listadoAlumnos;
+        
+        public UpsertNotasCursadaRequest()
+        {
+        }
+        
+        public UpsertNotasCursadaRequest(int idCatedra, int nroParcial, ServicioDocente.AlumnoMateriaNotaRequest[] listadoAlumnos)
+        {
+            this.idCatedra = idCatedra;
+            this.nroParcial = nroParcial;
+            this.listadoAlumnos = listadoAlumnos;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="UpsertNotasCursadaResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class UpsertNotasCursadaResponse
+    {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public string UpsertNotasCursadaResult;
+        
+        public UpsertNotasCursadaResponse()
+        {
+        }
+        
+        public UpsertNotasCursadaResponse(string UpsertNotasCursadaResult)
+        {
+            this.UpsertNotasCursadaResult = UpsertNotasCursadaResult;
         }
     }
     
@@ -399,6 +653,16 @@ namespace ServicioDocente
         public System.Threading.Tasks.Task<ServicioDocente.GetMateriasResponse> GetMateriasAsync(ServicioDocente.GetMateriasRequest request)
         {
             return base.Channel.GetMateriasAsync(request);
+        }
+        
+        public ServicioDocente.UpsertNotasCursadaResponse UpsertNotasCursada(ServicioDocente.UpsertNotasCursadaRequest request)
+        {
+            return base.Channel.UpsertNotasCursada(request);
+        }
+        
+        public System.Threading.Tasks.Task<ServicioDocente.UpsertNotasCursadaResponse> UpsertNotasCursadaAsync(ServicioDocente.UpsertNotasCursadaRequest request)
+        {
+            return base.Channel.UpsertNotasCursadaAsync(request);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
