@@ -219,7 +219,7 @@ public class Service : IService
             using (var db = new MySqlConnection(connection))
             {
                 var sql = "SELECT COUNT(*) id FROM usuarios WHERE id = @id";
-                var result = db.QuerySingle<int> (sql, new { id });
+                var result = db.QuerySingle<int>(sql, new { id });
 
                 if (result == 1)
                 {
@@ -332,17 +332,6 @@ public class Service : IService
     }
 
     public class Materias
-    {
-        public int id { get; set; }
-        public float nota_promedio { get; set; }
-        public int anio { get; set; }
-        public string nombre { get; set; }
-        public float final_cursada { get; set; }
-        public float promedio_cursada { get; set; }
-        public float promedio_general { get; set; }
-    }
-
-    public class ResponseAnalitico
     {
         public int id { get; set; }
         public float nota_promedio { get; set; }
