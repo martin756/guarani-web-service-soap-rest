@@ -92,15 +92,15 @@ public class Service : IService
     //-------------------------------------
     //-------d. Modificar contraseña-------
     //-------------------------------------
-    public string UpdateModificacionDatos(int idusuario, string password)
+    public string UpdateModificacionDatos(int id, string password, string email, string direccion)
     {
         try
         {
             string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
             using (var db = new MySqlConnection(connection))
             {
-                var sql = "UPDATE usuarios SET password = @password WHERE id = @id";
-                var result = db.Execute(sql, new { password, idusuario });
+                var sql = "UPDATE usuarios SET password = @password, email = @email, direccion = @direccion WHERE id = @id";
+                var result = db.Execute(sql, new { password, email, direccion, id });
 
                 if (result == 1)
                 {

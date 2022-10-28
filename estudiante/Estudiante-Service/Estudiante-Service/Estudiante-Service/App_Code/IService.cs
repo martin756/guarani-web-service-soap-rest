@@ -5,7 +5,7 @@ using System.ServiceModel;
 public interface IService
 {
     [OperationContract]
-    string UpdateModificacionDatos(int idusuario, string password);
+    string UpdateModificacionDatos(int idusuario, string password, string email, string direccion);
 
     [OperationContract]
     string DeleteInscripcionAlumno(int idusuario, int idcatedra);
