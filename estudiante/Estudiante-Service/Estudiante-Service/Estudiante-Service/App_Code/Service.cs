@@ -96,6 +96,20 @@ public class Service : IService
     {
         try
         {
+            var datos = GetUsuarioDatos(id);
+            if (password == "" || password == null)
+            {
+                password = datos.password;
+            }
+            if (email == "" || email == null)
+            {
+                email = datos.email;
+            }
+            if (direccion == "" || direccion == null)
+            {
+                direccion = datos.direccion;
+            }
+
             string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
             using (var db = new MySqlConnection(connection))
             {
@@ -177,6 +191,30 @@ public class Service : IService
         catch (Exception)
         {
             return false;
+            throw;
+        }
+    }
+
+    //-------------------------------------
+    //----Funcion Privada de Busqueda------
+    //-------------------------------------
+    private DatosEstudiante GetUsuarioDatos(int id)
+    {
+        var vacio = new DatosEstudiante();
+        try
+        {
+            string connection = @"Server=localhost; Database=db_gestionacademica; Uid=root; Pwd=root";
+            using (var db = new MySqlConnection(connection))
+            {
+                var sql = "SELECT * FROM usuarios WHERE id = @id";
+                var result = db.QuerySingle<DatosEstudiante>(sql, new { id });
+
+                return result;
+            }
+        }
+        catch (Exception)
+        {
+            return vacio;
             throw;
         }
     }
@@ -349,6 +387,14 @@ public class Service : IService
         public float final_cursada { get; set; }
         public float nota_final { get; set; }
         public float promedio_general { get; set; }
+
+    }
+
+    public class DatosEstudiante
+    {
+        public string password { get; set; }
+        public string direccion { get; set; }
+        public string email { get; set; }
 
     }
 }
