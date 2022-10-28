@@ -1,21 +1,8 @@
 ﻿using Dapper;
 using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI.Common;
 using System;
-using System.Activities.Expressions;
-using System.Activities.Statements;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
-using System.Web.UI.WebControls.WebParts;
-using System.Web;
 
-// NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de clase "Service1" en el código, en svc y en el archivo de configuración.
 public class Service : IService
 {
     //Consulta de materias/exámenes disponibles para inscripción, los listados deben mostrar los
@@ -88,8 +75,8 @@ public class Service : IService
                             list.nota_final = (list.final_cursada + list.nota_promedio) / 2;
 
                             listaMateriasAprobadas.Add(list);
+                            continue;
                         }
-                        continue;
                     }
                 }
             }
@@ -345,6 +332,17 @@ public class Service : IService
     }
 
     public class Materias
+    {
+        public int id { get; set; }
+        public float nota_promedio { get; set; }
+        public int anio { get; set; }
+        public string nombre { get; set; }
+        public float final_cursada { get; set; }
+        public float promedio_cursada { get; set; }
+        public float promedio_general { get; set; }
+    }
+
+    public class ResponseAnalitico
     {
         public int id { get; set; }
         public float nota_promedio { get; set; }
