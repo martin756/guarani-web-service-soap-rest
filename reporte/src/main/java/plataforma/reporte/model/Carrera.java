@@ -9,6 +9,3 @@ public class Carrera {
         return "Carrera [id_carrera=" + id_carrera + ", nombre=" + nombre + "]";
     }
 }
-
-
- 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Dapper;
 using MySql.Data.MySqlClient;
 
@@ -56,7 +57,6 @@ public class Service : IService
                 item.Nota_Cursada = total / (cantidad == 0 ? 1 : cantidad);
                 item.Nota_Definitiva = nota_final != 0 ? (nota_final + item.Nota_Cursada) / 2 : 0;
                 if (esFinal) { item.Nota_Definitiva = nota_final; }
-                //else { item.Nota_Cursada = total / cantidad; }
             }
             
         }
@@ -105,7 +105,6 @@ public class Service : IService
 
         return result;
     }
-
 
     //---------------------------------------
     //----Funciones privadas de busqueda-----

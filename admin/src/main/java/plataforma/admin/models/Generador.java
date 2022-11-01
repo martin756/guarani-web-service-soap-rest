@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import plataforma.admin.EstudianteModels.Inscripcion;
 import plataforma.admin.services.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +79,6 @@ public class Generador {
         return materias;
     }
 
-
     public List<Catedra> generarCatedras() {
         List<Catedra> catedras = new ArrayList<>();
         catedras.add(crearCatedra(1, 6, 1, 1, 2));
@@ -99,10 +97,7 @@ public class Generador {
         catedras.add(crearCatedra(1, 10, 9, 1,3));
 
         return catedras;
-
     }
-
-
 
     private Catedra crearCatedra(int turno, int profesor, int materia, int cuatri, int dia){
         Catedra catedra = new Catedra();
@@ -111,7 +106,6 @@ public class Generador {
         catedra.profesor = usuarioService.getUsuario(profesor);
         catedra.cuatrimestre = cuatriService.getCuatrimestre(cuatri);
         catedra.dia = diaSemanaService.getDia(dia);
-//        catedra.id = new CatedraId(catedra.turno, catedra.profesor, catedra.materia, catedra.cuatrimestre);
         catedra.es_final = false;
         catedra = catedraService.guardarCatedra(catedra);
         return catedra;
@@ -135,7 +129,6 @@ public class Generador {
         for (Inscripcion i : inscripciones) {
             inscripcionService.guardar(i);
         }
-
     }
 
     public Inscripcion crearInscripcion(int idUsuario, int idCatedra){

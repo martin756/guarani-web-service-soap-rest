@@ -1,15 +1,11 @@
 package plataforma.admin.services;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import plataforma.admin.models.Carrera;
 import plataforma.admin.repository.CarreraRepository;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +29,6 @@ public class CarreraService {
     public void updateCarrera(Carrera c){
         repository.save(c);
     }
-
-
 
     public List<Carrera> getCarreras(){
         List<Carrera> result = new ArrayList<>();

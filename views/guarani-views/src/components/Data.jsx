@@ -4,6 +4,19 @@ export const diasLaborales = ["Lunes","Martes","Miércoles","Jueves","Viernes","
 export const turnos = ["Mañana","Tarde","Noche"]
 export const tipoUsuarios = ["Estudiante","Docente","Administrador"]
 
+export const estudiantePaths = [
+  {path: '/consultamateriasestudiante',label: "Consulta de Materias/Exámenes"},
+  {path: '/consultaanalitico',label: "Consultar informe analítico"},
+  {path: '/contacto',label: "Modificación de datos de contacto"}
+], docentePaths = [
+  {path: '/consultamateriasdocente',label: "Consulta de materias asignadas"}
+], adminPaths = [
+  {path: '/abmusuarios',label: "ABM de estudiantes y docentes"},
+  {path: '/cargacuatrimestres',label: "Carga de cuatrimestres"},
+  {path: '/cargaexamenes',label: "Carga de mesas de examen"},
+  {path: '/inscripciones',label: "Habilitación de inscripciones"}
+]
+
 export const traerDatos = async(fullUrl)=>{
     return await (await axios.get(fullUrl)).data
 }
@@ -27,4 +40,4 @@ export const descargarArchivo = async(url, filename, mimeType) => {
     }).catch(error=>{
       alert(error)
     })
-  }
+}

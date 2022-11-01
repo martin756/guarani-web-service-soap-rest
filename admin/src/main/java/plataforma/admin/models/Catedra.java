@@ -41,7 +41,6 @@ public class Catedra implements Serializable {
     @Column(name = "fecha_final")
     public Date fecha_final;
 
-
     @Override
     public String toString() {
         return "Catedra{" +

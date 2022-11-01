@@ -6,5 +6,4 @@ public class AnaliticoResponse {
     public List<MateriaResponse> materias; 
     public float promedioGeneral;
     public AnaliticoResponse(){}
-    
 }

@@ -7,14 +7,12 @@ import org.springframework.stereotype.Service;
 import com.estudiante.demo.EstudianteModels.Inscripcion;
 import com.estudiante.demo.models.Catedra;
 import com.estudiante.demo.repositories.InscripcionRepository;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class InscripcionService {
     
-
     Logger logger = LoggerFactory.getLogger(InscripcionService.class);
     InscripcionRepository repository ;
     @Autowired CatedraService catedraService;
@@ -24,7 +22,6 @@ public class InscripcionService {
         this.repository = repository;
     }
     
-
     public List<Inscripcion> getInscripcionesACatedra(int idCatedra){
         return repository.getInscripcionesCatedra(idCatedra);
     }
@@ -41,7 +38,7 @@ public class InscripcionService {
         return repository.getInscripcionesDeEstudiante(id);
     }
 
-        public List<Inscripcion> getAllInscripciones(){
+    public List<Inscripcion> getAllInscripciones(){
         List<Inscripcion> result = new ArrayList<>();
         repository.findAll().forEach(result::add);
         for (Inscripcion u: result) {
@@ -50,27 +47,25 @@ public class InscripcionService {
         return result;
     }
 
-        public void deleteInscripcion(int i, int j) {
+    public void deleteInscripcion(int i, int j) {
 
-            int id =repository.getIdInscripcion(i,j);
-            logger.info("Inscripcion id ="+ id);
-            repository.deleteById(id);
-            // repository.deleteInscripcionDeEstudiante(id);
+        int id =repository.getIdInscripcion(i,j);
+        logger.info("Inscripcion id ="+ id);
+        repository.deleteById(id);
+        // repository.deleteInscripcionDeEstudiante(id);
+    }
+
+
+    public boolean sePuedeInscribir(int id_estudiante, int id_catedra){
+        List<Inscripcion> inscripciones = findByEstudiante(id_estudiante);
+        Catedra catedra = catedraService.findCatedraById(id_catedra);
+        for(Inscripcion i : inscripciones){
+            if(i.getCatedra().cuatrimestre == catedra.cuatrimestre &&
+                i.getCatedra().dia == catedra.dia &&
+                i.getCatedra().turno == catedra.turno){
+                    return false;
+                }
         }
-
-
-        public boolean sePuedeInscribir(int id_estudiante, int id_catedra){
-            List<Inscripcion> inscripciones = findByEstudiante(id_estudiante);
-            Catedra catedra = catedraService.findCatedraById(id_catedra);
-            for(Inscripcion i : inscripciones){
-                if(i.getCatedra().cuatrimestre == catedra.cuatrimestre &&
-                    i.getCatedra().dia == catedra.dia &&
-                    i.getCatedra().turno == catedra.turno){
-                        return false;
-                    }
-            }
-
-            return true;
-        }
-
+        return true;
+    }
 }

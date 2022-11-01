@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Estudiante-Service", "Estudiante-Service\", "{7D7CDEEA-3DCD-4A68-B424-152664E2FB0A}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.7.2"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_63599"
+		Debug.AspNetCompiler.PhysicalPath = "Estudiante-Service\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_63599\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_63599"
+		Release.AspNetCompiler.PhysicalPath = "Estudiante-Service\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_63599\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "63599"
+		SlnRelativePath = "Estudiante-Service\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EstudianteSOAPClient", "EstudianteSOAPClient\EstudianteSOAPClient.csproj", "{DB648165-835F-4AA6-B65C-DC7C9968CD60}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D7CDEEA-3DCD-4A68-B424-152664E2FB0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D7CDEEA-3DCD-4A68-B424-152664E2FB0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D7CDEEA-3DCD-4A68-B424-152664E2FB0A}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D7CDEEA-3DCD-4A68-B424-152664E2FB0A}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{DB648165-835F-4AA6-B65C-DC7C9968CD60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB648165-835F-4AA6-B65C-DC7C9968CD60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB648165-835F-4AA6-B65C-DC7C9968CD60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB648165-835F-4AA6-B65C-DC7C9968CD60}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BD6D2328-19D1-4B03-A868-1EEC5D68C314}
+	EndGlobalSection
+EndGlobal

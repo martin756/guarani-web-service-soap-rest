@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.estudiante.demo.models.Catedra;
 import com.estudiante.demo.repositories.CatedraRepository;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,22 +18,10 @@ public class CatedraService {
     CatedraService(CatedraRepository catedraRepository){
         this.repository = catedraRepository;
     }
-    
 
-//    public List<Catedra> getAllCatedras(){
-//        List<Catedra> result = new ArrayList<>();
-//        repository.findAll().forEach(result::add);
-//        for (Catedra u: result) {
-//            logger.info("Catedra "+ u.toString());
-//        }
-//        return result;
-//    }
-
-       public List<Catedra> getAllCatedras(){
+    public List<Catedra> getAllCatedras(){
         return repository.getAllCatedras();
     }
-
-
 
     public Catedra guardarCatedra(Catedra u) {
 
@@ -65,9 +51,7 @@ public class CatedraService {
         return repository.findMesaById(id);
     }
 
-    public List<Catedra> getCatedraByTurno(boolean esFinal, int idTurno){return repository.getAllCatedrasTurno(esFinal, idTurno);}
-
-
-
-
+    public List<Catedra> getCatedraByTurno(boolean esFinal, int idTurno){
+        return repository.getAllCatedrasTurno(esFinal, idTurno);
+    }
 }

@@ -7,6 +7,6 @@ import plataforma.admin.models.Usuario;
 
 @Repository
 public interface UsuarioRepository extends CrudRepository<Usuario, Integer> {
-    @Query ("from Usuario where usuario=:username and password=:password")
+    @Query ("from Usuario u where u.usuario = (:username) and u.password = (:password)")
     public Usuario findByUsernameAndPassword(String username, String password);
 }

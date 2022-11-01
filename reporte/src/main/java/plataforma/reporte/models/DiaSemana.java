@@ -1,7 +1,6 @@
 package plataforma.reporte.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity
@@ -19,4 +18,3 @@ public class DiaSemana {
     public DiaSemana() {
     }
 }
-

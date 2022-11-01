@@ -5,6 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import { adminPaths, estudiantePaths, docentePaths } from '../components/Data'
 
 function Header() {
   const cookies = new Cookies()
@@ -25,27 +26,8 @@ function Header() {
     }
   }, [])
 
-  const estudiantePaths = [
-    {path: '/consultamateriasestudiante',label: "Consulta de Materias/Exámenes"},
-    {path: '/inscripcion',label: "Inscripción"},
-    {path: '/consultaanalitico',label: "Consultar informe analítico"},
-    {path: '/contacto',label: "Modificación de datos de contacto"}
-  ], docentePaths = [
-    {path: '/consultamateriasdocente',label: "Consulta de materias asignadas"}//,
-    //{path: '/consultaalumnos',label: "Consulta de materias asignadas"},
-    //{path: '/carganotas',label: "Carga de notas de cursada"},
-    //{path: '/cargafinales',label: "Carga de notas de final"}
-  ], adminPaths = [
-    {path: '/abmusuarios',label: "ABM de estudiantes y docentes"},
-    {path: '/cargacuatrimestres',label: "Carga de cuatrimestres"},
-    //{path: '/planillacuatrimestre',label: "Planilla de cuatrimestre"},
-    {path: '/cargaexamenes',label: "Carga de mesas de examen"},
-    {path: '/inscripciones',label: "Habilitación de inscripciones"}
-  ]
-
   return (
     <>
-        {/* //CAMBIAR EL TERNARIO POR UN IF DEPENDIENDO EL USAURIO QUE */}
         {
           cookies.get('tipoUsuario') === "ESTUDIANTE" ?
           <Usuario cookies={cookies} navigator={navigate} closeSession={cerrarSesion} paths={estudiantePaths}/>

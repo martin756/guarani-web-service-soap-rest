@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import plataforma.admin.models.Materia;
 import plataforma.admin.repository.MateriaRepository;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +35,4 @@ public class MateriaService {
         Materia k = repository.save(m);
         return k.id;
     }
-
-
 }

@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
 import plataforma.admin.models.Usuario;
 import plataforma.admin.requestModels.UsuarioRequest;
 import plataforma.admin.services.UsuarioService;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,13 +29,28 @@ public class UsuarioController {
 
     @GetMapping("/usuarios")
     public List<Usuario> getAll(){
-        return usuarioService.getAllUsuarios();
+        List<Usuario> listadoUsuarios =  usuarioService.getAllUsuarios();
+        List<Usuario> usuariosFiltrados = new ArrayList<Usuario>();
+        for (Usuario usuario : listadoUsuarios) {
+            if(usuario.activo){
+                usuariosFiltrados.add(usuario);
+            }
+        }
+        return usuariosFiltrados;
     }
 
     @PostMapping("/usuario")
     public int crear(@RequestBody UsuarioRequest usuario){
         Usuario nuevoUsuario = new Usuario(usuario.nombre, usuario.apellido, usuario.dni,usuario.tipo);
         logger.info("parseando usuario "+usuario);
+        List<Usuario> listadoUsuarios =  usuarioService.getAllUsuarios();
+        for (Usuario user : listadoUsuarios) {
+            if(nuevoUsuario.getUsuario().equals(user.getUsuario())){
+                nuevoUsuario.activo = true;
+                nuevoUsuario.id = user.id;
+                break;
+            }
+        }
         return usuarioService.guardarUsuario(nuevoUsuario);
     }
 
@@ -51,8 +66,6 @@ public class UsuarioController {
         }
         return result;
     }
-
-
 
     @PutMapping("/usuario/{id}")
     public int update(@PathVariable int id, @RequestBody UsuarioRequest usuario){
@@ -70,13 +83,19 @@ public class UsuarioController {
         return usuarioService.guardarUsuario(usuarioToBeUpdated);
     }
 
+    @DeleteMapping("/usuario/{id}")
+    public int delete(@PathVariable int id){
+        Usuario usuarioToBeDeleted = usuarioService.getUsuario(id);
+        logger.info("usuario a ser desactivado "+usuarioToBeDeleted);
+        usuarioToBeDeleted.activo = false;
+        return usuarioService.guardarUsuario(usuarioToBeDeleted);
+    }
+
     @GetMapping("/usuario")
     public Usuario getByUsernamePassword(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password){
         Usuario result = usuarioService.getUsuarioByUsernameAndPassword(username, password);
-        if(result == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "registro no encontrado");
+        if(result == null || !result.activo) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "registro no encontrado");
         logger.info("Usuario obtenido"+ result.toString());
         return result;
     }
-
-
 }

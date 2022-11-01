@@ -2,17 +2,15 @@ import React, { useEffect, useRef, useState } from 'react'
 import Table from '../../components/Table'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { Download, PencilSquare, Trash } from 'react-bootstrap-icons'
-import { descargarArchivo, traerDatos, turnos } from '../../components/Data'
+import { Download, PencilSquare } from 'react-bootstrap-icons'
+import { descargarArchivo, turnos } from '../../components/Data'
 
 function AbmCatedras(props) {
     const turno = useRef(null)
-    const cuatrimestre = useRef(null)
     const adminUrl = "http://localhost:8080"
     const reporteUrl = "http://localhost:8081"
     const [catedras, setCatedras] = useState([])
     const [todasLasCatedras, setTodasLasCatedras] = useState([])
-    const [cuatrimestres, setCuatrimestres] = useState([])
     const navigate = useNavigate()
 
     const traerCatedras = async () => {
@@ -40,7 +38,6 @@ function AbmCatedras(props) {
   
     useEffect(() => {const fetchData = async()=>{
         await traerCatedras()
-        setCuatrimestres(await traerDatos(adminUrl+(props.esFinal ? "/mesa" : "/cuatrimestre")))
       }
       fetchData()
     }, [props.esFinal])

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Table from '../../components/Table'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { traerDatos } from '../../components/Data'
 import { PencilSquare, Trash } from 'react-bootstrap-icons'

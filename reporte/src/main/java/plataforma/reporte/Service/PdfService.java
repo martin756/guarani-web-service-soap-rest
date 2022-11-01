@@ -1,25 +1,16 @@
 package plataforma.reporte.Service;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.FileUtils;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
 import com.google.gson.Gson;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -29,19 +20,15 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-
-import plataforma.reporte.EstudianteModels.Analitico;
 import plataforma.reporte.ResponseModel.AnaliticoResponse;
 import plataforma.reporte.ResponseModel.MateriaResponse;
 import plataforma.reporte.model.Catedra;
 import plataforma.reporte.models.Usuario;
 
-
 @Service
 public class PdfService {
     Logger logger = LoggerFactory.getLogger(PdfService.class);
 
-    
     String puerto = "8080";
 
     Gson gson = new Gson();
@@ -98,7 +85,6 @@ public class PdfService {
         tabla.addCell(new Paragraph("AÑO",fuente));
         tabla.addCell(new Paragraph("DIA",fuente));
  
-         
         for (Catedra catedra:catedras)
         {
              tabla.addCell(new Paragraph(catedra.materia.carrera.nombre,fuente));
@@ -108,9 +94,8 @@ public class PdfService {
              tabla.addCell(new Paragraph(String.valueOf(catedra.cuatrimestre.periodo),fuente));              
              tabla.addCell(new Paragraph(String.valueOf(catedra.materia.anio),fuente));    
              tabla.addCell(new Paragraph(String.valueOf(catedra.dia.dia),fuente)); 
- 
         }
-        return tabla;     
+        return tabla;
     }
 
     public PdfPTable tablaFinales(Catedra[] catedras) throws IOException, DocumentException {// Establecer el tamaño de página
@@ -133,11 +118,8 @@ public class PdfService {
             tabla.addCell(new Paragraph(String.valueOf(catedra.fecha_final).substring(0,10),fuente));
             tabla.addCell(new Paragraph(String.valueOf(catedra.dia.dia),fuente)); 
             tabla.addCell(new Paragraph(String.valueOf(catedra.turno.horario),fuente));                
- 
         }
         return tabla;
-       
- 
     }
 
     public String pdfAnalitico(Usuario user, AnaliticoResponse analitico) throws IOException, DocumentException {// Establecer el tamaño de página
@@ -152,18 +134,16 @@ public class PdfService {
  
         for (MateriaResponse materia:analitico.materias)
         {
-            tabla.addCell(new Paragraph(materia.nombre , fuente));
-            tabla.addCell(new Paragraph(materia.promedio_cursada ));
-            tabla.addCell(new Paragraph(materia.final_cursada));         
-            tabla.addCell(new Paragraph(materia.nota_final));                    
- 
+            tabla.addCell(new Paragraph(materia.nombre, fuente));
+            tabla.addCell(new Paragraph(Float.toString(materia.promedio_cursada), fuente));
+            tabla.addCell(new Paragraph(Float.toString(materia.final_cursada), fuente));
+            tabla.addCell(new Paragraph(Float.toString(materia.nota_final), fuente));
         }
-        Workbook wb= new HSSFWorkbook();
 
         Document documento = new Document();
-        FileOutputStream ficheroPdf = new FileOutputStream("analiticoPdf.pdf");
-        PdfWriter.getInstance(documento,ficheroPdf).setInitialLeading(20);
-
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PdfWriter.getInstance(documento,baos).setInitialLeading(20);
+        
         documento.open();
         documento.add(new Paragraph("ANALITICO DEL ESTUDIANTE: " + user.nombre +" "+ user.apellido +" DNI: "+ user.dni));
 
@@ -172,18 +152,11 @@ public class PdfService {
 
         documento.add(tabla);
         documento.add(new Phrase(Chunk.NEWLINE));
-        documento.add(new Paragraph("PROMEDIO GENERAL:"+ analitico.promedioGeneral));
+        documento.add(new Paragraph("PROMEDIO GENERAL: "+ analitico.promedioGeneral));
         documento.close();
 
-
-      
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        wb.write(baos);
         byte[] pdfEnBytes = baos.toByteArray();
-        byte[] encodeBytes = Base64.encodeBase64(pdfEnBytes);
 
         return  Base64.encodeBase64String(pdfEnBytes);
-   
- 
     }
 }

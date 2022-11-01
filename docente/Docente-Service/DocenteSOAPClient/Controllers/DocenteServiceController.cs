@@ -7,8 +7,6 @@ using ServicioDocente;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace DocenteSOAPClient.Controllers
 {
     [Route("api/[controller]")]
@@ -47,23 +45,5 @@ namespace DocenteSOAPClient.Controllers
             public int NroParcial { get; set; }
             public IEnumerable<AlumnoMateriaNotaRequest> ListadoAlumnos { get; set; }
         }
-
-        // POST api/<DocenteServiceController>
-        /*[HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<DocenteServiceController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<DocenteServiceController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }*/
     }
 }

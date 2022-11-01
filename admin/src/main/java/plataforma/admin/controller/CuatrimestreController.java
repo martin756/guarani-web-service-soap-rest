@@ -45,5 +45,4 @@ public class CuatrimestreController {
         logger.info("cuatrimestre actualizado "+cuatrimestreToBeUpdated);
         return cuatrimestreService.guardarCuatrimestre(cuatrimestreToBeUpdated);
     }
-
 }

@@ -2,14 +2,8 @@ package com.estudiante.demo.EstudianteModels;
 
 import com.estudiante.demo.models.Catedra;
 import com.estudiante.demo.models.Usuario;
-
 import javax.persistence.*;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "usuario_materia_cuatrimestre")
@@ -47,14 +41,10 @@ public class Inscripcion {
             throw new Exception(e.getMessage());
         }
         return promedio;
-
     }
-
-
 
     public Inscripcion() {
     }
-
 
     public int getId() {
         return this.id;
@@ -88,8 +78,6 @@ public class Inscripcion {
         this.nota_parciales = notas;
     }
 
-
-
     @Override
     public String toString() {
         return "{" +
@@ -99,8 +87,4 @@ public class Inscripcion {
             ", nota_parciales='" + getNotas() + "'" +
             "}";
     }
-   
-
-
-
 }

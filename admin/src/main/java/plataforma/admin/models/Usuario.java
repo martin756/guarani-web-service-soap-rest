@@ -1,6 +1,6 @@
 package plataforma.admin.models;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.persistence.*;
@@ -18,10 +18,14 @@ public class Usuario {
     public String apellido;
     public int dni;
     public TipoUsuario tipoUsuario;
+    public String direccion;
+    public String email;
+    @JsonIgnore
+    public boolean activo;
     @JsonIgnore
     private String usuario;
     @JsonIgnore
-    public String password;
+    private String password;
 
     public Usuario() {
     }
@@ -65,8 +69,6 @@ public class Usuario {
             setPassword(Integer.toString(this.dni));
         }
     }
-
-
 
     public String getUsuario() {
         return usuario;

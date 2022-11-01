@@ -2,7 +2,6 @@ package plataforma.admin.EstudianteModels;
 
 import plataforma.admin.models.Catedra;
 import plataforma.admin.models.Usuario;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -27,6 +26,4 @@ public class Inscripcion {
 
     public Inscripcion() {
     }
-
-
 }

@@ -1,10 +1,7 @@
 package plataforma.reporte.models;
 
-
 import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Component
@@ -17,9 +14,6 @@ public class Carrera {
 
     public String nombre;
 
-//    @OneToMany(mappedBy="carrera", cascade = CascadeType.ALL)
-//    public List<Materia> materias;
-
     public Carrera(String nombre) {
         this.nombre = nombre;
     }
@@ -31,9 +25,6 @@ public class Carrera {
     public String toString() {
         return "Carrera{" +
                 "nombre='" + nombre + '\'' +
-//                "materias " + materias +
                 '}';
     }
-
-
 }

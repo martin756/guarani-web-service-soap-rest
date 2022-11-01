@@ -6,14 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import plataforma.reporte.EstudianteModels.Inscripcion;
 import plataforma.reporte.repositories.InscripcionRepository;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class InscripcionService {
     
-
     Logger logger = LoggerFactory.getLogger(InscripcionService.class);
     InscripcionRepository repository ;
 
@@ -38,7 +36,7 @@ public class InscripcionService {
         return repository.getInscripcionesDeEstudiante(id);
     }
 
-        public List<Inscripcion> getAllInscripciones(){
+    public List<Inscripcion> getAllInscripciones(){
         List<Inscripcion> result = new ArrayList<>();
         repository.findAll().forEach(result::add);
         for (Inscripcion u: result) {
@@ -47,13 +45,10 @@ public class InscripcionService {
         return result;
     }
 
-        public void deleteInscripcion(int i, int j) {
+    public void deleteInscripcion(int i, int j) {
 
-            int id =repository.getIdInscripcion(i,j);
-            logger.info("Inscripcion id ="+ id);
-            repository.deleteById(id);
-            // repository.deleteInscripcionDeEstudiante(id);
-        }
-
-
+        int id =repository.getIdInscripcion(i,j);
+        logger.info("Inscripcion id ="+ id);
+        repository.deleteById(id);
+    }
 }

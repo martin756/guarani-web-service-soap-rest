@@ -1,10 +1,7 @@
 package plataforma.reporte.models;
 
 import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
-import java.util.List;
-
 
 @Entity
 @Component
@@ -13,16 +10,8 @@ public class Materia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int id;
-
-
     public String nombre;
-
-
     public int anio;
-
-
-    //    @OneToMany(mappedBy="materia")
-//    public List<Catedra> catedras;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "id_carrera")
@@ -31,10 +20,6 @@ public class Materia {
     public int getId() {
         return id;
     }
-
-//    public Carrera getCarrera() {
-//        return carrera;
-//    }
 
     public void setCarrera(Carrera carrera) {
         this.carrera = carrera;

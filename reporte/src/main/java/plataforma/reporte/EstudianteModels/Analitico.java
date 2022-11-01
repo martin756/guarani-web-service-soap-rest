@@ -3,10 +3,6 @@ package plataforma.reporte.EstudianteModels;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import plataforma.reporte.models.Materia;
 
 public class Analitico {
@@ -28,15 +24,13 @@ public class Analitico {
         float contador = 0;
         float nota;
         for(MateriaCursada m: inscripciones){
-                nota = m.nota_final;
-                if(nota != 0){
-                    i += nota;
-                    contador ++;
-                }
-
+            nota = m.nota_final;
+            if(nota != 0){
+                i += nota;
+                contador ++;
             }
+        }
         promedio_carrera =  contador == 0 ? 0 : i/ contador;
-
     }
 
     public void filtrarInscripciones(){
@@ -57,8 +51,4 @@ public class Analitico {
         }
         inscripciones = listaMaterias;
     }
-
-
-
-
 }

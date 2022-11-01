@@ -37,10 +37,8 @@ function ListadoAlumnos() {
               alumno.notas.forEach(value=>{
                 if(value.nro_parcial !== 0){
                   Object.defineProperty(alumno, "Nota "+value.nro_parcial+"° Parcial", {value: value.nota, enumerable: true})
-                  //tiempoCarga["Fecha limite de carga "+value.nro_parcial+"° Parcial"] = value.Tiempo_limite
                   Object.defineProperty(tiempoCarga, value.nro_parcial+"° Parcial: ", {value: value.Tiempo_limite, enumerable: true})
                 }else{
-                  //tiempoCarga["Fecha limite de carga Nota Final"] = value.Tiempo_limite
                   nota_final = value.nota
                   tiempo_limite = value.Tiempo_limite
                 }
@@ -51,7 +49,6 @@ function ListadoAlumnos() {
               nota_final !== 0 && Object.defineProperty(alumno, "Nota Final", {value: nota_final, enumerable: true})
               alumno.Nota_Definitiva !== 0 && Object.defineProperty(alumno, "Nota Definitiva", {value: alumno.Nota_Definitiva, enumerable: true})
               tiemposLimites.length > 0 && Object.defineProperty(alumno, "tiempos_limites", {value: tiemposLimites, enumerable: true})
-              /*!alumno.hasOwnProperty('Nota Final') && */
               delete alumno.notas
               delete alumno.Nota_Cursada
               delete alumno.Nota_Definitiva
@@ -75,7 +72,6 @@ function ListadoAlumnos() {
                 const sheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[sheetName];
                 const json = xlsx.utils.sheet_to_json(worksheet);
-                //console.log(json);
                 const jsonData = {listadoAlumnos: []}
                 json.forEach(value=>{
                   jsonData.idCatedra = parseInt(sheetName.slice(8))
@@ -86,19 +82,6 @@ function ListadoAlumnos() {
                   })
                 })
                 procesarNotas(jsonData)
-                /*json.forEach(obj => {
-                    let listaNotas = []
-                    for (var propName in obj) {
-                        if (!propName.toLowerCase().indexOf('nota')) {
-                            const nota = {}
-                            Object.defineProperty(nota, propName, {value: obj[propName], enumerable: true})
-                            listaNotas.push(nota)
-                            delete obj[propName]
-                        }
-                    }
-                    obj.notas = listaNotas
-                });*/
-                
             }
             reader.readAsArrayBuffer(event.target.files[0])
             fileInput.current.value = ''

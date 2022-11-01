@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import plataforma.admin.models.*;
 import plataforma.admin.requestModels.CatedraRequest;
-import plataforma.admin.requestModels.MesaRequest;
 import plataforma.admin.services.*;
-
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,7 +18,6 @@ public class CatedraController {
     @Autowired MateriaService materiaService;
     @Autowired TurnoService turnoService;
     @Autowired DiaSemanaService diaSemanaService;
-
 
     Logger logger = LoggerFactory.getLogger(CatedraController.class);
 
@@ -57,6 +53,22 @@ public class CatedraController {
         return result;
     }
 
+    @PutMapping("/catedra/{idcatedra}")
+    public int update(@PathVariable int idcatedra, @RequestBody CatedraRequest entidad){
+        Catedra result = catedraService.findCatedraById(idcatedra);
+        Catedra catedra = getCatedra(entidad);
+        logger.info("obteniendo catedra");
+        if(result != null){
+            result.cuatrimestre = catedra.cuatrimestre == null ? result.cuatrimestre : catedra.cuatrimestre;
+            result.materia = catedra.materia == null ? result.materia : catedra.materia;
+            result.profesor = catedra.profesor == null ? result.profesor : catedra.profesor;
+            result.turno = catedra.turno == null ? result.turno : catedra.turno;
+            result.dia = catedra.dia == null ? result.dia : catedra.dia;
+        }
+        logger.info("catedra actualizada "+result);
+        return catedraService.guardarCatedra(result).id;
+    }
+
     public Catedra getCatedra(CatedraRequest entidad) {
         Catedra catedra = new Catedra();
         catedra.cuatrimestre = cuatrimestreService.getCuatrimestre(entidad.idCuatrimestre);
@@ -67,12 +79,8 @@ public class CatedraController {
         return  catedra;
     }
 
-
     @GetMapping("/catedra/turno/{idTurno}")
     public List<Catedra> getReporte(@PathVariable int idTurno) {
         return catedraService.getCatedraByTurno(false,idTurno);
     }
-
-
-
 }

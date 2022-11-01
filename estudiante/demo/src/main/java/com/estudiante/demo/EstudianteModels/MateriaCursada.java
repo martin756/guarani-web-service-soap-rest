@@ -1,9 +1,7 @@
 package com.estudiante.demo.EstudianteModels;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 //Guarda la lista de inscripciones de un alumno a una materia
 //sean cursadas, abandonadas o completas
@@ -19,7 +17,6 @@ public class MateriaCursada {
     public float promedio_cursada;
     public float promedio_finales;
     public float nota_final;
-
 
     public MateriaCursada() {
     }
@@ -93,8 +90,6 @@ public class MateriaCursada {
                 nota_final = (promedio_cursada + promedio_finales)/2;
             }
         }
-
-
     }
 
     public void setNombreMateria(){

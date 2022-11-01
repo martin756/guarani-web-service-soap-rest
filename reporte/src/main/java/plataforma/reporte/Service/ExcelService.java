@@ -4,11 +4,7 @@ import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import plataforma.reporte.model.Catedra;
-import plataforma.reporte.model.ExcelBase64;
 import plataforma.reporte.model.Root;
-import plataforma.reporte.model.RootList;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -43,29 +39,4 @@ public class ExcelService {
         }
         return null;
     }
-
-
-//    public void enviarExcel(String excelCodificado){
-////        ExcelBase64 excelBase64 = new ExcelBase64(excelCodificado);
-//        String jsonPost = gson.toJson(excelCodificado);
-//        logger.info(excelCodificado);
-//        try {
-//            HttpRequest postRequest = HttpRequest.newBuilder()
-//                    .uri(new URI("http://localhost:8080/excel"))
-//                    .header("Content-Type" ,"application/octet-stream")
-//                     .POST(HttpRequest.BodyPublishers.ofString(jsonPost)).build();
-//            HttpClient httpClient = HttpClient.newHttpClient();
-//
-//            HttpResponse<String> getResponse = httpClient.send(postRequest, HttpResponse.BodyHandlers.ofString());
-//
-//        } catch (URISyntaxException | IOException | InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//    }
-
-
-
-
 }

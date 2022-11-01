@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import plataforma.reporte.models.Usuario;
 import plataforma.reporte.repositories.UsuarioRepository;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,5 +36,5 @@ public class UsuarioService{
     public Usuario getUsuario(int id){
         return repository.findById(id).get();
     }
-    }
+}
 

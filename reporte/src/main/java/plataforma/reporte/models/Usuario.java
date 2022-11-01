@@ -1,6 +1,6 @@
 package plataforma.reporte.models;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.persistence.*;
@@ -21,8 +21,6 @@ public class Usuario {
     private String usuario;
     public String email;
     public String direccion;
-    
-
     @JsonIgnore
     private String password;
 
@@ -39,7 +37,6 @@ public class Usuario {
     }
 
     private void setUsuario(String name, String apellido){
-
         this.usuario = name+apellido;
     }
     private void setPassword(int dni){
@@ -70,8 +67,6 @@ public class Usuario {
             setPassword(this.dni);
         }
     }
-
-
 
     public String getUsuario() {
         return usuario;

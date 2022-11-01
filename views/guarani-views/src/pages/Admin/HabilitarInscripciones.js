@@ -28,7 +28,6 @@ function HabilitarInscripciones() {
 
     useEffect(() => {
         const fetchData = async()=>{
-            debugger
             const datosFechas = await traerDatos(baseUrl)
             datosFechas.inscripcion_desde = new Date(new Date(datosFechas.inscripcion_desde).toString()+" GMT").toISOString().slice(0, -8)
             datosFechas.inscripcion_hasta = new Date(new Date(datosFechas.inscripcion_hasta).toString()+" GMT").toISOString().slice(0, -8)
@@ -45,39 +44,39 @@ function HabilitarInscripciones() {
     }, []);
   return (
     <>
-          <div className="container">
-          <div className="row g-5 mt-4" style={{justifyContent: 'center'}}>
-          <div className="col-md-6 col-lg-7">
-        <h4 className="mb-3 text-center">Habilitación de Inscripciones</h4>
-        <form onSubmit={event=>establecer(event)} className="needs-validation" noValidate>
-            <div className="row g-3">
-                <div className="col-12">
-                    <label className="form-label">Fecha Comienzo</label>
-                    <input ref={fechaDesde} type="datetime-local" className='form-control' min={new Date().toISOString().slice(0, -8)} required defaultValue={fechas.inscripcion_desde}/>
-                    <div className="invalid-feedback">Ingrese la fecha de comienzo de inscripciones!</div>
-                </div>
-                <div className="col-12">
-                    <label className="form-label">Fecha Finalización</label>
-                    <input ref={fechaHasta} type="datetime-local" className='form-control' min={new Date().toISOString().slice(0, -8)} required defaultValue={fechas.inscripcion_hasta}/>
-                    <div className="invalid-feedback">Ingrese la fecha de finalización de inscripciones!</div>
-                </div>
-                <div className='col-12'>
-                    <label className="form-label">Instancia</label>
-                    <div className="form-check">
-                        <input ref={instanciaCuatri} className="form-check-input" type="radio" name="flexRadioDefault" defaultChecked={!fechas.es_final} />
-                        <label className="form-check-label">Cuatrimestres</label>
+        <div className="container">
+            <div className="row g-5 mt-4" style={{justifyContent: 'center'}}>
+                <div className="col-md-6 col-lg-7">
+                <h4 className="mb-3 text-center">Habilitación de Inscripciones</h4>
+                <form onSubmit={event=>establecer(event)} className="needs-validation" noValidate>
+                    <div className="row g-3">
+                        <div className="col-12">
+                            <label className="form-label">Fecha Comienzo</label>
+                            <input ref={fechaDesde} type="datetime-local" className='form-control' min={new Date().toISOString().slice(0, -8)} required defaultValue={fechas.inscripcion_desde}/>
+                            <div className="invalid-feedback">Ingrese la fecha de comienzo de inscripciones!</div>
+                        </div>
+                        <div className="col-12">
+                            <label className="form-label">Fecha Finalización</label>
+                            <input ref={fechaHasta} type="datetime-local" className='form-control' min={new Date().toISOString().slice(0, -8)} required defaultValue={fechas.inscripcion_hasta}/>
+                            <div className="invalid-feedback">Ingrese la fecha de finalización de inscripciones!</div>
+                        </div>
+                        <div className='col-12'>
+                            <label className="form-label">Instancia</label>
+                            <div className="form-check">
+                                <input ref={instanciaCuatri} className="form-check-input" type="radio" name="flexRadioDefault" defaultChecked={!fechas.es_final} />
+                                <label className="form-check-label">Cuatrimestres</label>
+                            </div>
+                            <div className="form-check">
+                                <input ref={instanciaFinales} className="form-check-input" type="radio" name="flexRadioDefault" defaultChecked={fechas.es_final}/>
+                                <label className="form-check-label">Finales</label>
+                            </div>
+                        </div>
                     </div>
-                    <div className="form-check">
-                        <input ref={instanciaFinales} className="form-check-input" type="radio" name="flexRadioDefault" defaultChecked={fechas.es_final}/>
-                        <label className="form-check-label">Finales</label>
-                    </div>
+                    <hr className="my-4" />
+                    <button className="w-100 btn btn-primary btn-lg" type="submit">Establecer</button>
+                </form>
                 </div>
             </div>
-            <hr className="my-4" />
-            <button className="w-100 btn btn-primary btn-lg" type="submit">Establecer</button>
-        </form>
-        </div>
-        </div>
         </div>
     </>
   )

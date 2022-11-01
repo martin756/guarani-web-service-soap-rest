@@ -16,7 +16,6 @@ function Login() {
     const [validarPasswords, setValidarPasswords] = useState(false)
 
     const iniciarSesion=async(event)=>{
-        debugger
         event.preventDefault()
         await axios.get(baseUrl+`?username=${username.current.value}&password=${sha1(password.current.value)}`)
         .then(response=>{
@@ -28,7 +27,6 @@ function Login() {
             cookies.set('Dni',response.dni)
             cookies.set('tipoUsuario',response.tipoUsuario)
             alert("Bienvenido "+response.nombre)
-            debugger
             !validateChangePassword(response.dni, password.current.value) &&
                 derivarUsuario(response.tipoUsuario)
         })
@@ -39,13 +37,11 @@ function Login() {
                 alert(error)
             }
         })
-        //navigate('/mainmenu')
     }
 
     const cambiarPassword=async(event)=>{
         event.preventDefault()
         if(username.current.value !== password.current.value){
-            //alert("Las contraseñas no coinciden")
             setValidarPasswords(true)
             return
         }
@@ -78,19 +74,8 @@ function Login() {
         return dni == password
     }
 
-    /*const Registrarse=()=>{
-        navigate('/signup')
-    }*/
-
     useEffect(()=>{
         derivarUsuario(cookies.get('tipoUsuario'))
-        /*if(cookies.get('tipoUsuario') === "ESTUDIANTE"){
-            navigate('/consultamateriasestudiante')
-        }else if(cookies.get('tipoUsuario') === "DOCENTE"){
-            navigate('/consultamateriasdocente')
-        }else if(cookies.get('tipoUsuario') === "ADMIN"){
-            navigate('/abmusuarios')
-        }*/
     },[])
 
     return (

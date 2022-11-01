@@ -1,12 +1,9 @@
 package plataforma.reporte.models;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.List;
-
 
 @Entity
 @Table(name="turno")

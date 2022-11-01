@@ -1,13 +1,9 @@
 package com.estudiante.demo.models;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.List;
-
 
 @Entity
 @Table(name="turno")

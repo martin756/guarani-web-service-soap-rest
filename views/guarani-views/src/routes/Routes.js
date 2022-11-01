@@ -2,6 +2,8 @@ import React from 'react'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Login from '../pages/Login'
 import MateriasEstudiante from '../pages/Estudiante/MateriasEstudiante';
+import Analitico from '../pages/Estudiante/Analitico';
+import ModificacionDatos from '../pages/Estudiante/ModificacionDatos';
 import AbmUsuarios from '../pages/Admin/AbmUsuarios';
 import Header from '../components/Header';
 import MateriasDocente from '../pages/Docente/MateriasDocente';
@@ -27,6 +29,8 @@ function App() {
 
         {/* Paths de ESTUDIANTES */}
         <Route path='/consultamateriasestudiante' element={<MateriasEstudiante />}/>
+        <Route path='/consultaanalitico' element={<Analitico />}/>
+        <Route path='/contacto' element={<ModificacionDatos />}/>
 
         {/* Paths de DOCENTES */}
         <Route path='/consultamateriasdocente' element={<MateriasDocente />}/>

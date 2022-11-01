@@ -1,6 +1,5 @@
 package plataforma.admin.controller;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import plataforma.admin.models.Catedra;
 import plataforma.admin.requestModels.MesaRequest;
 import plataforma.admin.services.*;
-
 import java.util.Calendar;
 import java.util.List;
 
@@ -26,7 +24,6 @@ public class MesaExamenController {
     TurnoService turnoService;
     @Autowired
     DiaSemanaService diaSemanaService;
-
 
     Logger logger = LoggerFactory.getLogger(CatedraController.class);
 
@@ -62,6 +59,22 @@ public class MesaExamenController {
         return result;
     }
 
+    @PutMapping("/mesa/{idmesa}")
+    public int update(@PathVariable int idmesa, @RequestBody MesaRequest entidad){
+        Catedra result = catedraService.findCatedraById(idmesa);
+        Catedra catedra = getMesa(entidad);
+        logger.info("obteniendo mesa");
+        if(result != null){
+            result.cuatrimestre = catedra.cuatrimestre == null ? result.cuatrimestre : catedra.cuatrimestre;
+            result.materia = catedra.materia == null ? result.materia : catedra.materia;
+            result.profesor = catedra.profesor == null ? result.profesor : catedra.profesor;
+            result.turno = catedra.turno == null ? result.turno : catedra.turno;
+            result.fecha_final = catedra.fecha_final == null ? result.fecha_final : catedra.fecha_final;
+        }
+        logger.info("mesa actualizada "+result);
+        return catedraService.guardarCatedra(result).id;
+    }
+
     public Catedra getMesa(MesaRequest entidad){
         Catedra catedra = new Catedra();
         catedra.cuatrimestre = cuatrimestreService.getCuatrimestre(entidad.idCuatrimestre);
@@ -81,6 +94,4 @@ public class MesaExamenController {
     public List<Catedra> getReporte(@PathVariable int idTurno) {
         return catedraService.getCatedraByTurno(true,idTurno);
     }
-
-
 }

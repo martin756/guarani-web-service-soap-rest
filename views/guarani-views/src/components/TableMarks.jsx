@@ -1,7 +1,5 @@
-import axios from 'axios'
 import React, { useMemo } from 'react'
-import {PencilSquare, Trash} from 'react-bootstrap-icons'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 function TableMarks(props) {
     const { search } = useLocation();
@@ -14,7 +12,7 @@ function TableMarks(props) {
         <thead className='table-primary'>
             <tr>
                 {Object.getOwnPropertyNames(props.data[0]).map(value=>(
-                        <th scope="col">{value == "tiempos_limites" ? "Tiempos límites de edición" : value}</th>
+                        <th scope="col">{value === "tiempos_limites" ? "Tiempos límites de edición" : value}</th>
                 ))}
                 {esFinal === 'false' ? 
                     <>
@@ -33,28 +31,28 @@ function TableMarks(props) {
                     {Object.values(value).map(data=>(
                         <>
                         {!Array.isArray(data) &&
-                            <td scope='row'>{data}</td>
+                            <td>{data}</td>
                         }
                         </>
                     ))}
-                    <td scope='row'>
-                            {value.tiempos_limites.length > 0 && value.tiempos_limites.map(tiempos=>(
-                                <>
-                                    {Object.entries(tiempos).map(entry=>(
-                                        <div>
-                                        {entry[0]}{entry[1]}
-                                        </div>
-                                    ))}
-                                </>
-                            ))}
+                    <td>
+                        {value.tiempos_limites && value.tiempos_limites.map(tiempos=>(
+                            <>
+                                {Object.entries(tiempos).map(entry=>(
+                                    <div>
+                                    {entry[0]}{entry[1]}
+                                    </div>
+                                ))}
+                            </>
+                        ))}
                     </td>
                     {esFinal === 'false' ? 
                     <>
-                        <td contentEditable style={{background: '#C6EFCE'}} scope='row'></td>
-                        <td contentEditable style={{background: '#D8F3DD'}} scope='row'></td>
+                        <td contentEditable style={{background: '#C6EFCE'}}></td>
+                        <td contentEditable style={{background: '#D8F3DD'}}></td>
                     </> : 
                     <>
-                        <td contentEditable style={{background: '#C6EFCE'}} scope='row'></td>
+                        <td contentEditable style={{background: '#C6EFCE'}}></td>
                     </>}
                 </tr>
             ))}

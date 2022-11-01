@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import plataforma.admin.models.Cuatrimestre;
 import plataforma.admin.repository.CuatrimestreRepository;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Service
 public class CuatrimestreService {
@@ -38,6 +36,4 @@ public class CuatrimestreService {
     public Cuatrimestre getCuatrimestre(int id){
         return repository.findById(id).get();
     }
-
-
 }

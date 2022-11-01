@@ -2,14 +2,8 @@ package plataforma.reporte.EstudianteModels;
 
 import plataforma.reporte.models.Catedra;
 import plataforma.reporte.models.Usuario;
-
 import javax.persistence.*;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "usuario_materia_cuatrimestre")
@@ -31,7 +25,6 @@ public class Inscripcion {
     @OneToMany(mappedBy="inscripcion", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     public List<Nota> nota_parciales;
 
-
     public float promedio;
     public float nota_final;
 
@@ -39,7 +32,6 @@ public class Inscripcion {
         float i = 0;
         int contador = 0;
         for(Nota n : nota_parciales){
-            
             i += n.nota;
             contador ++;
         }
@@ -54,14 +46,10 @@ public class Inscripcion {
             throw new Exception(e.getMessage());
         }
         return promedio;
-
     }
-
-
 
     public Inscripcion() {
     }
-
 
     public int getId() {
         return this.id;
@@ -95,8 +83,6 @@ public class Inscripcion {
         this.nota_parciales = notas;
     }
 
-
-
     @Override
     public String toString() {
         return "{" +
@@ -106,8 +92,4 @@ public class Inscripcion {
             ", nota_parciales='" + getNotas() + "'" +
             "}";
     }
-   
-
-
-
 }

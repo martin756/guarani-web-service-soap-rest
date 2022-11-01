@@ -3,19 +3,15 @@ package plataforma.reporte.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.itextpdf.text.DocumentException;
-
 import plataforma.reporte.EstudianteModels.Analitico;
 import plataforma.reporte.EstudianteModels.MateriaCursada;
 import plataforma.reporte.ResponseModel.AnaliticoResponse;
 import plataforma.reporte.ResponseModel.MateriaResponse;
-import plataforma.reporte.Service.AnaliticoService;
 import plataforma.reporte.Service.PdfService;
 import plataforma.reporte.model.Catedra;
 import plataforma.reporte.model.ExcelBase64;
@@ -57,13 +53,10 @@ public class PdfController {
         return result;
     }
 
-  
-
     public AnaliticoResponse generarAnalitico(int id_estudiante){
         Analitico analitico = new Analitico(inscripcionService.findByEstudiante(id_estudiante));
         analitico.filtrarInscripciones();
         analitico.setPromedio_carrera();
-        //iterar por las inscripciones y guardar en
         AnaliticoResponse response = new AnaliticoResponse();
 
         List<MateriaResponse> materiasAnalitico = new ArrayList<>();
@@ -79,5 +72,4 @@ public class PdfController {
         response.promedioGeneral = analitico.promedio_carrera;
         return response;
     }
-  
 }

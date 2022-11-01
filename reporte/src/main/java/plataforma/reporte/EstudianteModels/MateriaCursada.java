@@ -3,7 +3,6 @@ package plataforma.reporte.EstudianteModels;
 import java.util.ArrayList;
 import java.util.List;
 
-
 //Guarda la lista de inscripciones de un alumno a una materia
 //sean cursadas, abandonadas o completas
 //finales aprobados o desaprobados
@@ -62,7 +61,6 @@ public class MateriaCursada {
         }
         contador = contador == 0 ? 1: contador;
         promedio_cursada = i / contador;
-
     }
 
     public void promedio_finales(){
@@ -75,7 +73,6 @@ public class MateriaCursada {
         }
         contador = contador == 0 ? 1: contador;
         promedio_finales = i/contador;
-
     }
 
     public void setNota_final(){
@@ -92,8 +89,6 @@ public class MateriaCursada {
                 nota_final = (promedio_cursada + promedio_finales)/2;
             }
         }
-
-
     }
 
     public void setNombreMateria(){

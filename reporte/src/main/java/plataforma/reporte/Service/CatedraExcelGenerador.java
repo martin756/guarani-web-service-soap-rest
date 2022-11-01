@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import plataforma.reporte.model.Estudiante;
 import plataforma.reporte.model.Root;
-
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 @Component
@@ -21,15 +19,15 @@ public class CatedraExcelGenerador {
     ExcelService excelService;
 
     public String generarExcel(Root[] response)throws IOException {
-        Workbook wb= new HSSFWorkbook();
-        Sheet sheet = wb.createSheet("Catedra "+response[0].catedra.id);
+        try (Workbook wb = new HSSFWorkbook()) {
+            Sheet sheet = wb.createSheet("Catedra "+response[0].catedra.id);
 
-        Row row0 = sheet.createRow(0);
-        row0.createCell(0).setCellValue("idEstudiante");
-        row0.createCell(1).setCellValue("Nombre");
-        row0.createCell(2).setCellValue("Apellido");
-        row0.createCell(3).setCellValue("Dni");
-        int rowNum = 1;
+            Row row0 = sheet.createRow(0);
+            row0.createCell(0).setCellValue("idEstudiante");
+            row0.createCell(1).setCellValue("Nombre");
+            row0.createCell(2).setCellValue("Apellido");
+            row0.createCell(3).setCellValue("Dni");
+            int rowNum = 1;
             for(Root r: response){
                 Estudiante e = r.estudiante;
                 Row row = sheet.createRow(rowNum++);
@@ -52,7 +50,6 @@ public class CatedraExcelGenerador {
                         cantNotas++;
                     }
                 }
-
             }
             if(response[0].catedra.es_final){
                 row0.createCell(4).setCellValue("Nota Final");
@@ -66,26 +63,18 @@ public class CatedraExcelGenerador {
                 row0.createCell(9).setCellValue(response[0].catedra.dia.dia);
             }
 
-        row0.createCell(10).setCellValue("Catedra id:");
-        row0.createCell(11).setCellValue(response[0].catedra.id);
-        row0.createCell(12).setCellValue("Materia:");
-        row0.createCell(13).setCellValue(response[0].catedra.materia.nombre);
-        row0.createCell(14).setCellValue("Profesor:");
-        row0.createCell(15).setCellValue(response[0].catedra.profesor.apellido+" "+ response[0].catedra.profesor.nombre);
+            row0.createCell(10).setCellValue("Catedra id:");
+            row0.createCell(11).setCellValue(response[0].catedra.id);
+            row0.createCell(12).setCellValue("Materia:");
+            row0.createCell(13).setCellValue(response[0].catedra.materia.nombre);
+            row0.createCell(14).setCellValue("Profesor:");
+            row0.createCell(15).setCellValue(response[0].catedra.profesor.apellido+" "+ response[0].catedra.profesor.nombre);
 
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            wb.write(baos);
+            byte[] excelEnBytes = baos.toByteArray();
 
-
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        wb.write(baos);
-        byte[] excelEnBytes = baos.toByteArray();
-        byte[] encodeBytes = Base64.encodeBase64(excelEnBytes);
-
-//        excelService.enviarExcel(base64String);
-
-
-
-        return  Base64.encodeBase64String(excelEnBytes);
-
+            return  Base64.encodeBase64String(excelEnBytes);
+        }
     }
 }

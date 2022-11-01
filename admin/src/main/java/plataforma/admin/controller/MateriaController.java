@@ -62,7 +62,6 @@ public class MateriaController {
         i++;
         }
         return result;
-
     }
 
     @PutMapping("/materia/{id}") //configurar validaciones
@@ -72,7 +71,4 @@ public class MateriaController {
         materiaToBeUpdated.anio = entidad.anio == 0 ? materiaToBeUpdated.anio : entidad.anio;
         return materiaService.guardarMateria(materiaToBeUpdated);
     }
-
-
-
 }

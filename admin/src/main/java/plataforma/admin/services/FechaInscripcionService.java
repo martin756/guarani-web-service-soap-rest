@@ -5,9 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import plataforma.admin.models.FechaInscripcion;
-import plataforma.admin.models.Materia;
 import plataforma.admin.repository.FechaInscripcionRepository;
-import plataforma.admin.repository.MateriaRepository;
 
 @Service
 public class FechaInscripcionService {
@@ -48,9 +46,7 @@ public class FechaInscripcionService {
         return repository.save(f);
     }
 
-
     public FechaInscripcion getFechas(){
         return repository.findById(1).get();
     }
-
 }

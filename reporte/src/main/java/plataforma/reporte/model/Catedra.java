@@ -1,8 +1,5 @@
 package plataforma.reporte.model;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class Catedra {
     public int id;
     public Turno turno;

@@ -10,6 +10,4 @@ public class UsuarioUpdate {
     public String nuevaPassword;
 
     UsuarioUpdate(){}
-
-    
 }

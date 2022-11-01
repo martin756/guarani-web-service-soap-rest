@@ -3,11 +3,8 @@ package com.estudiante.demo.models;
 import org.springframework.stereotype.Component;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.List;
-
 
 @Entity
 @Component
@@ -25,10 +22,6 @@ public class Materia {
     @Max(value = 5, message = "Anio debe estar entre 1ro y 5to")
     public int anio;
 
-
-    //    @OneToMany(mappedBy="materia")
-//    public List<Catedra> catedras;
-
     @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "id_carrera")
     public Carrera carrera;
@@ -36,10 +29,6 @@ public class Materia {
     public int getId() {
         return id;
     }
-
-//    public Carrera getCarrera() {
-//        return carrera;
-//    }
 
     public void setCarrera(Carrera carrera) {
         this.carrera = carrera;

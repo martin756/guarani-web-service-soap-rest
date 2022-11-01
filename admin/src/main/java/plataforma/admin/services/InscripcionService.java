@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import plataforma.admin.EstudianteModels.Inscripcion;
 import plataforma.admin.repository.InscripcionRepository;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class InscripcionService {
         return repository.findById(id).get();
     }
 
-        public List<Inscripcion> getAllInscripciones(){
+    public List<Inscripcion> getAllInscripciones(){
         List<Inscripcion> result = new ArrayList<>();
         repository.findAll().forEach(result::add);
         for (Inscripcion u: result) {
@@ -41,6 +40,4 @@ public class InscripcionService {
         }
         return result;
     }
-
-
 }

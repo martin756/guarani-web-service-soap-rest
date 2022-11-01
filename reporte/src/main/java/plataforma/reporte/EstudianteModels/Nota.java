@@ -1,9 +1,7 @@
 package plataforma.reporte.EstudianteModels;
 
 import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.Date;
 
 @Entity
@@ -28,7 +26,6 @@ public class Nota {
     public Nota() {
     }
 
-
     @Override
     public String toString() {
         return "{" +
@@ -37,6 +34,4 @@ public class Nota {
             ", fecha_carga='" + fecha_carga + "'" +
             "}";
     }
-
-
 }

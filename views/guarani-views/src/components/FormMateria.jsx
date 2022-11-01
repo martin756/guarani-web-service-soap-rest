@@ -10,8 +10,8 @@ function FormMateria(props) {
     const dia = useRef(null)
     const turno = useRef(null)
     const fechaFinal = useRef(null)
+    const checkFinal = useRef(null)
 
-    const [resp, setResponse] = useState([])
     const [catedra, setCatedra] = useState([])
     const [carreras, setCarreras] = useState([])
     const [cuatrimestres, setCuatrimestres] = useState([])
@@ -45,7 +45,7 @@ function FormMateria(props) {
             "url": baseUrl+partialUrl+(props.idMateria === undefined ? "" : props.idMateria),
             "data": data})
         .then(response=>{
-            method == "post" ? 
+            method === "post" ? 
                 alert("Materia creada con id "+response.data) :
                 alert("Materia con id "+response.data+" modificado")
         }).catch(error=>{
@@ -54,7 +54,7 @@ function FormMateria(props) {
     }
 
     const traerCatedra = async() => {
-        if(props.idMateria == null) return
+        if(props.idMateria === undefined) return
         debugger
         await axios.get(baseUrl+"/catedra/"+props.idMateria).then(response=>{
             definirDatos(response.data)
@@ -125,7 +125,7 @@ function FormMateria(props) {
     };
 
     const handleFinal = () => {
-        setFlagFinal(!flagFinal)
+        setFlagFinal(checkFinal.current.checked)
     }
   return (
     <>
@@ -208,13 +208,13 @@ function FormMateria(props) {
                 </div>
                 <div>
                 <div className="form-check mb-3">
-                    <input type="checkbox" className="form-check-input" onChange={handleFinal} defaultChecked={catedra.esFinal}/> 
+                    <input ref={checkFinal} type="checkbox" className="form-check-input" onChange={handleFinal} defaultChecked={catedra.esFinal}/> 
                     <label className="form-check-label" >¿Es Final?</label>
                 </div>
                 {flagFinal &&
                 <div className="col-12">
                     <label className="form-label">Fecha de exámen</label>
-                    <input ref={fechaFinal} type="datetime-local" className='form-control' name="text" min={new Date().toISOString().slice(0, -8)} required value={catedra.fechaFinal}/>
+                    <input ref={fechaFinal} type="datetime-local" className='form-control' name="text" min={new Date().toISOString().slice(0, -8)} required defaultValue={catedra.fechaFinal}/>
                     <div className="invalid-feedback">Ingrese la fecha de exámen!</div>
                 </div>
                 }
