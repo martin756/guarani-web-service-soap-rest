@@ -45,7 +45,7 @@ namespace EstudianteSOAPClient.Controllers
                 return StatusCode(int.Parse(e.Code.Name), JsonConvert.DeserializeObject<ErrorDetails>(e.Message));
             }
         }
-
+     
         [HttpDelete("Desinscripcion")]
         public async Task<IActionResult> DesinscribirAlumno([Required] int idUsuario, [Required] int idCatedra)
         {
@@ -79,6 +79,21 @@ namespace EstudianteSOAPClient.Controllers
                 return Ok(response.UpdateModificacionDatosResult);
             }
             catch(FaultException e)
+            {
+                return StatusCode(int.Parse(e.Code.Name), JsonConvert.DeserializeObject<ErrorDetails>(e.Message));
+            }
+        }
+
+        [HttpPost("CambioCatedra")]
+        public async Task<IActionResult> CambioCatedra([Required] int idUsuarioMateriaCuatrimestre, [Required] int idCatedraNueva)
+        {
+            try
+            {
+                CambioCatedraRequest request = new() { idUsuarioMateriaCuatrimestre = idUsuarioMateriaCuatrimestre, idCatedraNueva = idCatedraNueva };
+                CambioCatedraResponse response = await soapClient.CambioCatedraAsync(request);
+                return Ok(response.CambioCatedraResult);
+            }
+            catch (FaultException e)
             {
                 return StatusCode(int.Parse(e.Code.Name), JsonConvert.DeserializeObject<ErrorDetails>(e.Message));
             }

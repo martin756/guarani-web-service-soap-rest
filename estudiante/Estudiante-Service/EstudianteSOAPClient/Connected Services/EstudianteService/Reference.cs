@@ -332,33 +332,33 @@ namespace EstudianteService
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/UpdateModificacionDatos", ReplyAction="http://tempuri.org/IService/UpdateModificacionDatosResponse")]
         EstudianteService.UpdateModificacionDatosResponse UpdateModificacionDatos(EstudianteService.UpdateModificacionDatosRequest request);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/UpdateModificacionDatos", ReplyAction="http://tempuri.org/IService/UpdateModificacionDatosResponse")]
         System.Threading.Tasks.Task<EstudianteService.UpdateModificacionDatosResponse> UpdateModificacionDatosAsync(EstudianteService.UpdateModificacionDatosRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/InscripcionAlumno", ReplyAction="http://tempuri.org/IService/InscripcionAlumnoResponse")]
-        EstudianteService.InscripcionAlumnoResponse InscripcionAlumno(EstudianteService.InscripcionAlumnoRequest request);
-        
+        EstudianteService.InscripcionAlumnoResponse InscripcionAlumno(EstudianteService.InscripcionAlumnoRequest request);        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/InscripcionAlumno", ReplyAction="http://tempuri.org/IService/InscripcionAlumnoResponse")]
         System.Threading.Tasks.Task<EstudianteService.InscripcionAlumnoResponse> InscripcionAlumnoAsync(EstudianteService.InscripcionAlumnoRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/DeleteInscripcionAlumno", ReplyAction="http://tempuri.org/IService/DeleteInscripcionAlumnoResponse")]
-        EstudianteService.DeleteInscripcionAlumnoResponse DeleteInscripcionAlumno(EstudianteService.DeleteInscripcionAlumnoRequest request);
-        
+        EstudianteService.DeleteInscripcionAlumnoResponse DeleteInscripcionAlumno(EstudianteService.DeleteInscripcionAlumnoRequest request);        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/DeleteInscripcionAlumno", ReplyAction="http://tempuri.org/IService/DeleteInscripcionAlumnoResponse")]
         System.Threading.Tasks.Task<EstudianteService.DeleteInscripcionAlumnoResponse> DeleteInscripcionAlumnoAsync(EstudianteService.DeleteInscripcionAlumnoRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SelectInformeAnalitico", ReplyAction="http://tempuri.org/IService/SelectInformeAnaliticoResponse")]
-        EstudianteService.SelectInformeAnaliticoResponse SelectInformeAnalitico(EstudianteService.SelectInformeAnaliticoRequest request);
-        
+        EstudianteService.SelectInformeAnaliticoResponse SelectInformeAnalitico(EstudianteService.SelectInformeAnaliticoRequest request);        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SelectInformeAnalitico", ReplyAction="http://tempuri.org/IService/SelectInformeAnaliticoResponse")]
         System.Threading.Tasks.Task<EstudianteService.SelectInformeAnaliticoResponse> SelectInformeAnaliticoAsync(EstudianteService.SelectInformeAnaliticoRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/TraerInscripcionesDisponibles", ReplyAction="http://tempuri.org/IService/TraerInscripcionesDisponiblesResponse")]
-        EstudianteService.TraerInscripcionesDisponiblesResponse TraerInscripcionesDisponibles(EstudianteService.TraerInscripcionesDisponiblesRequest request);
-        
+        EstudianteService.TraerInscripcionesDisponiblesResponse TraerInscripcionesDisponibles(EstudianteService.TraerInscripcionesDisponiblesRequest request);        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/TraerInscripcionesDisponibles", ReplyAction="http://tempuri.org/IService/TraerInscripcionesDisponiblesResponse")]
         System.Threading.Tasks.Task<EstudianteService.TraerInscripcionesDisponiblesResponse> TraerInscripcionesDisponiblesAsync(EstudianteService.TraerInscripcionesDisponiblesRequest request);
+       
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IService/CambioCatedra", ReplyAction = "http://tempuri.org/IService/CambioCatedraResponse")]
+        EstudianteService.CambioCatedraResponse CambioCatedra(EstudianteService.CambioCatedraRequest request);
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IService/CambioCatedra", ReplyAction = "http://tempuri.org/IService/CambioCatedraResponse")]
+        System.Threading.Tasks.Task<EstudianteService.CambioCatedraResponse> CambioCatedraAsync(EstudianteService.CambioCatedraRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -558,7 +558,50 @@ namespace EstudianteService
             this.TraerInscripcionesDisponiblesResult = TraerInscripcionesDisponiblesResult;
         }
     }
+
+
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName = "TraerInscripcionesDisponibles", WrapperNamespace = "http://tempuri.org/", IsWrapped = true)]
+    public partial class CambioCatedraRequest
+    {
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 0)]
+        public int idUsuarioMateriaCuatrimestre;
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 1)]
+        public int idCatedraNueva;
+
+        public CambioCatedraRequest()
+        {
+        }
+
+        public CambioCatedraRequest(int idUsuarioMateriaCuatrimestre, int idCatedraNueva)
+        {
+            this.idUsuarioMateriaCuatrimestre = idUsuarioMateriaCuatrimestre;        
+            this.idCatedraNueva = idCatedraNueva;        }
+    }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName = "CambioCatedraResponse", WrapperNamespace = "http://tempuri.org/", IsWrapped = true)]
+    public partial class CambioCatedraResponse
+    {
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 0)]
+        public string CambioCatedraResult;
+
+        public CambioCatedraResponse()
+        {
+        }
+
+        public CambioCatedraResponse(string CambioCatedraResult)
+        {
+            this.CambioCatedraResult = CambioCatedraResult;
+        }
+    }
+
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     public interface IServiceChannel : EstudianteService.IService, System.ServiceModel.IClientChannel
     {
@@ -658,16 +701,26 @@ namespace EstudianteService
         {
             return base.Channel.TraerInscripcionesDisponiblesAsync(request);
         }
-        
+
+        public EstudianteService.CambioCatedraResponse CambioCatedra(EstudianteService.CambioCatedraRequest request)
+        {
+            return base.Channel.CambioCatedra(request);
+        }
+
+        public System.Threading.Tasks.Task<EstudianteService.CambioCatedraResponse> CambioCatedraAsync(EstudianteService.CambioCatedraRequest request)
+        {
+            return base.Channel.CambioCatedraAsync(request);
+        }
+
         public virtual System.Threading.Tasks.Task OpenAsync()
         {
             return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndOpen));
         }
         
-        public virtual System.Threading.Tasks.Task CloseAsync()
-        {
-            return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginClose(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndClose));
-        }
+        //public virtual System.Threading.Tasks.Task CloseAsync()
+        //{
+        //    return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginClose(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndClose));
+        //}
         
         private static System.ServiceModel.Channels.Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
         {
