@@ -8,7 +8,7 @@ using System.Web;
 /// </summary>
 public class CambioCatedra
 {
-   public int idusuario_materia_cuatrimestre { get; set; }
+    public int idusuario_materia_cuatrimestre { get; set; }
     public int idcatedra_nueva { get; set; }
     public string solicitud { get; set; }
 

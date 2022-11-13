@@ -20,6 +20,6 @@ public interface IService
     List<Catedra> TraerInscripcionesDisponibles(int idUsuario);
 
     [OperationContract]
-    string CambioCatedra(int idUsuarioMateriaCuatrimestre, int idCatedraNueva);
+    string CambioCatedra(CambioCatedra cambiocatedra);
 
 }

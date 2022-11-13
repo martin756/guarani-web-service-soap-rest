@@ -324,7 +324,62 @@ namespace EstudianteService
             }
         }
     }
+
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name = "CambioCatedra", Namespace = "http://schemas.datacontract.org/2004/07/")]
+    public partial class CambioCatedra : object
+    {
+
+        private int idusuario_materia_cuatrimestreField;
+
+        private int idcatedra_nuevaField; 
+
+        private string solicitudField;
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int idusuario_materia_cuatrimestre
+        {
+            get
+            {
+                return this.idusuario_materia_cuatrimestreField;
+            }
+            set
+            {
+                this.idusuario_materia_cuatrimestreField = value;
+            }
+        }
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int idcatedra_nueva
+        {
+            get
+            {
+                return this.idcatedra_nuevaField;
+            }
+            set
+            {
+                this.idcatedra_nuevaField = value;
+            }
+        }
+
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string solicitud
+        {
+            get
+            {
+                return this.solicitudField;
+            }
+            set
+            {
+                this.solicitudField = value;
+            }
+        }
+
     
+    }
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="EstudianteService.IService")]
     public interface IService
@@ -579,7 +634,8 @@ namespace EstudianteService
         public CambioCatedraRequest(int idUsuarioMateriaCuatrimestre, int idCatedraNueva)
         {
             this.idUsuarioMateriaCuatrimestre = idUsuarioMateriaCuatrimestre;        
-            this.idCatedraNueva = idCatedraNueva;        }
+            this.idCatedraNueva = idCatedraNueva;        
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]

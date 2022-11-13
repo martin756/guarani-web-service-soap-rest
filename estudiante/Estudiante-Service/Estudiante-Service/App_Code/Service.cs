@@ -113,7 +113,7 @@ public class Service : IService
         }
         if (SePuedeInscribir(idusuario, idcatedra))
         {
-            string sql = "INSERT INTO usuario_materia_cuatrimestre VALUES (null,null,@idusuario,@idcatedra,0,0)";
+            string sql = "INSERT INTO usuario_materia_cuatrimestre VALUES (null,null,@idusuario,@idcatedra)";
             db.Execute(sql, new { idusuario, idcatedra});
             return "Ok, Inscripción exitosa";
         }
@@ -233,17 +233,14 @@ public class Service : IService
     //-------------------------------------
     //----RECUPERATORIO. Modificar catedra----
     //-------------------------------------
-    public string UpdateCambioCatedra(int idusuario, int idcatedra, int id)
+    public string CambioCatedra(CambioCatedra cambiocatedra)
     {
-        Estudiante estudiante = db.QueryFirstOrDefault<Estudiante>("SELECT nota_promedio, idusuario, idcatedra, activo FROM usuario_materia_cuatrimestre WHERE id = @id", new { id });
-        if (estudiante == null)
-        {
-            throw HttpException(HttpStatusCode.NotFound, "El id especificado no se encuentra existente");
-        }
 
-        string sql = "UPDATE usuario_materia_cuatrimestre SET idcatedra = @idcatedra , activo = false WHERE id = @id";
-        db.Execute(sql, new { idcatedra, id });
-        return "Los cambios se ejecutaron correctamente";
+        string sql = "INSERT INTO cambio_catedra VALUES (null,@idusuario,@idcatedra,@solicitud)";
+        db.Execute(sql, new { cambiocatedra.idusuario_materia_cuatrimestre, cambiocatedra.idcatedra_nueva, cambiocatedra.solicitud });
+        //db.Execute("INSERT INTO cambio_catedra VALUES (2,2,'Pendiente')");
+        return "Ok, Inscripción exitosa";
+       
     }
     //Para codificar la password
     private static string Sha1(string value)
