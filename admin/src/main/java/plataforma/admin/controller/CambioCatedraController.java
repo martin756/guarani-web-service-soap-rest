@@ -35,9 +35,9 @@ public class CambioCatedraController {
         CambioCatedra solicitud = cambioService.getSolicitud(id);  
         if(estado == "Aceptado"){
             //cambiar idCatedra en usuario_materia_cuatrimestre
-            Inscripcion inscripcion =inscripcionService.findInscripcionById(solicitud.inscripcion.id);
-            Catedra catedra = catedraService.getCatedra(solicitud.catedraNueva.id);            
-            inscripcion.catedra= catedra;        
+            // Inscripcion inscripcion =inscripcionService.findInscripcionById(solicitud.inscripcion.id);
+            // Catedra catedra = catedraService.getCatedra(solicitud.catedraNueva.id);            
+            // inscripcion.catedra= catedra;        
         }   
         solicitud.solicitud= estado;  
         cambioService.updateSolicitud(solicitud);
