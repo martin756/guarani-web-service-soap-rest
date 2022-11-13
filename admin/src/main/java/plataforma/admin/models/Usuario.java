@@ -37,6 +37,7 @@ public class Usuario {
         this.tipoUsuario = tipo;
         setUsuario(nombre, apellido);
         setPassword(Integer.toString(dni));
+        this.activo = true;
     }
 
     public void setUsuario(String name, String apellido){

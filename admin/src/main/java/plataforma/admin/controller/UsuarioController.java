@@ -94,7 +94,7 @@ public class UsuarioController {
     @GetMapping("/usuario")
     public Usuario getByUsernamePassword(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password){
         Usuario result = usuarioService.getUsuarioByUsernameAndPassword(username, password);
-        if(result == null || !result.activo) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "registro no encontrado");
+        if(result == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "registro no encontrado");
         logger.info("Usuario obtenido"+ result.toString());
         return result;
     }

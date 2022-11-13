@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,14 +31,24 @@ public class CambioCatedraController {
         return result;
     }
 
+    //get inscripciones x id 
+
+    //get catedra id
+
+    @GetMapping("/inscripcion/{id}")
+    public Inscripcion getInscripcionById(@PathVariable int id){
+        Inscripcion result = inscripcionService.findInscripcionById(id);      
+        return result;
+    }
+
     @PostMapping("/cambioEstadoSolicitud")
-    public String cambioEstadoSolicitud(int id, String estado){
+    public String cambioEstadoSolicitud(@RequestBody int id, String estado){
         CambioCatedra solicitud = cambioService.getSolicitud(id);  
-        if(estado == "Aceptado"){
-            //cambiar idCatedra en usuario_materia_cuatrimestre
-            // Inscripcion inscripcion =inscripcionService.findInscripcionById(solicitud.inscripcion.id);
-            // Catedra catedra = catedraService.getCatedra(solicitud.catedraNueva.id);            
-            // inscripcion.catedra= catedra;        
+        if(estado.equals("Aceptado")){
+            Inscripcion inscripcion =inscripcionService.findInscripcionById(solicitud.inscripcion);
+            Catedra catedra = catedraService.getCatedra(solicitud.catedraNueva);            
+            inscripcion.catedra= catedra; 
+            inscripcionService.guardar(inscripcion);       
         }   
         solicitud.solicitud= estado;  
         cambioService.updateSolicitud(solicitud);

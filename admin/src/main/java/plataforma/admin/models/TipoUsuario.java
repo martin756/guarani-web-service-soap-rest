@@ -1,7 +1,7 @@
 package plataforma.admin.models;
 
 public enum TipoUsuario {
-    ESTUDIANTE,
-    DOCENTE,
-    ADMINISTRADOR
+    ESTUDIANTE, //0
+    DOCENTE, //1
+    ADMINISTRADOR //2
 }
