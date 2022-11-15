@@ -99,6 +99,16 @@ namespace EstudianteSOAPClient.Controllers
             }
         }
 
+
+        [HttpGet("inscripcionesPorAlumno")]
+        public async Task<string> inscripcionesPorAlumno([Required] int idUsuario)
+        {
+            Request request = new() { idusuario = idUsuario };
+            SelectInformeAnaliticoResponse response = await soapClient.SelectInformeAnaliticoAsync(request);
+            return JsonConvert.SerializeObject(response.SelectInformeAnaliticoResult);
+        }
+
+
         public class ErrorDetails
         {
             public string ErrorCode { get; set; }

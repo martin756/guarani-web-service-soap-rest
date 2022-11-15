@@ -50,5 +50,10 @@ public class CambioCatedraService {
     public void updateSolicitud(CambioCatedra c){
         repository.save(c);
     }
+
+    public int save(CambioCatedra c){
+        logger.info("info de carrera "+ c );
+        return repository.save(c).id;
+    }
  
 }

@@ -239,13 +239,12 @@ public class Service : IService
             string solicitud = "Pentiente";
             string sql = "INSERT INTO cambio_catedra VALUES (null,@idusuario,@idcatedra,@solicitud)";
             db.Execute(sql, new { cambioCatedra.idusuario_materia_cuatrimestre, cambioCatedra.idcatedra_nueva, solicitud });
-            return "Ok, Inscripción exitosa";
-
-     
+            return "Ok, Inscripción exitosa";   
 
 
         
     }
+
     //Para codificar la password
     private static string Sha1(string value)
     {

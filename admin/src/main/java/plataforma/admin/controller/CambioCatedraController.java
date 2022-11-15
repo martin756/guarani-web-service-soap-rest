@@ -33,16 +33,17 @@ public class CambioCatedraController {
     }
 
 
-    // @GetMapping("/inscripcion/{id}")
-    // public Inscripcion getInscripcionById(int id){
-    //     Inscripcion result = inscripcionService.findInscripcionById(id);      
-    //     return result;
-    // }
-
     @GetMapping("/inscripcion/{idUsuario}")
     public List<InscripcionResponse>  getInscripcionByIdUsuario(int idUsuario){
         List<InscripcionResponse> result = inscripcionService.findInscripcionByIdUsuario(idUsuario);      
         return result;
+    }
+
+    @PostMapping("/enviarSolicitud")
+    public String enviarSolicitud(int idInscripcion, int idCatedraNueva){
+        CambioCatedra solicitud = new CambioCatedra(idInscripcion, idCatedraNueva,"Pendiente");
+        return "Solicitud N°:"+cambioService.save(solicitud);
+   
     }
 
 

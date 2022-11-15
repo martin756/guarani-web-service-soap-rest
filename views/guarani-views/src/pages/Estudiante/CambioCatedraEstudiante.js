@@ -32,7 +32,7 @@ function CambioCatedraEstudiante() {
         }
         inscripcion.current.value !== "" && Object.defineProperty(jsonBody, "idusuario_materia_cuatrimestre", {value: inscripcion.current.value, enumerable: true})
         catedraNueva.current.value !== "" && Object.defineProperty(jsonBody, "idcatedra_nueva", {value: catedraNueva.current.value, enumerable: true})
-        await axios.post("https://localhost:5003/api/EstudianteService/CambioCatedra", jsonBody)
+        await axios.post("http://localhost:8080/enviarSolicitud?idCatedraNueva="+ catedraNueva.current.value +"&idInscripcion="+inscripcion.current.value)
         .then(response=>{
             alert(response.data)
         }).catch(error=>{
