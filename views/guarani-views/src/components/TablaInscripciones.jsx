@@ -1,11 +1,6 @@
-import axios from 'axios'
 import React from 'react'
-import Cookies from 'universal-cookie'
 
 function TableInscripciones(props) {
-    const cookies = new Cookies()
-
-
   return (
     <>
     {props.data.length > 0 ? <table className="table">

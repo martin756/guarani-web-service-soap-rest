@@ -89,7 +89,7 @@ namespace EstudianteSOAPClient.Controllers
         {
             try
             {
-                CambioCatedraRequest request = new() { datos =cambioCatedra };
+                CambioCatedraRequest request = new() { cambioCatedra = cambioCatedra };
                 CambioCatedraResponse response = await soapClient.CambioCatedraAsync(request);
                 return Ok(response.CambioCatedraResult);
             }
@@ -99,14 +99,6 @@ namespace EstudianteSOAPClient.Controllers
             }
         }
 
-
-        [HttpGet("inscripcionesPorAlumno")]
-        public async Task<string> inscripcionesPorAlumno([Required] int idUsuario)
-        {
-            Request request = new() { idusuario = idUsuario };
-            SelectInformeAnaliticoResponse response = await soapClient.SelectInformeAnaliticoAsync(request);
-            return JsonConvert.SerializeObject(response.SelectInformeAnaliticoResult);
-        }
 
 
         public class ErrorDetails

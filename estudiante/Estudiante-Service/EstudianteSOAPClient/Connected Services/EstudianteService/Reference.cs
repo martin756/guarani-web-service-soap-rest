@@ -10,22 +10,22 @@
 namespace EstudianteService
 {
     using System.Runtime.Serialization;
-    
-    
+
+
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Estudiante", Namespace="http://schemas.datacontract.org/2004/07/")]
+    [System.Runtime.Serialization.DataContractAttribute(Name = "Estudiante", Namespace = "http://schemas.datacontract.org/2004/07/")]
     public partial class Estudiante : object
     {
-        
+
         private string direccionField;
-        
+
         private string emailField;
-        
+
         private int idField;
-        
+
         private string passwordField;
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string direccion
         {
@@ -38,7 +38,7 @@ namespace EstudianteService
                 this.direccionField = value;
             }
         }
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string email
         {
@@ -51,7 +51,7 @@ namespace EstudianteService
                 this.emailField = value;
             }
         }
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public int id
         {
@@ -64,7 +64,7 @@ namespace EstudianteService
                 this.idField = value;
             }
         }
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string password
         {
@@ -78,17 +78,17 @@ namespace EstudianteService
             }
         }
     }
-    
+
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Analitico", Namespace="http://schemas.datacontract.org/2004/07/")]
+    [System.Runtime.Serialization.DataContractAttribute(Name = "Analitico", Namespace = "http://schemas.datacontract.org/2004/07/")]
     public partial class Analitico : object
     {
-        
+
         private EstudianteService.Materia[] listadoNotasField;
-        
+
         private float promedio_generalField;
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public EstudianteService.Materia[] listadoNotas
         {
@@ -101,7 +101,7 @@ namespace EstudianteService
                 this.listadoNotasField = value;
             }
         }
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public float promedio_general
         {
@@ -115,21 +115,21 @@ namespace EstudianteService
             }
         }
     }
-    
+
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Materia", Namespace="http://schemas.datacontract.org/2004/07/")]
+    [System.Runtime.Serialization.DataContractAttribute(Name = "Materia", Namespace = "http://schemas.datacontract.org/2004/07/")]
     public partial class Materia : object
     {
-        
+
         private float examen_finalField;
-        
+
         private string nombreField;
-        
+
         private float nota_cursadaField;
-        
+
         private float nota_definitivaField;
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public float examen_final
         {
@@ -142,7 +142,7 @@ namespace EstudianteService
                 this.examen_finalField = value;
             }
         }
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string nombre
         {
@@ -155,7 +155,7 @@ namespace EstudianteService
                 this.nombreField = value;
             }
         }
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public float nota_cursada
         {
@@ -168,7 +168,7 @@ namespace EstudianteService
                 this.nota_cursadaField = value;
             }
         }
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public float nota_definitiva
         {
@@ -182,31 +182,31 @@ namespace EstudianteService
             }
         }
     }
-    
+
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Catedra", Namespace="http://schemas.datacontract.org/2004/07/")]
+    [System.Runtime.Serialization.DataContractAttribute(Name = "Catedra", Namespace = "http://schemas.datacontract.org/2004/07/")]
     public partial class Catedra : object
     {
-        
+
         private string cuatrimestreField;
-        
+
         private string diaField;
-        
+
         private bool es_finalField;
-        
+
         private System.DateTime fechaField;
-        
+
         private int idcatedraField;
-        
+
         private string inscriptoField;
-        
+
         private string materiaField;
-        
+
         private string profesorField;
-        
+
         private string turnoField;
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string cuatrimestre
         {
@@ -219,7 +219,7 @@ namespace EstudianteService
                 this.cuatrimestreField = value;
             }
         }
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string dia
         {
@@ -232,7 +232,7 @@ namespace EstudianteService
                 this.diaField = value;
             }
         }
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public bool es_final
         {
@@ -245,7 +245,7 @@ namespace EstudianteService
                 this.es_finalField = value;
             }
         }
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.DateTime fecha
         {
@@ -258,7 +258,7 @@ namespace EstudianteService
                 this.fechaField = value;
             }
         }
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public int idcatedra
         {
@@ -271,7 +271,7 @@ namespace EstudianteService
                 this.idcatedraField = value;
             }
         }
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string inscripto
         {
@@ -284,7 +284,7 @@ namespace EstudianteService
                 this.inscriptoField = value;
             }
         }
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string materia
         {
@@ -297,7 +297,7 @@ namespace EstudianteService
                 this.materiaField = value;
             }
         }
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string profesor
         {
@@ -310,7 +310,7 @@ namespace EstudianteService
                 this.profesorField = value;
             }
         }
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string turno
         {
@@ -331,11 +331,24 @@ namespace EstudianteService
     public partial class CambioCatedra : object
     {
 
+        private int idcatedra_nuevaField;
+
         private int idusuario_materia_cuatrimestreField;
 
-        private int idcatedra_nuevaField; 
-
         private string solicitudField;
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int idcatedra_nueva
+        {
+            get
+            {
+                return this.idcatedra_nuevaField;
+            }
+            set
+            {
+                this.idcatedra_nuevaField = value;
+            }
+        }
 
         [System.Runtime.Serialization.DataMemberAttribute()]
         public int idusuario_materia_cuatrimestre
@@ -351,20 +364,6 @@ namespace EstudianteService
         }
 
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int idcatedra_nueva
-        {
-            get
-            {
-                return this.idcatedra_nuevaField;
-            }
-            set
-            {
-                this.idcatedra_nuevaField = value;
-            }
-        }
-
-
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string solicitud
         {
             get
@@ -376,263 +375,267 @@ namespace EstudianteService
                 this.solicitudField = value;
             }
         }
-
-    
     }
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="EstudianteService.IService")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName = "EstudianteService.IService")]
     public interface IService
     {
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/UpdateModificacionDatos", ReplyAction="http://tempuri.org/IService/UpdateModificacionDatosResponse")]
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IService/UpdateModificacionDatos", ReplyAction = "http://tempuri.org/IService/UpdateModificacionDatosResponse")]
         EstudianteService.UpdateModificacionDatosResponse UpdateModificacionDatos(EstudianteService.UpdateModificacionDatosRequest request);
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/UpdateModificacionDatos", ReplyAction="http://tempuri.org/IService/UpdateModificacionDatosResponse")]
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IService/UpdateModificacionDatos", ReplyAction = "http://tempuri.org/IService/UpdateModificacionDatosResponse")]
         System.Threading.Tasks.Task<EstudianteService.UpdateModificacionDatosResponse> UpdateModificacionDatosAsync(EstudianteService.UpdateModificacionDatosRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/InscripcionAlumno", ReplyAction="http://tempuri.org/IService/InscripcionAlumnoResponse")]
-        EstudianteService.InscripcionAlumnoResponse InscripcionAlumno(EstudianteService.InscripcionAlumnoRequest request);        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/InscripcionAlumno", ReplyAction="http://tempuri.org/IService/InscripcionAlumnoResponse")]
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IService/InscripcionAlumno", ReplyAction = "http://tempuri.org/IService/InscripcionAlumnoResponse")]
+        EstudianteService.InscripcionAlumnoResponse InscripcionAlumno(EstudianteService.InscripcionAlumnoRequest request);
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IService/InscripcionAlumno", ReplyAction = "http://tempuri.org/IService/InscripcionAlumnoResponse")]
         System.Threading.Tasks.Task<EstudianteService.InscripcionAlumnoResponse> InscripcionAlumnoAsync(EstudianteService.InscripcionAlumnoRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/DeleteInscripcionAlumno", ReplyAction="http://tempuri.org/IService/DeleteInscripcionAlumnoResponse")]
-        EstudianteService.DeleteInscripcionAlumnoResponse DeleteInscripcionAlumno(EstudianteService.DeleteInscripcionAlumnoRequest request);        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/DeleteInscripcionAlumno", ReplyAction="http://tempuri.org/IService/DeleteInscripcionAlumnoResponse")]
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IService/DeleteInscripcionAlumno", ReplyAction = "http://tempuri.org/IService/DeleteInscripcionAlumnoResponse")]
+        EstudianteService.DeleteInscripcionAlumnoResponse DeleteInscripcionAlumno(EstudianteService.DeleteInscripcionAlumnoRequest request);
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IService/DeleteInscripcionAlumno", ReplyAction = "http://tempuri.org/IService/DeleteInscripcionAlumnoResponse")]
         System.Threading.Tasks.Task<EstudianteService.DeleteInscripcionAlumnoResponse> DeleteInscripcionAlumnoAsync(EstudianteService.DeleteInscripcionAlumnoRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SelectInformeAnalitico", ReplyAction="http://tempuri.org/IService/SelectInformeAnaliticoResponse")]
-        EstudianteService.SelectInformeAnaliticoResponse SelectInformeAnalitico(EstudianteService.SelectInformeAnaliticoRequest request);        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SelectInformeAnalitico", ReplyAction="http://tempuri.org/IService/SelectInformeAnaliticoResponse")]
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IService/SelectInformeAnalitico", ReplyAction = "http://tempuri.org/IService/SelectInformeAnaliticoResponse")]
+        EstudianteService.SelectInformeAnaliticoResponse SelectInformeAnalitico(EstudianteService.SelectInformeAnaliticoRequest request);
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IService/SelectInformeAnalitico", ReplyAction = "http://tempuri.org/IService/SelectInformeAnaliticoResponse")]
         System.Threading.Tasks.Task<EstudianteService.SelectInformeAnaliticoResponse> SelectInformeAnaliticoAsync(EstudianteService.SelectInformeAnaliticoRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/TraerInscripcionesDisponibles", ReplyAction="http://tempuri.org/IService/TraerInscripcionesDisponiblesResponse")]
-        EstudianteService.TraerInscripcionesDisponiblesResponse TraerInscripcionesDisponibles(EstudianteService.TraerInscripcionesDisponiblesRequest request);        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/TraerInscripcionesDisponibles", ReplyAction="http://tempuri.org/IService/TraerInscripcionesDisponiblesResponse")]
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IService/TraerInscripcionesDisponibles", ReplyAction = "http://tempuri.org/IService/TraerInscripcionesDisponiblesResponse")]
+        EstudianteService.TraerInscripcionesDisponiblesResponse TraerInscripcionesDisponibles(EstudianteService.TraerInscripcionesDisponiblesRequest request);
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IService/TraerInscripcionesDisponibles", ReplyAction = "http://tempuri.org/IService/TraerInscripcionesDisponiblesResponse")]
         System.Threading.Tasks.Task<EstudianteService.TraerInscripcionesDisponiblesResponse> TraerInscripcionesDisponiblesAsync(EstudianteService.TraerInscripcionesDisponiblesRequest request);
-       
+
         [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IService/CambioCatedra", ReplyAction = "http://tempuri.org/IService/CambioCatedraResponse")]
         EstudianteService.CambioCatedraResponse CambioCatedra(EstudianteService.CambioCatedraRequest request);
+
         [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IService/CambioCatedra", ReplyAction = "http://tempuri.org/IService/CambioCatedraResponse")]
         System.Threading.Tasks.Task<EstudianteService.CambioCatedraResponse> CambioCatedraAsync(EstudianteService.CambioCatedraRequest request);
     }
-    
+
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="UpdateModificacionDatos", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName = "UpdateModificacionDatos", WrapperNamespace = "http://tempuri.org/", IsWrapped = true)]
     public partial class UpdateModificacionDatosRequest
     {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 0)]
         public EstudianteService.Estudiante datos;
-        
+
         public UpdateModificacionDatosRequest()
         {
         }
-        
+
         public UpdateModificacionDatosRequest(EstudianteService.Estudiante datos)
         {
             this.datos = datos;
         }
     }
-    
+
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="UpdateModificacionDatosResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName = "UpdateModificacionDatosResponse", WrapperNamespace = "http://tempuri.org/", IsWrapped = true)]
     public partial class UpdateModificacionDatosResponse
     {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 0)]
         public string UpdateModificacionDatosResult;
-        
+
         public UpdateModificacionDatosResponse()
         {
         }
-        
+
         public UpdateModificacionDatosResponse(string UpdateModificacionDatosResult)
         {
             this.UpdateModificacionDatosResult = UpdateModificacionDatosResult;
         }
     }
-    
+
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="InscripcionAlumno", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName = "InscripcionAlumno", WrapperNamespace = "http://tempuri.org/", IsWrapped = true)]
     public partial class InscripcionAlumnoRequest
     {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 0)]
         public int idusuario;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 1)]
         public int idcatedra;
-        
+
         public InscripcionAlumnoRequest()
         {
         }
-        
+
         public InscripcionAlumnoRequest(int idusuario, int idcatedra)
         {
             this.idusuario = idusuario;
             this.idcatedra = idcatedra;
         }
     }
-    
+
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="InscripcionAlumnoResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName = "InscripcionAlumnoResponse", WrapperNamespace = "http://tempuri.org/", IsWrapped = true)]
     public partial class InscripcionAlumnoResponse
     {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 0)]
         public string InscripcionAlumnoResult;
-        
+
         public InscripcionAlumnoResponse()
         {
         }
-        
+
         public InscripcionAlumnoResponse(string InscripcionAlumnoResult)
         {
             this.InscripcionAlumnoResult = InscripcionAlumnoResult;
         }
     }
-    
+
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="DeleteInscripcionAlumno", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName = "DeleteInscripcionAlumno", WrapperNamespace = "http://tempuri.org/", IsWrapped = true)]
     public partial class DeleteInscripcionAlumnoRequest
     {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 0)]
         public int idusuario;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 1)]
         public int idcatedra;
-        
+
         public DeleteInscripcionAlumnoRequest()
         {
         }
-        
+
         public DeleteInscripcionAlumnoRequest(int idusuario, int idcatedra)
         {
             this.idusuario = idusuario;
             this.idcatedra = idcatedra;
         }
     }
-    
+
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="DeleteInscripcionAlumnoResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName = "DeleteInscripcionAlumnoResponse", WrapperNamespace = "http://tempuri.org/", IsWrapped = true)]
     public partial class DeleteInscripcionAlumnoResponse
     {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 0)]
         public string DeleteInscripcionAlumnoResult;
-        
+
         public DeleteInscripcionAlumnoResponse()
         {
         }
-        
+
         public DeleteInscripcionAlumnoResponse(string DeleteInscripcionAlumnoResult)
         {
             this.DeleteInscripcionAlumnoResult = DeleteInscripcionAlumnoResult;
         }
     }
-    
+
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="SelectInformeAnalitico", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName = "SelectInformeAnalitico", WrapperNamespace = "http://tempuri.org/", IsWrapped = true)]
     public partial class SelectInformeAnaliticoRequest
     {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 0)]
         public int idusuario;
-        
+
         public SelectInformeAnaliticoRequest()
         {
         }
-        
+
         public SelectInformeAnaliticoRequest(int idusuario)
         {
             this.idusuario = idusuario;
         }
     }
-    
+
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="SelectInformeAnaliticoResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName = "SelectInformeAnaliticoResponse", WrapperNamespace = "http://tempuri.org/", IsWrapped = true)]
     public partial class SelectInformeAnaliticoResponse
     {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 0)]
         public EstudianteService.Analitico SelectInformeAnaliticoResult;
-        
+
         public SelectInformeAnaliticoResponse()
         {
         }
-        
+
         public SelectInformeAnaliticoResponse(EstudianteService.Analitico SelectInformeAnaliticoResult)
         {
             this.SelectInformeAnaliticoResult = SelectInformeAnaliticoResult;
         }
     }
-    
+
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="TraerInscripcionesDisponibles", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName = "TraerInscripcionesDisponibles", WrapperNamespace = "http://tempuri.org/", IsWrapped = true)]
     public partial class TraerInscripcionesDisponiblesRequest
     {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 0)]
         public int idUsuario;
-        
+
         public TraerInscripcionesDisponiblesRequest()
         {
         }
-        
+
         public TraerInscripcionesDisponiblesRequest(int idUsuario)
         {
             this.idUsuario = idUsuario;
         }
     }
-    
+
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="TraerInscripcionesDisponiblesResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName = "TraerInscripcionesDisponiblesResponse", WrapperNamespace = "http://tempuri.org/", IsWrapped = true)]
     public partial class TraerInscripcionesDisponiblesResponse
     {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 0)]
         public EstudianteService.Catedra[] TraerInscripcionesDisponiblesResult;
-        
+
         public TraerInscripcionesDisponiblesResponse()
         {
         }
-        
+
         public TraerInscripcionesDisponiblesResponse(EstudianteService.Catedra[] TraerInscripcionesDisponiblesResult)
         {
             this.TraerInscripcionesDisponiblesResult = TraerInscripcionesDisponiblesResult;
         }
     }
 
-
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.ServiceModel.MessageContractAttribute(WrapperName = "CambioCatedra", WrapperNamespace = "http://tempuri.org/", IsWrapped = true)]
     public partial class CambioCatedraRequest
     {
+
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 0)]
-        public EstudianteService.CambioCatedra datos;
+        public EstudianteService.CambioCatedra cambioCatedra;
 
         public CambioCatedraRequest()
         {
         }
 
-        public CambioCatedraRequest(CambioCatedra datos)
+        public CambioCatedraRequest(EstudianteService.CambioCatedra cambioCatedra)
         {
-            this.datos = datos;
+            this.cambioCatedra = cambioCatedra;
         }
     }
-    
+
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.ServiceModel.MessageContractAttribute(WrapperName = "CambioCatedraResponse", WrapperNamespace = "http://tempuri.org/", IsWrapped = true)]
@@ -652,102 +655,101 @@ namespace EstudianteService
         }
     }
 
-
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     public interface IServiceChannel : EstudianteService.IService, System.ServiceModel.IClientChannel
     {
     }
-    
+
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     public partial class ServiceClient : System.ServiceModel.ClientBase<EstudianteService.IService>, EstudianteService.IService
     {
-        
+
         /// <summary>
         /// Implement this partial method to configure the service endpoint.
         /// </summary>
         /// <param name="serviceEndpoint">The endpoint to configure</param>
         /// <param name="clientCredentials">The client credentials</param>
         static partial void ConfigureEndpoint(System.ServiceModel.Description.ServiceEndpoint serviceEndpoint, System.ServiceModel.Description.ClientCredentials clientCredentials);
-        
-        public ServiceClient() : 
+
+        public ServiceClient() :
                 base(ServiceClient.GetDefaultBinding(), ServiceClient.GetDefaultEndpointAddress())
         {
             this.Endpoint.Name = EndpointConfiguration.BasicHttpBinding_IService.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
-        
-        public ServiceClient(EndpointConfiguration endpointConfiguration) : 
+
+        public ServiceClient(EndpointConfiguration endpointConfiguration) :
                 base(ServiceClient.GetBindingForEndpoint(endpointConfiguration), ServiceClient.GetEndpointAddress(endpointConfiguration))
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
-        
-        public ServiceClient(EndpointConfiguration endpointConfiguration, string remoteAddress) : 
+
+        public ServiceClient(EndpointConfiguration endpointConfiguration, string remoteAddress) :
                 base(ServiceClient.GetBindingForEndpoint(endpointConfiguration), new System.ServiceModel.EndpointAddress(remoteAddress))
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
-        
-        public ServiceClient(EndpointConfiguration endpointConfiguration, System.ServiceModel.EndpointAddress remoteAddress) : 
+
+        public ServiceClient(EndpointConfiguration endpointConfiguration, System.ServiceModel.EndpointAddress remoteAddress) :
                 base(ServiceClient.GetBindingForEndpoint(endpointConfiguration), remoteAddress)
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
-        
-        public ServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+
+        public ServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
                 base(binding, remoteAddress)
         {
         }
-        
+
         public EstudianteService.UpdateModificacionDatosResponse UpdateModificacionDatos(EstudianteService.UpdateModificacionDatosRequest request)
         {
             return base.Channel.UpdateModificacionDatos(request);
         }
-        
+
         public System.Threading.Tasks.Task<EstudianteService.UpdateModificacionDatosResponse> UpdateModificacionDatosAsync(EstudianteService.UpdateModificacionDatosRequest request)
         {
             return base.Channel.UpdateModificacionDatosAsync(request);
         }
-        
+
         public EstudianteService.InscripcionAlumnoResponse InscripcionAlumno(EstudianteService.InscripcionAlumnoRequest request)
         {
             return base.Channel.InscripcionAlumno(request);
         }
-        
+
         public System.Threading.Tasks.Task<EstudianteService.InscripcionAlumnoResponse> InscripcionAlumnoAsync(EstudianteService.InscripcionAlumnoRequest request)
         {
             return base.Channel.InscripcionAlumnoAsync(request);
         }
-        
+
         public EstudianteService.DeleteInscripcionAlumnoResponse DeleteInscripcionAlumno(EstudianteService.DeleteInscripcionAlumnoRequest request)
         {
             return base.Channel.DeleteInscripcionAlumno(request);
         }
-        
+
         public System.Threading.Tasks.Task<EstudianteService.DeleteInscripcionAlumnoResponse> DeleteInscripcionAlumnoAsync(EstudianteService.DeleteInscripcionAlumnoRequest request)
         {
             return base.Channel.DeleteInscripcionAlumnoAsync(request);
         }
-        
+
         public EstudianteService.SelectInformeAnaliticoResponse SelectInformeAnalitico(EstudianteService.SelectInformeAnaliticoRequest request)
         {
             return base.Channel.SelectInformeAnalitico(request);
         }
-        
+
         public System.Threading.Tasks.Task<EstudianteService.SelectInformeAnaliticoResponse> SelectInformeAnaliticoAsync(EstudianteService.SelectInformeAnaliticoRequest request)
         {
             return base.Channel.SelectInformeAnaliticoAsync(request);
         }
-        
+
         public EstudianteService.TraerInscripcionesDisponiblesResponse TraerInscripcionesDisponibles(EstudianteService.TraerInscripcionesDisponiblesRequest request)
         {
             return base.Channel.TraerInscripcionesDisponibles(request);
         }
-        
+
         public System.Threading.Tasks.Task<EstudianteService.TraerInscripcionesDisponiblesResponse> TraerInscripcionesDisponiblesAsync(EstudianteService.TraerInscripcionesDisponiblesRequest request)
         {
             return base.Channel.TraerInscripcionesDisponiblesAsync(request);
@@ -767,12 +769,12 @@ namespace EstudianteService
         {
             return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndOpen));
         }
-        
-        //public virtual System.Threading.Tasks.Task CloseAsync()
-        //{
-        //    return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginClose(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndClose));
-        //}
-        
+
+        public virtual System.Threading.Tasks.Task CloseAsync()
+        {
+            return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginClose(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndClose));
+        }
+
         private static System.ServiceModel.Channels.Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
         {
             if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_IService))
@@ -786,7 +788,7 @@ namespace EstudianteService
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
-        
+
         private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
         {
             if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_IService))
@@ -795,20 +797,20 @@ namespace EstudianteService
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
-        
+
         private static System.ServiceModel.Channels.Binding GetDefaultBinding()
         {
             return ServiceClient.GetBindingForEndpoint(EndpointConfiguration.BasicHttpBinding_IService);
         }
-        
+
         private static System.ServiceModel.EndpointAddress GetDefaultEndpointAddress()
         {
             return ServiceClient.GetEndpointAddress(EndpointConfiguration.BasicHttpBinding_IService);
         }
-        
+
         public enum EndpointConfiguration
         {
-            
+
             BasicHttpBinding_IService,
         }
     }

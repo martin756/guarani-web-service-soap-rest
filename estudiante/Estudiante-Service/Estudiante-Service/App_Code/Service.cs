@@ -236,12 +236,10 @@ public class Service : IService
     //-------------------------------------
     public string CambioCatedra(CambioCatedra cambioCatedra)
     {
-            string solicitud = "Pentiente";
-            string sql = "INSERT INTO cambio_catedra VALUES (null,@idusuario,@idcatedra,@solicitud)";
-            db.Execute(sql, new { cambioCatedra.idusuario_materia_cuatrimestre, cambioCatedra.idcatedra_nueva, solicitud });
-            return "Ok, Inscripción exitosa";   
-
-
+        string solicitud = "Pentiente";
+        string sql = "INSERT INTO cambio_catedra VALUES (null,@idusuario_materia_cuatrimestre,@idcatedra_nueva,@solicitud)";
+        db.Execute(sql, new CambioCatedra { idusuario_materia_cuatrimestre = cambioCatedra.idusuario_materia_cuatrimestre, idcatedra_nueva = cambioCatedra.idcatedra_nueva, solicitud = solicitud });
+        return "Ok, Inscripción exitosa";   
         
     }
 

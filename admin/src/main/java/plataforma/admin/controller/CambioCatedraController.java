@@ -32,6 +32,8 @@ public class CambioCatedraController {
         return result;
     }
 
+//get fecha inscripcion 
+
 
     @GetMapping("/inscripcion/{idUsuario}")
     public List<InscripcionResponse>  getInscripcionByIdUsuario(int idUsuario){
