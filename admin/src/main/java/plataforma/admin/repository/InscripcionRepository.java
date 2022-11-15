@@ -11,4 +11,7 @@ public interface InscripcionRepository extends CrudRepository<Inscripcion, Integ
 
     @Query("SELECT i FROM Inscripcion i WHERE i.catedra.id =(:idCatedra)")
     public abstract List<Inscripcion> getInscripcionesCatedra(int idCatedra);
+
+    @Query("SELECT i FROM Inscripcion i WHERE i.estudiante.id =(:idusuario)")
+    public abstract List<Inscripcion> findInscripcionByIdUsuario(int idusuario);
 }

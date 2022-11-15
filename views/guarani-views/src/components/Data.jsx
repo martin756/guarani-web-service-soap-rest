@@ -7,14 +7,16 @@ export const tipoUsuarios = ["Estudiante","Docente","Administrador"]
 export const estudiantePaths = [
   {path: '/consultamateriasestudiante',label: "Consulta de Materias/Exámenes"},
   {path: '/consultaanalitico',label: "Consultar informe analítico"},
-  {path: '/contacto',label: "Modificación de datos de contacto"}
+  {path: '/contacto',label: "Modificación de datos de contacto"},
+  {path: '/cambiocatedraEstudiante',label: "Cambio de comisión"}
 ], docentePaths = [
   {path: '/consultamateriasdocente',label: "Consulta de materias asignadas"}
 ], adminPaths = [
   {path: '/abmusuarios',label: "ABM de estudiantes y docentes"},
   {path: '/cargacuatrimestres',label: "Carga de cuatrimestres"},
   {path: '/cargaexamenes',label: "Carga de mesas de examen"},
-  {path: '/inscripciones',label: "Habilitación de inscripciones"}
+  {path: '/inscripciones',label: "Habilitación de inscripciones"},
+  {path: '/cambioCatedra',label: "Peticiones pendientes"}
 ]
 
 export const traerDatos = async(fullUrl)=>{

@@ -13,5 +13,9 @@ public interface CambioCatedraRepository extends CrudRepository<CambioCatedra, I
     public abstract List<CambioCatedra> getCambioCatedraPendiente();
 
 
+    @Query("SELECT c FROM CambioCatedra c WHERE c.solicitud= 'Pendiente'")
+    public abstract List<CambioCatedra> getCambioCatedraPendienteDatos();
+
+
 }
 

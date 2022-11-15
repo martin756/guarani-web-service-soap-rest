@@ -85,11 +85,11 @@ namespace EstudianteSOAPClient.Controllers
         }
 
         [HttpPost("CambioCatedra")]
-        public async Task<IActionResult> CambioCatedra([FromBody] CambioCatedra cambiocatedra)
+        public async Task<IActionResult> CambioCatedra([Required] CambioCatedra cambioCatedra)
         {
             try
             {
-                CambioCatedraRequest request = new() { idUsuarioMateriaCuatrimestre = cambiocatedra.idusuario_materia_cuatrimestre, idCatedraNueva = cambiocatedra.idcatedra_nueva };
+                CambioCatedraRequest request = new() { datos =cambioCatedra };
                 CambioCatedraResponse response = await soapClient.CambioCatedraAsync(request);
                 return Ok(response.CambioCatedraResult);
             }

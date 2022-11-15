@@ -17,11 +17,11 @@ public class Service : IService
     public List<Catedra> TraerInscripcionesDisponibles(int idUsuario)
     {
         Fechas_Inscripciones fechas = db.QueryFirst<Fechas_Inscripciones>("SELECT * FROM fechas_inscripciones");
-        string mensaje = InscripcionesDisponibles(fechas);
-        if( mensaje != "OK") 
-        {
-            throw HttpException(HttpStatusCode.Forbidden, mensaje);
-        }
+        //string mensaje = InscripcionesDisponibles(fechas);
+        //if( mensaje != "OK") 
+        //{
+        //    throw HttpException(HttpStatusCode.Forbidden, mensaje);
+        //}
         string sql = "SELECT ca.id as idcatedra, m.nombre as materia, concat_ws(' ', u.nombre, u.apellido) as profesor, " +
             "t.descripcion as turno, ca.es_final, ca.fecha_final as fecha, ds.descripcion as dia, " +
             "concat_ws('° ', cu.periodo, cu.anio) as cuatrimestre from catedra as ca " +
@@ -113,10 +113,11 @@ public class Service : IService
         }
         if (SePuedeInscribir(idusuario, idcatedra))
         {
-            string sql = "INSERT INTO usuario_materia_cuatrimestre VALUES (null,null,@idusuario,@idcatedra)";
+            string sql = "INSERT INTO usuario_materia_cuatrimestre VALUES (null,null,@idusuario,@idcatedra,0,0)";
             db.Execute(sql, new { idusuario, idcatedra});
             return "Ok, Inscripción exitosa";
         }
+
         else
         {
             throw HttpException(HttpStatusCode.Forbidden, "El horario de inscripcion se superpone con otra catedra");
@@ -233,14 +234,17 @@ public class Service : IService
     //-------------------------------------
     //----RECUPERATORIO. Modificar catedra----
     //-------------------------------------
-    public string CambioCatedra(CambioCatedra cambiocatedra)
+    public string CambioCatedra(CambioCatedra cambioCatedra)
     {
+            string solicitud = "Pentiente";
+            string sql = "INSERT INTO cambio_catedra VALUES (null,@idusuario,@idcatedra,@solicitud)";
+            db.Execute(sql, new { cambioCatedra.idusuario_materia_cuatrimestre, cambioCatedra.idcatedra_nueva, solicitud });
+            return "Ok, Inscripción exitosa";
 
-        string sql = "INSERT INTO cambio_catedra VALUES (null,@idusuario,@idcatedra,@solicitud)";
-        db.Execute(sql, new { cambiocatedra.idusuario_materia_cuatrimestre, cambiocatedra.idcatedra_nueva, cambiocatedra.solicitud });
-        //db.Execute("INSERT INTO cambio_catedra VALUES (2,2,'Pendiente')");
-        return "Ok, Inscripción exitosa";
-       
+     
+
+
+        
     }
     //Para codificar la password
     private static string Sha1(string value)

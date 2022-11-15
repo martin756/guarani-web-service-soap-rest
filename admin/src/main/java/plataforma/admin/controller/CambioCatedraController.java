@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import plataforma.admin.EstudianteModels.Inscripcion;
+import plataforma.admin.EstudianteModels.InscripcionResponse;
 import plataforma.admin.models.CambioCatedra;
 import plataforma.admin.models.Catedra;
+import plataforma.admin.requestModels.CambioCatedraResponse;
 import plataforma.admin.services.CambioCatedraService;
 import plataforma.admin.services.CatedraService;
 import plataforma.admin.services.InscripcionService;
@@ -26,23 +27,27 @@ public class CambioCatedraController {
     @Autowired CatedraService catedraService;
 
     @GetMapping("/cambioCatedra")
-    public List<CambioCatedra> getCambioCatedraPedendiente(){
-        List<CambioCatedra> result = cambioService.getCambioCatedraPedendiente();      
+    public List<CambioCatedraResponse> getCambioCatedraPedendiente(){
+        List<CambioCatedraResponse> result = cambioService.getCambioCatedraPedendiente();      
         return result;
     }
 
-    //get inscripciones x id 
 
-    //get catedra id
+    // @GetMapping("/inscripcion/{id}")
+    // public Inscripcion getInscripcionById(int id){
+    //     Inscripcion result = inscripcionService.findInscripcionById(id);      
+    //     return result;
+    // }
 
-    @GetMapping("/inscripcion/{id}")
-    public Inscripcion getInscripcionById(@PathVariable int id){
-        Inscripcion result = inscripcionService.findInscripcionById(id);      
+    @GetMapping("/inscripcion/{idUsuario}")
+    public List<InscripcionResponse>  getInscripcionByIdUsuario(int idUsuario){
+        List<InscripcionResponse> result = inscripcionService.findInscripcionByIdUsuario(idUsuario);      
         return result;
     }
+
 
     @PostMapping("/cambioEstadoSolicitud")
-    public String cambioEstadoSolicitud(@RequestBody int id, String estado){
+    public String cambioEstadoSolicitud(int id, String estado){
         CambioCatedra solicitud = cambioService.getSolicitud(id);  
         if(estado.equals("Aceptado")){
             Inscripcion inscripcion =inscripcionService.findInscripcionById(solicitud.inscripcion);

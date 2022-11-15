@@ -617,24 +617,19 @@ namespace EstudianteService
 
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName = "TraerInscripcionesDisponibles", WrapperNamespace = "http://tempuri.org/", IsWrapped = true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName = "CambioCatedra", WrapperNamespace = "http://tempuri.org/", IsWrapped = true)]
     public partial class CambioCatedraRequest
     {
-
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 0)]
-        public int idUsuarioMateriaCuatrimestre;
-
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 1)]
-        public int idCatedraNueva;
+        public EstudianteService.CambioCatedra datos;
 
         public CambioCatedraRequest()
         {
         }
 
-        public CambioCatedraRequest(int idUsuarioMateriaCuatrimestre, int idCatedraNueva)
+        public CambioCatedraRequest(CambioCatedra datos)
         {
-            this.idUsuarioMateriaCuatrimestre = idUsuarioMateriaCuatrimestre;        
-            this.idCatedraNueva = idCatedraNueva;        
+            this.datos = datos;
         }
     }
     

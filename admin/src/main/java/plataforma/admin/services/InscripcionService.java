@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import plataforma.admin.EstudianteModels.Inscripcion;
+import plataforma.admin.EstudianteModels.InscripcionResponse;
 import plataforma.admin.repository.InscripcionRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,5 +40,24 @@ public class InscripcionService {
             logger.info("Inscripcion "+ u.toString());
         }
         return result;
+    }
+
+    public List<InscripcionResponse> findInscripcionByIdUsuario(int id){
+        List<Inscripcion> result = new ArrayList<>();
+        repository.findInscripcionByIdUsuario(id).forEach(result::add);
+        List<InscripcionResponse> inscripcionResponse = new ArrayList<>();
+        for (Inscripcion i: result) { 
+            inscripcionResponse.add(new InscripcionResponse(
+                i.id,
+                i.catedra.id,
+                i.catedra.materia.nombre,
+                i.catedra.profesor.nombre + "-" + i.catedra.profesor.apellido,
+                "TURNO: "+ i.catedra.turno.horario + " - DIA: "+i.catedra.dia.dia +" - CUATRIMESTRE: "+ i.catedra.cuatrimestre.periodo));
+        }
+
+
+
+
+        return inscripcionResponse;
     }
 }

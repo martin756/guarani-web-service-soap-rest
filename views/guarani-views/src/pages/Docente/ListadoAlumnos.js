@@ -26,7 +26,6 @@ function ListadoAlumnos() {
     useEffect(() => {
       const fetchData = async() =>{
         try { 
-          debugger
             setMateria(await traerDatos(materiaUrl+idMateria))
             const listadoAlumnos = await traerDatos(docenteServiceUrl+"ListadoAlumnos?IdMateria="+idMateria+"&IdDocente="+cookies.get('Idusuario')+"&EsFinal="+esFinal)
             console.log(listadoAlumnos)
@@ -63,7 +62,6 @@ function ListadoAlumnos() {
       fetchData()
     }, [])
     const importarExcel = event =>{
-        debugger
         if (event.target.files) {
             const reader = new FileReader()
             reader.onload = e => {

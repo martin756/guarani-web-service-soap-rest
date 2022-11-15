@@ -12,6 +12,8 @@ import AbmCatedras from '../pages/Admin/AbmCatedras';
 import Materia from '../pages/Admin/Materia';
 import HabilitarInscripciones from '../pages/Admin/HabilitarInscripciones';
 import ListadoAlumnos from '../pages/Docente/ListadoAlumnos';
+import CambioCatedra from '../pages/Admin/CambioCatedra';
+import CambioCatedraEstudiante from '../pages/Estudiante/CambioCatedraEstudiante';
 
 function App() {
   return (
@@ -26,11 +28,14 @@ function App() {
         <Route path='/cargaexamenes' element={<AbmCatedras esFinal={true}/>}/>
         <Route path='/Materia' element={<Materia />}/>
         <Route path='/inscripciones' element={<HabilitarInscripciones />}/>
+        <Route path='/cambioCatedra' element={<CambioCatedra />}/>
 
         {/* Paths de ESTUDIANTES */}
         <Route path='/consultamateriasestudiante' element={<MateriasEstudiante />}/>
         <Route path='/consultaanalitico' element={<Analitico />}/>
         <Route path='/contacto' element={<ModificacionDatos />}/>
+        <Route path='/cambioCatedraEstudiante' element={<CambioCatedraEstudiante />}/>
+
 
         {/* Paths de DOCENTES */}
         <Route path='/consultamateriasdocente' element={<MateriasDocente />}/>

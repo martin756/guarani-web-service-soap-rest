@@ -39,7 +39,7 @@ function Table(props) {
         </thead>
         <tbody className="table-group-divider">
             {Object.values(props.data).map((value)=>(
-                <tr >
+                <tr>
                     {Object.values(value).map(data=>(
                         <td>{data}</td>
                     ))}
