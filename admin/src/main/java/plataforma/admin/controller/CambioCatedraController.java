@@ -31,8 +31,7 @@ public class CambioCatedraController {
         List<CambioCatedraResponse> result = cambioService.getCambioCatedraPedendiente();      
         return result;
     }
-
-//get fecha inscripcion 
+ 
 
 
     @GetMapping("/inscripcion/{idUsuario}")

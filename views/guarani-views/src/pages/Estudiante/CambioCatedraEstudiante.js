@@ -67,12 +67,13 @@ function CambioCatedraEstudiante() {
                 <div className="row g-3">
                   <div className="col-12">
                     <label className="form-label">Inscripcion (id)</label>
-                    <input onChange={handleChange} name="inscripcionId" type="number" pattern="[0-9]*" inputmode="numeric" className='form-control' required value={formData.inscripcionId} />
+                    <input onChange={handleChange} name="catedraId" type="number" pattern="[0-9]*" inputmode="numeric" className='form-control' required value={formData.catedraId} />
                     {(!formData.inscripcionId && publicado) && <span className='text-danger'>Campo requerido</span>}
                   </div>
                   <div className="col-12">
                     <label className="form-label">Catedra solicitada (idCatedra)</label>
-                    <input onChange={handleChange} name="catedraId" type="number" pattern="[0-9]*" inputmode="numeric" className='form-control' required value={formData.catedraId} />
+                    <input onChange={handleChange} name="inscripcionId" type="number" pattern="[0-9]*" inputmode="numeric" className='form-control' required value={formData.inscripcionId} />
+
                     {(!formData.catedraId && publicado) ? <span className='text-danger'>Campo requerido</span> : <span></span>}
                   </div>
                 </div>
